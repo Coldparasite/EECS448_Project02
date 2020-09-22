@@ -19,7 +19,7 @@ var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
 
 /**
  * Sets the number of ships to be placed for this game.
- * @param {number} num The number of ships to play with this game 
+ * @param {number} num The number of ships to play with this game
  */
 function numShipFunction(num) {
     document.getElementById('ships').innerHTML = 'Place your ' + placingNum + '-length ship on your board';
@@ -49,7 +49,7 @@ function toggleDirection() {
 
 /**
  * Place a ship on the given board based on length.
- * 
+ *
  * @param {number} row The row of the board in which to place the ship
  * @param {number} col The column of the board in which to place the ship
  * @param {Array} board The board for the current player
@@ -75,7 +75,7 @@ function placeShip(row, col, board, length, horizontal) {
 
 /**
  * Check if a ship can be placed at the given point on the board.
- * 
+ *
  * @param {number} row The row of the board in which to place the ship
  * @param {number} col The column of the board in which to place the ship
  * @param {Array} board The board for the current player
@@ -130,7 +130,7 @@ function createBoards() {
 
 /**
  * Handle clicks on the boards in the HTML.
- * 
+ *
  * @param {number} board_num The number of the board that was clicked.
  * @param {number} col The column that was clicked.
  * @param {number} row The row that was clicked.
@@ -175,7 +175,7 @@ function clickCheck(board_num, col, row) {
 
 /**
  * Get the current player board or by number.
- * 
+ *
  * @param {number} num The number of board to return. Returns current board if NaN.
  * @returns {Array} The board of the current player or passed number.
  */
@@ -253,7 +253,7 @@ function hideBoards() {
 
 /**
  * Draw the given player board to the guess board so that ships are hidden.
- * 
+ *
  * @param {Array} newBoard The player board to be drawn
  */
 function drawGuessBoard(newBoard) {
@@ -282,7 +282,7 @@ function drawGuessBoard(newBoard) {
 
 /**
  * Draw the given player board to the displayed player board so that ships are visible.
- * 
+ *
  * @param {Array} newBoard The player board to be drawn
  */
 function drawPlayerBoard(newBoard) {
@@ -316,7 +316,7 @@ function drawPlayerBoard(newBoard) {
 
 /**
  * Draw a ship's number to a cell.
- * 
+ *
  * @param {number} row The row of the ship to label.
  * @param {number} col The column of the ship to label.
  * @param {string} shipNumber The ship's number.
@@ -328,7 +328,7 @@ function labelCell(row, col, shipNumber, boardLetter='B') {
 
 /**
  * Label every ship of a given number.
- * 
+ *
  * @param {Array} board The board to search for the shipNumber.
  * @param {string} shipNumber The ship's number.
  * @param {string} boardLetter The letter of the board to update.
@@ -349,7 +349,7 @@ function labelShip(board, shipNumber, boardLetter='B') {
 
 /**
  * Clear the label for the given cell.
- * 
+ *
  * @param {number} row The row of the label to clear.
  * @param {number} col The column of the label to clear.
  * @param {string} boardLetter The letter of the board to update.
@@ -360,7 +360,7 @@ function clearCellLabel(row, col, boardLetter='B') {
 
 /**
  * Color a cell based on the given classification.
- * 
+ *
  * @param {string} boardLetter The letter of the board to update ('A' or 'B')
  * @param {number} row The number of the row to color.
  * @param {number} col The number of the column to color.
@@ -378,7 +378,7 @@ function colorCell(boardLetter, row, col, classification) {
 
 /**
  * Check if a given ship has been sunk on the given board.
- * 
+ *
  * @param {Array} board The board to check for sunken ship.
  * @param {string} shipNum The number which identifies the ship to check for.
  * @returns {bool} Shipnum has been sunk on this board.
@@ -399,13 +399,13 @@ function checkSunk(board, shipNum) {
 
 /**
  * Check for a ship on the enemy's board at the given location and color the cell accordingly.
- * 
+ *
  * @param {number} row The row to check.
  * @param {number} col The column to check.
  * @returns {bool} Spot was not already chosen.
  */
 function checkForShip(row, col) {
-    let board = board2; 
+    let board = board2;
     let otherBoard = board1;
     if (player == 2) {
         board = board1;

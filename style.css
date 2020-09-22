@@ -34,8 +34,8 @@ h2 {
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(10, 50px);
-    padding: 50px;
+    grid-template-columns: repeat(10, 64px);
+    padding: 64px;
 }
 
 .numLabels{
@@ -54,9 +54,9 @@ border: 3px solid rgb(100, 100, 100);
 color: white;
 text-align: center;
 vertical-align: middle;
-line-height: 50px;
-height: 50px;
-width: 50px;
+line-height: 64px;
+height: 64px;
+width: 64px;
 }
 #buttons{
   text-align: center;
