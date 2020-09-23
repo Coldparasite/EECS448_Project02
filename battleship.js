@@ -11,6 +11,108 @@ var placingNum = 1;
 
 var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
 
+var display = null;
+var canvas = document.getElementById("canvas");
+canvas.style.left = "0px";
+canvas.style.top = "0px";
+
+if (canvas.getContext) {
+	display = canvas.getContext("2d");
+}
+
+class Particles extends Array {
+	constructor() {
+		super();	
+	};
+	
+	add(particle) {
+		this.push(particle);
+	};
+
+	draw() {
+		var particle;
+		for (particle of this) {
+			particle.draw();
+		}
+	};
+
+	update() {
+		var particle, i;
+		var toRemove = [];
+		for (particle of this) {
+			particle.update();
+			if (particle.radius <= 0 || particle.alpha <= 0) {
+				toRemove.push(this.indexOf(particle));
+			}
+		}
+		var offset = 0;
+		for (i of toRemove) {
+			this.splice(i-offset, 1);
+			offset++;
+		}
+	};
+};
+
+class Particle {
+	constructor(pos, radius, vel, decay, color, alpha, type) {
+		this.pos = pos;
+		this.radius = radius;
+		this.vel = vel;
+		this.decay = decay;
+		this.color = color;
+		this.alpha = alpha;
+		this.type = type;
+	};
+
+	draw() {
+		display.beginPath();
+		display.arc(this.pos[0], this.pos[1], this.radius, 0, Math.PI*2);
+		display.globalAlpha = this.alpha;
+		display.fillStyle = this.color;
+		display.fill();
+	};
+
+	update() {
+		this.pos = [this.pos[0] + this.vel[0], this.pos[1] + this.vel[1]]
+		this.radius -= this.decay;
+		this.alpha -= 0.015*this.alpha + 0.00025;
+
+	};
+};
+
+function randint(start, end) {
+	return (start + Math.floor(Math.random()*(end-start)));
+}
+
+function randchoice(arr) {
+	return arr[Math.floor(Math.random()*arr.length)];
+}
+
+var particles = new Particles();
+var fire = ["rgb(255, 0, 0)", "rgb(255, 100, 50)", "rgb(184, 15, 10)", "rgb(255, 100, 100)", "rgb(255, 50, 50)"];
+var smoke = ["rgb(100, 100, 100)", "rgb(150, 150, 150)", "rgb(50, 50, 50)", "rgb(0, 0,0 )"];
+
+gameLoop = function() {
+	display.clearRect(0, 0, canvas.width, canvas.height);
+
+	var i;
+	for (i=0; i<2; i++) {
+		particles.add(new Particle([150+randint(-10, 10), 600-randint(2, 7)], randint(5, 15), [randint(0, 2), randint(-7, -1)], randint(8, 15)/10, randchoice(fire), randint(5,8)/10, "fire"));
+	}
+
+	var i;
+	for (i=0; i<1; i++) {
+
+		particles.add(new Particle([150+randint(-10, 10), 600-60-randint(0, 50)], randint(10, 15), [randint(-2, 2)/3, randint(-2, -1)/1.25], -randint(2, 3)/10, randchoice(smoke), 0.0025 + randint(0,2)/10, "smoke"));
+	}
+
+	particles.update();
+	particles.draw();
+	window.requestAnimationFrame(gameLoop);
+}
+
+window.requestAnimationFrame(gameLoop);
+
 /* * = empty
     M = Miss
     H = Hit
@@ -19,7 +121,7 @@ var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
 
 /**
  * Sets the number of ships to be placed for this game.
- * @param {number} num The number of ships to play with this game 
+ * @param {number} num The number of ships to play with this game
  */
 function AIChoice(num){
     if(num == 1){
@@ -76,6 +178,16 @@ function numShipFunction(num) {
     }
 };
 
+function displayShip()
+{
+
+}
+
+function hideShip()
+{
+
+}
+
 /**
  * Toggle the direction of the ship placement between Horizontal and Vertical.
  */
@@ -95,7 +207,7 @@ function toggleDirection() {
 
 /**
  * Place a ship on the given board based on length.
- * 
+ *
  * @param {number} row The row of the board in which to place the ship
  * @param {number} col The column of the board in which to place the ship
  * @param {Array} board The board for the current player
@@ -121,7 +233,7 @@ function placeShip(row, col, board, length, horizontal) {
 
 /**
  * Check if a ship can be placed at the given point on the board.
- * 
+ *
  * @param {number} row The row of the board in which to place the ship
  * @param {number} col The column of the board in which to place the ship
  * @param {Array} board The board for the current player
@@ -176,7 +288,7 @@ function createBoards() {
 
 /**
  * Handle clicks on the boards in the HTML.
- * 
+ *
  * @param {number} board_num The number of the board that was clicked.
  * @param {number} col The column that was clicked.
  * @param {number} row The row that was clicked.
@@ -221,7 +333,7 @@ function clickCheck(board_num, col, row) {
 
 /**
  * Get the current player board or by number.
- * 
+ *
  * @param {number} num The number of board to return. Returns current board if NaN.
  * @returns {Array} The board of the current player or passed number.
  */
@@ -299,7 +411,7 @@ function hideBoards() {
 
 /**
  * Draw the given player board to the guess board so that ships are hidden.
- * 
+ *
  * @param {Array} newBoard The player board to be drawn
  */
 function drawGuessBoard(newBoard) {
@@ -328,7 +440,7 @@ function drawGuessBoard(newBoard) {
 
 /**
  * Draw the given player board to the displayed player board so that ships are visible.
- * 
+ *
  * @param {Array} newBoard The player board to be drawn
  */
 function drawPlayerBoard(newBoard) {
@@ -362,7 +474,7 @@ function drawPlayerBoard(newBoard) {
 
 /**
  * Draw a ship's number to a cell.
- * 
+ *
  * @param {number} row The row of the ship to label.
  * @param {number} col The column of the ship to label.
  * @param {string} shipNumber The ship's number.
@@ -374,7 +486,7 @@ function labelCell(row, col, shipNumber, boardLetter='B') {
 
 /**
  * Label every ship of a given number.
- * 
+ *
  * @param {Array} board The board to search for the shipNumber.
  * @param {string} shipNumber The ship's number.
  * @param {string} boardLetter The letter of the board to update.
@@ -395,7 +507,7 @@ function labelShip(board, shipNumber, boardLetter='B') {
 
 /**
  * Clear the label for the given cell.
- * 
+ *
  * @param {number} row The row of the label to clear.
  * @param {number} col The column of the label to clear.
  * @param {string} boardLetter The letter of the board to update.
@@ -406,7 +518,7 @@ function clearCellLabel(row, col, boardLetter='B') {
 
 /**
  * Color a cell based on the given classification.
- * 
+ *
  * @param {string} boardLetter The letter of the board to update ('A' or 'B')
  * @param {number} row The number of the row to color.
  * @param {number} col The number of the column to color.
@@ -424,7 +536,7 @@ function colorCell(boardLetter, row, col, classification) {
 
 /**
  * Check if a given ship has been sunk on the given board.
- * 
+ *
  * @param {Array} board The board to check for sunken ship.
  * @param {string} shipNum The number which identifies the ship to check for.
  * @returns {bool} Shipnum has been sunk on this board.
@@ -445,13 +557,13 @@ function checkSunk(board, shipNum) {
 
 /**
  * Check for a ship on the enemy's board at the given location and color the cell accordingly.
- * 
+ *
  * @param {number} row The row to check.
  * @param {number} col The column to check.
  * @returns {bool} Spot was not already chosen.
  */
 function checkForShip(row, col) {
-    let board = board2; 
+    let board = board2;
     let otherBoard = board1;
     if (player == 2) {
         board = board1;
