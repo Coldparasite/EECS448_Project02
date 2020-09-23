@@ -26,6 +26,12 @@ h2 {
     padding-bottom: 5px;
 }
 
+.canvas {
+	pointer-events: none;
+	position: absolute;
+	z-index: 1;
+}
+
 .numLabels {
     font-style: oblique;
     font-weight: bold;

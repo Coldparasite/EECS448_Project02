@@ -11,6 +11,108 @@ var placingNum = 1;
 
 var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
 
+var display = null;
+var canvas = document.getElementById("canvas");
+canvas.style.left = "0px";
+canvas.style.top = "0px";
+
+if (canvas.getContext) {
+	display = canvas.getContext("2d");
+}
+
+class Particles extends Array {
+	constructor() {
+		super();	
+	};
+	
+	add(particle) {
+		this.push(particle);
+	};
+
+	draw() {
+		var particle;
+		for (particle of this) {
+			particle.draw();
+		}
+	};
+
+	update() {
+		var particle, i;
+		var toRemove = [];
+		for (particle of this) {
+			particle.update();
+			if (particle.radius <= 0 || particle.alpha <= 0) {
+				toRemove.push(this.indexOf(particle));
+			}
+		}
+		var offset = 0;
+		for (i of toRemove) {
+			this.splice(i-offset, 1);
+			offset++;
+		}
+	};
+};
+
+class Particle {
+	constructor(pos, radius, vel, decay, color, alpha, type) {
+		this.pos = pos;
+		this.radius = radius;
+		this.vel = vel;
+		this.decay = decay;
+		this.color = color;
+		this.alpha = alpha;
+		this.type = type;
+	};
+
+	draw() {
+		display.beginPath();
+		display.arc(this.pos[0], this.pos[1], this.radius, 0, Math.PI*2);
+		display.globalAlpha = this.alpha;
+		display.fillStyle = this.color;
+		display.fill();
+	};
+
+	update() {
+		this.pos = [this.pos[0] + this.vel[0], this.pos[1] + this.vel[1]]
+		this.radius -= this.decay;
+		this.alpha -= 0.015*this.alpha + 0.00025;
+
+	};
+};
+
+function randint(start, end) {
+	return (start + Math.floor(Math.random()*(end-start)));
+}
+
+function randchoice(arr) {
+	return arr[Math.floor(Math.random()*arr.length)];
+}
+
+var particles = new Particles();
+var fire = ["rgb(255, 0, 0)", "rgb(255, 100, 50)", "rgb(184, 15, 10)", "rgb(255, 100, 100)", "rgb(255, 50, 50)"];
+var smoke = ["rgb(100, 100, 100)", "rgb(150, 150, 150)", "rgb(50, 50, 50)", "rgb(0, 0,0 )"];
+
+gameLoop = function() {
+	display.clearRect(0, 0, canvas.width, canvas.height);
+
+	var i;
+	for (i=0; i<2; i++) {
+		particles.add(new Particle([150+randint(-10, 10), 600-randint(2, 7)], randint(5, 15), [randint(0, 2), randint(-7, -1)], randint(8, 15)/10, randchoice(fire), randint(5,8)/10, "fire"));
+	}
+
+	var i;
+	for (i=0; i<1; i++) {
+
+		particles.add(new Particle([150+randint(-10, 10), 600-60-randint(0, 50)], randint(10, 15), [randint(-2, 2)/3, randint(-2, -1)/1.25], -randint(2, 3)/10, randchoice(smoke), 0.0025 + randint(0,2)/10, "smoke"));
+	}
+
+	particles.update();
+	particles.draw();
+	window.requestAnimationFrame(gameLoop);
+}
+
+window.requestAnimationFrame(gameLoop);
+
 /* * = empty
     M = Miss
     H = Hit
