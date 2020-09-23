@@ -48,7 +48,7 @@
             </div>
             <div class="columnA">
                 <div class="letterLabels">A</div>
-                <div class="cell empty" id="B11" onclick="clickCheck(2,1,1)" onmouseover = "displayShip()" onmouseout = "hideShip()"></div>
+                <div class="cell empty" id="B11" onclick="clickCheck(2,1,1)" onmouseover = "displayShip(1,1)" onmouseout = "hideShip()"></div>
                 <div class="cell empty" id="B12" onclick="clickCheck(2,1,2)" onmouseover = "displayShip()" onmouseout = "hideShip()"></div>
                 <div class="cell empty" id="B13" onclick="clickCheck(2,1,3)" onmouseover = "displayShip()" onmouseout = "hideShip()"></div>
                 <div class="cell empty" id="B14" onclick="clickCheck(2,1,4)" onmouseover = "displayShip()" onmouseout = "hideShip()"></div>
@@ -282,14 +282,11 @@
         </div>
     </div>
 
-    <script>
-      function displayShip()
-      {
-        document.getElementById("test").innerHTML = "Ship is displayed";
-      }
-      function hideShip()
-      {
-          document.getElementById("test").innerHTML = "Ship is hidden";
-      }
-    </script>
+    <img id = "firstShip" src = "assets/patrolship.png" style = "visibility: hidden; width: 64; height: 64; position: absolute; left: 0; top: 0">
+    <img id = "secondShip" src = "assets/submarine.png" style = "display: none;">
+    <img id = "thirdShip" src = "assets/cruiser.png" style = "display: none;">
+    <img id = "fourthShip" src = "assets/battleship.png" style = "display: none;">
+    <img id = "fifthShip" src = "assets/aircarrier.png" style = "display: none;">
+
+    <p id ="test"> Testing </p>
 </html>

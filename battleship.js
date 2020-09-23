@@ -30,6 +30,16 @@ function numShipFunction(num) {
     }
 };
 
+function displayShip()
+{
+
+}
+
+function hideShip()
+{
+
+}
+
 /**
  * Toggle the direction of the ship placement between Horizontal and Vertical.
  */
