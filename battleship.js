@@ -21,6 +21,52 @@ var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
  * Sets the number of ships to be placed for this game.
  * @param {number} num The number of ships to play with this game 
  */
+function AIChoice(num){
+    if(num == 1){
+        document.getElementById("playerChoice").remove();
+        for (let i = 1; i < 3; i++){
+            document.getElementById(i + "Button").remove();
+        }
+        document.getElementById("visibleButtons").style= "visibility: visible";
+        document.getElementById("AIDifficulty").style= "visibility: visible";
+    }
+    else{
+        document.getElementById("playerChoice").remove();
+        for (let i = 1; i < 3; i++){
+            document.getElementById(i + "Button").remove();
+        }
+        document.getElementById("numShips").style= "visibility: visible";
+        document.getElementById("visibleButtons2").style= "visibility: visible";
+    }
+}
+
+function AILevel(num){
+    if(num == 1){
+        document.getElementById("AIDifficulty").remove();
+        for (let i = 1; i < 4; i++){
+            document.getElementById(i + "Difficulty").remove();
+        }
+        document.getElementById("numShips").style= "visibility: visible";
+        document.getElementById("visibleButtons2").style= "visibility: visible";
+    }
+    else if(num == 2){
+        document.getElementById("AIDifficulty").remove();
+        for (let i = 1; i < 4; i++){
+            document.getElementById(i + "Difficulty").remove();
+        }
+        document.getElementById("numShips").style= "visibility: visible";
+        document.getElementById("visibleButtons2").style= "visibility: visible";
+    }
+    else{
+        document.getElementById("AIDifficulty").remove();
+        for (let i = 1; i < 4; i++){
+            document.getElementById(i + "Difficulty").remove();
+        }
+        document.getElementById("numShips").style= "visibility: visible";
+        document.getElementById("visibleButtons2").style= "visibility: visible";
+    }
+}
+
 function numShipFunction(num) {
     document.getElementById('ships').innerHTML = 'Place your ' + placingNum + '-length ship on your board';
     numShips = num;

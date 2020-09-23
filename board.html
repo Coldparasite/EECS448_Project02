@@ -8,8 +8,22 @@
 
 <h1>Battleship</h1>
 
-<h2 id="numShips">How many ships do you want?</h2>
-<div class="shipButtons">
+<h2 id= "playerChoice">Do you want to play the AI or another Player?</h2>
+<div class= "playerButtons">
+    <button onclick= "AIChoice(1)" id= "1Button">AI</button>
+    <button onclick= "AIChoice(2)" id= "2Button">Player</button>
+</div>
+
+<h2 id= "AIDifficulty" style= "visibility: hidden; position: absolute">Choose the difficulty of the AI</h2>
+<div class= "difficultyButtons" id= "visibleButtons" style= "visibility: hidden">
+    <button onclick= "AILevel(1)" id= "1Difficulty">Easy</button>
+    <button onclick= "AILevel(2)" id= "2Difficulty">Medium</button>
+    <button onclick= "AILevel(3)" id= "3Difficulty">Hard</button>
+
+</div>
+
+<h2 id="numShips" style= "visibility: hidden; position: absolute">How many ships do you want?</h2>
+<div class="shipButtons" id= "visibleButtons2" style= "visibility: hidden">
     <button onclick="numShipFunction(1)" id="1Ship">1</button>
     <button onclick="numShipFunction(2)" id="2Ship">2</button>
     <button onclick="numShipFunction(3)" id="3Ship">3</button>
