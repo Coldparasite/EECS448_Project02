@@ -12,6 +12,7 @@ h2 {
 }
 
 .shipButtons {
+	position: relative;
     text-align: center;
 }
 
@@ -26,6 +27,10 @@ h2 {
     padding-bottom: 5px;
 }
 
+.canvas {
+	position: absolute;
+}
+
 .numLabels {
     font-style: oblique;
     font-weight: bold;
@@ -33,6 +38,7 @@ h2 {
 }
 
 .grid-container {
+	position: relative;
     display: grid;
     grid-template-columns: repeat(10, 50px);
     padding: 50px;
@@ -63,6 +69,7 @@ width: 50px;
 
 }
 #switch {
+	position: relative;
     border: 2px solid red;
     color: black;
     background-color: white;
@@ -76,6 +83,7 @@ width: 50px;
 }
 
 #ready{
+	position: relative;
     border: 2px solid red;
     color: black;
     background-color: white;
@@ -93,6 +101,7 @@ width: 50px;
 }
 
 #switch:hover,#ready:hover {
+	position: relative;
     background-color: red;
     border: none;
     color: white;
@@ -126,11 +135,13 @@ width: 50px;
     color: blue;
 }
 #toggleDir {
+	position: relative;
     background-color: white;
     padding: 10px;
     color: black;
 }
 
 #toggleDir:hover {
+	position: relative;
     background-color: lightblue;
 }

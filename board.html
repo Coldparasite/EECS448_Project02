@@ -4,11 +4,12 @@
 <head>
     <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
-<script src="battleship.js"></script>
+
 
 <h1>Battleship</h1>
 
 <h2 id="numShips">How many ships do you want?</h2>
+<canvas id="canvas" width=1445 height=1000 class="canvas"></canvas>
 <div class="shipButtons">
     <button onclick="numShipFunction(1)" id="1Ship">1</button>
     <button onclick="numShipFunction(2)" id="2Ship">2</button>
@@ -281,5 +282,7 @@
             </div>
         </div>
     </div>
+
+	<script src="battleship.js"></script>
 
 </html>

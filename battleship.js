@@ -11,6 +11,34 @@ var placingNum = 1;
 
 var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
 
+var display = null;
+var canvas = document.getElementById("canvas");
+canvas.style.left = "0px";
+canvas.style.top = "0px";
+
+
+if (canvas.getContext) {
+	display = canvas.getContext("2d");
+}
+
+var c = 0;
+gameLoop = function() {
+	display.clearRect(0, 0, canvas.width, canvas.height);
+
+	drawRect([0+c, 0+c], [50, 50], "red");
+	c+=5;
+	window.requestAnimationFrame(gameLoop);
+}
+
+window.requestAnimationFrame(gameLoop);
+
+function drawRect(pos, size, color) {
+	display.fillStyle = color;
+	display.fillRect(pos[0], pos[1], size[0], size[1]);
+}
+
+
+
 /* * = empty
     M = Miss
     H = Hit
