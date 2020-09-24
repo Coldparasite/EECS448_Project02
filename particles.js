@@ -28,7 +28,42 @@ function print(message) {
 	console.log(message);
 }
 
-function randint(range) {
+function updatePeripherals() {
+	mouseUp = !mouseDown;
+}
+
+function getMouseDown() {
+	return mouseDown;
+}
+
+function getMouseUp() {
+	return !mouseDown;
+}
+
+function getClick() {
+	return !mouseDown && !mouseUp;
+}
+
+document.onmousedown = function(event) {
+	var button = event.button;
+	if (button == 0) {
+		mouseDown = true;	
+	}
+}
+
+document.onmouseup = function(event) {
+	var button = event.button;
+	if (button == 0) {
+		mouseDown = false;
+	}
+}		
+
+document.onmousemove = function(event) {
+	mouseX = event.clientX;
+	mouseY = event.clientY;
+}
+
+function randrange(range) {
 	if (range[0] == range[1]) {
 		return range[0]; 
 	}
@@ -68,28 +103,6 @@ function clone(obj) {
 	return Object.create(Object.getPrototypeOf(obj), props);
 }
 
-function updatePeripherals() {
-	mouseUp = !mouseDown;
-}
-
-function getMouseDown() {
-	return mouseDown;
-}
-
-function getMouseUp() {
-	return !mouseDown;
-}
-
-function getClick() {
-	return !mouseDown && !mouseUp;
-}
-
-function drawBackground(color) {
-	display.globalAlpha = 1;
-	display.fillStyle = color;
-	display.fillRect(0, 0, canvas.width, canvas.height);
-}
-
 function drawRect(pos, size, color, alpha) {
 	display.globalAlpha = alpha;
 	display.fillStyle = color;
@@ -118,12 +131,7 @@ class Particle {
 	};
 
 	draw() {
-		if (this.shape == "rect") {
-			drawRect(this.pos, [this.size, this.size], this.color, this.alpha);
-		}
-		else {
-			drawCircle(this.pos, this.size, this.color, this.alpha);
-		}
+		drawCircle(this.pos, this.size, this.color, this.alpha);
 	};
 
 	update() {
@@ -135,8 +143,10 @@ class Particle {
 };
 
 class ParticleGroup extends Array {
-	constructor(posRange, sizeRange, velRange, colorGroup, alphaRange, sizeDecayRange, alphaDecayRange, density, shape) {
+	constructor(posRange, sizeRange, velRange, colorGroup, alphaRange, sizeDecayRange, alphaDecayRange, density, shape="circle") {
 		super();
+		this.offset = [0, 0];
+		this.active = true;
 		this.posRange = posRange;
 		this.sizeRange = sizeRange;
 		this.velRange = velRange;
@@ -152,75 +162,142 @@ class ParticleGroup extends Array {
 		this.push(particle);
 	};
 
+	resize(scale) {
+		var s = scale/100;
+		this.posRange = this.posRange.map(range => range.map(value => value*s));
+		this.sizeRange = this.sizeRange.map(value => value*s);
+		this.velRange = this.velRange.map(range => range.map(value => value*s));
+		this.sizeDecayRange[1] = this.sizeDecayRange[1].map(value => value*s);
+		this.alphaDecayRange[1] = this.alphaDecayRange[1].map(value => value*s);
+		this.offset = this.offset.map(value => value*s);
+	};
+
 	draw() {
-		var particle;
-		for (particle of this) {
-			particle.draw();
+		if (this.active) {
+			var particle;
+			for (particle of this) {
+				particle.draw();
+			}
 		}
 	};
 
 	update() {
-		var particle, i;
-		var toRemove = [];
-		for (particle of this) {
-			particle.update();
-			if (particle.size <= 0 || particle.alpha <= 0) {
-				toRemove.push(this.indexOf(particle));
+		if (this.active) {
+			var particle, i;
+			var toRemove = [];
+			for (particle of this) {
+				particle.update();
+				if (particle.size <= 0 || particle.alpha <= 0) {
+					toRemove.push(this.indexOf(particle));
+				}
 			}
-		}
-		var offset = 0;
-		for (i of toRemove) {
-			this.splice(i-offset, 1);
-			offset++;
+			var offset = 0;
+			for (i of toRemove) {
+				this.splice(i-offset, 1);
+				offset++;
+			}
 		}
 	};
 
 	generate(spawnPos) {
-		var i, pos, size, vel, color, alpha, sizeDecay, alphaDecay;
-		for (i=0; i<this.density; i++) {
-			pos = [randint(this.posRange[0])+spawnPos[0], randint(this.posRange[1])+spawnPos[1]];
-			size =  randint(this.sizeRange);
-			vel = [randint(this.velRange[0]), randint(this.velRange[1])];
-			color = randchoice(this.colorGroup);
-			alpha = randint(this.alphaRange)/100;
-			sizeDecay = [randint(this.sizeDecayRange[0]), randint(this.sizeDecayRange[1])];
-			alphaDecay = [randint(this.alphaDecayRange[0]), randint(this.alphaDecayRange[1])];
-			this.add(new Particle(pos, size, vel, color, alpha, sizeDecay, alphaDecay, this.shape));
+		if (this.active) {
+			var i, pos, size, vel, color, alpha, sizeDecay, alphaDecay;
+			for (i=0; i<this.density; i++) {
+				pos = [randrange(this.posRange[0])+spawnPos[0], randrange(this.posRange[1])+spawnPos[1]];
+				size =  randrange(this.sizeRange);
+				vel = [randrange(this.velRange[0]), randrange(this.velRange[1])];
+				color = randchoice(this.colorGroup);
+				alpha = randrange(this.alphaRange)/100;
+				sizeDecay = [randrange(this.sizeDecayRange[0]), randrange(this.sizeDecayRange[1])];
+				alphaDecay = [randrange(this.alphaDecayRange[0]), randrange(this.alphaDecayRange[1])];
+				this.add(new Particle(pos, size, vel, color, alpha, sizeDecay, alphaDecay, this.shape));
+			}
 		}
+	};
+
+	show() {
+		this.active = true;
+	};
+
+	hide() {
+		this.active = false;
 	};
 };
 
 class ParticleSystem extends Array {
-	constructor(particleGroups) {
+	constructor(particleObjs, scale=100) {
 		super();
-		var particleGroup;
-		for (particleGroup of particleGroups) {
-			this.add(particleGroup);
+		this.offset = [0, 0];
+		this.active = true;
+		var particleObj;
+		for (particleObj of particleObjs) {
+			var newObj = clone(particleObj[0]);
+			newObj.offset = particleObj[1];
+			if (scale != 100 && scale > 0) {
+				newObj.resize(scale);
+			}
+			this.add(newObj);
 		}
 	};
 
-	add(particleGroup) {
-		this.push([clone(particleGroup[0]), particleGroup[1]]);
+	add(particleObj) {
+		this.push(particleObj);
+	};
+
+	resize(scale) {
+		var particleObj;
+		for (particleObj of this) {
+			particleObj.resize(scale);
+		}
+		this.offset = this.offset.map(value => value*(scale/100));
 	};
 
 	draw() {
-		var particleGroup;
-		for (particleGroup of this) {
-			particleGroup[0].draw();
+		if (this.active) {
+			var particleObj;
+			for (particleObj of this) {
+				if (particleObj.active) {
+					particleObj.draw();
+				}
+			}
 		}
 	};
 
 	update() {
-		var particleGroup;
-		for (particleGroup of this) {
-			particleGroup[0].update();
+		if (this.active) {
+			var particleObj;
+			for (particleObj of this) {
+				if (particleObj.active) {
+					particleObj.update();
+				}
+			}
 		}
 	};
 
 	generate(spawnPos) {
-		var particleGroup;
-		for (particleGroup of this) {
-			particleGroup[0].generate([spawnPos[0]+particleGroup[1][0], spawnPos[1]+particleGroup[1][1]]);
+		if (this.active) {
+			var particleObj;
+			for (particleObj of this) {
+				if (particleObj.active) {
+					particleObj.generate([spawnPos[0]+particleObj.offset[0], spawnPos[1]+particleObj.offset[1]]);
+				}
+			}
+		}
+	};
+
+	show() {
+		this.active = true;
+		var particleObj;
+		for (particleObj of this) {
+			particleObj.show();
+		}
+	};
+
+	hide() {
+		this.active = false;
+		var particleObj;
+		for (particleObj of this) {
+			particleObj.hide();
 		}
 	};
 
@@ -234,7 +311,7 @@ var smoke = new ParticleGroup([[-10, 10], [-10, -50]], [15, 20], [[-1, 1], [-2, 
 
 var fire = new ParticleSystem([[flames, [0, 0]], [smoke, [0, -50]]]);
 
-var particles = new ParticleSystem([[fire, [0, 0]], [fire, [75, 50]], [fire, [-75, 50]]]);
+var particles = new ParticleSystem([[fire, [0, 0]], [fire, [75, 50]], [fire, [-75, 50]]], 75);
 
 gameLoop = function() {
 	display.clearRect(0, 0, canvas.width, canvas.height);	
@@ -242,6 +319,7 @@ gameLoop = function() {
 	if (getMouseDown() && mouseX != null) {
 		particles.generate([mouseX, mouseY]);
 	}
+	
 	particles.update();
 	particles.draw();
 	
@@ -250,23 +328,4 @@ gameLoop = function() {
 }
 
 window.requestAnimationFrame(gameLoop);
-
-document.onmousedown = function(event) {
-	var button = event.button;
-	if (button == 0) {
-		mouseDown = true;	
-	}
-}
-
-document.onmouseup = function(event) {
-	var button = event.button;
-	if (button == 0) {
-		mouseDown = false;
-	}
-}		
-
-document.onmousemove = function(event) {
-	mouseX = event.clientX;
-	mouseY = event.clientY;
-}
 
