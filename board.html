@@ -7,10 +7,27 @@
 
 <canvas id="canvas" width=1445 height=1050 class="canvas" style = "visibility: hidden"></canvas>
 <script src="battleship.js"></script>
+<script src="particles.js"></script>
 
 
 <h1>Battleship</h1>
 
+<h2 id= "playerChoice">Do you want to play the AI or another Player?</h2>
+<div class= "playerButtons">
+    <button onclick= "AIChoice(1)" id= "1Button">AI</button>
+    <button onclick= "AIChoice(2)" id= "2Button">Player</button>
+</div>
+
+<h2 id= "AIDifficulty" style= "visibility: hidden; position: absolute">Choose the difficulty of the AI</h2>
+<div class= "difficultyButtons" id= "visibleButtons" style= "visibility: hidden">
+    <button onclick= "AILevel(1)" id= "1Difficulty">Easy</button>
+    <button onclick= "AILevel(2)" id= "2Difficulty">Medium</button>
+    <button onclick= "AILevel(3)" id= "3Difficulty">Hard</button>
+
+</div>
+
+<h2 id="numShips" style= "visibility: hidden; position: absolute">How many ships do you want?</h2>
+<div class="shipButtons" id= "visibleButtons2" style= "visibility: hidden">
 <h2 id="numShips">How many ships do you want?</h2>
 
 <div class="shipButtons">
@@ -292,4 +309,9 @@
     <img id = "fourthShip" src = "assets/battleship.png" style = "display: none;">
     <img id = "fifthShip" src = "assets/aircarrier.png" style = "display: none;">
 
+<<<<<<< HEAD
+=======
+    <p id ="test"> Testing </p>
+
+>>>>>>> a7fd4c6731bb06ec1d0e645c4c26c9e0c283f715
 </html>

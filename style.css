@@ -15,6 +15,14 @@ h2 {
     text-align: center;
 }
 
+.playerButtons{
+    text-align: center;
+}
+
+.difficultyButtons{
+    text-align: center;
+}
+
 #ships {
     text-align: center;
 }
