@@ -2,7 +2,8 @@
 
 */
 
-
+console.log(document.getElementById("grantcheck"));
+document.getElementById("grantcheck") = true;
 
 var mouseDown = false;
 var mouseUp = true;
@@ -19,9 +20,9 @@ if (canvas.getContext) {
 
 class Particles extends Array {
 	constructor() {
-		super();	
+		super();
 	};
-	
+
 	add(particle) {
 		this.push(particle);
 	};
@@ -86,30 +87,30 @@ gameLoop = function() {
 	display.clearRect(0, 0, display.width, display.height);
 	drawBackground("rgb(0, 0, 0)");
 
-	
+
 
 	if (getMouseDown() && mouseX != null) {
 		var i;
 		for (i=0; i<2; i++) {
-			
+
 			particles.add(new Particle([mouseX+randint(-10, 10), mouseY-randint(2, 7)], randint(5, 15), [randint(0, 2), randint(-7, -1)], randint(8, 15)/10, randchoice(fire), randint(5,8)/10, "fire"));
-			
+
 		}
 		var i;
 		for (i=0; i<1; i++) {
-	
+
 			particles2.add(new Particle([mouseX+randint(-10, 10), mouseY-60-randint(0, 50)], randint(15, 20), [randint(-3, 3)/3, randint(-2, -1)/1.25], -randint(2, 5)/10, randchoice(smoke), 0.005 + randint(0,3)/10, "smoke"));
 	}
 	print(particles.length + particles2.length);
-		
+
 	}
-	
+
 	//print(getRandom(-5, 5));
 	particles2.update();
 	particles2.draw();
 	particles.update();
 	particles.draw();
-	
+
 
 	updatePeripherals();
 	window.requestAnimationFrame(gameLoop);
@@ -120,7 +121,7 @@ window.requestAnimationFrame(gameLoop);
 document.onmousedown = function(event) {
 	var button = event.button;
 	if (button == 0) {
-		mouseDown = true;	
+		mouseDown = true;
 	}
 }
 
@@ -129,7 +130,7 @@ document.onmouseup = function(event) {
 	if (button == 0) {
 		mouseDown = false;
 	}
-}		
+}
 
 document.onmousemove = function(event) {
 	mouseX = event.clientX;
@@ -181,6 +182,3 @@ function drawCircle(pos, radius, color) {
 	display.fillStyle = color;
 	display.fill();
 }
-
-
-

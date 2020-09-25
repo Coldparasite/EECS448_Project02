@@ -11,6 +11,7 @@ var placingNum = 1;
 
 var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
 
+
 var display = null;
 var canvas = document.getElementById("canvas");
 canvas.style.left = "0px";
@@ -22,9 +23,9 @@ if (canvas.getContext) {
 
 class Particles extends Array {
 	constructor() {
-		super();	
+		super();
 	};
-	
+
 	add(particle) {
 		this.push(particle);
 	};
@@ -112,6 +113,7 @@ gameLoop = function() {
 }
 
 window.requestAnimationFrame(gameLoop);
+
 
 /* * = empty
     M = Miss
