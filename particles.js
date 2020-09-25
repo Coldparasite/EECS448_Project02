@@ -1,5 +1,5 @@
 /*
-
+	Make IDs
 */
 
 var mouseDown = false;
@@ -138,7 +138,6 @@ class Particle {
 		this.pos = [this.pos[0] + this.vel[0] + this.vel[0]*this.boost, this.pos[1] + this.vel[1] + this.vel[1]*this.boost];
 		this.size -= this.sizeDecay[0]*this.size + this.sizeDecay[1];
 		this.alpha -= this.alphaDecay[0]*this.alpha + this.alphaDecay[1];
-
 	};
 };
 
@@ -311,7 +310,9 @@ var smoke = new ParticleGroup([[-10, 10], [-10, -50]], [15, 20], [[-1, 1], [-2, 
 
 var fire = new ParticleSystem([[flames, [0, 0]], [smoke, [0, -50]]]);
 
-var particles = new ParticleSystem([[fire, [0, 0]], [fire, [75, 50]], [fire, [-75, 50]]], 75);
+var particles = new ParticleSystem([[fire, [0, 0]], [fire, [75, 50]], [fire, [-75, 50]]], 200);
+particles.hide();
+var c = 0;
 
 gameLoop = function() {
 	display.clearRect(0, 0, canvas.width, canvas.height);	
@@ -319,7 +320,6 @@ gameLoop = function() {
 	if (getMouseDown() && mouseX != null) {
 		particles.generate([mouseX, mouseY]);
 	}
-	
 	particles.update();
 	particles.draw();
 	

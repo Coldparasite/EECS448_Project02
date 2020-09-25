@@ -11,9 +11,6 @@ var placingNum = 1;
 
 var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
 
-var display = null;
-var canvas = document.getElementById("canvas");
-
 /* * = empty
     M = Miss
     H = Hit
