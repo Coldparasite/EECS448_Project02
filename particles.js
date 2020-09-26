@@ -317,7 +317,7 @@ var smoke = new ParticleGroup([[-10, 10], [-10, -50]], [15, 20], [[-1, 1], [-2, 
 var fire = new ParticleSystem([[flames, [0, 0]], [smoke, [0, -50]]]);
 
 var particles = new ParticleSystem([[fire, [0, 0]], [fire, [75, 50]], [fire, [-75, 50]]], 200);
-particles.hide();
+//particles.hide();
 var c = 0;
 
 gameLoop = function() {
@@ -326,10 +326,7 @@ gameLoop = function() {
 	if (getMouseDown() && mouseX != null) {
 		particles.generate([mouseX, mouseY]);
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> 30cb2b1eeb897e9dfcf8f544664f9ae998709264
 	particles.update();
 	particles.draw();
 
