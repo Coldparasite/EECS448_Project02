@@ -2,12 +2,6 @@
 
 */
 
-<<<<<<< HEAD
-console.log(document.getElementById("grantcheck"));
-document.getElementById("grantcheck") = true;
-
-=======
->>>>>>> a7fd4c6731bb06ec1d0e645c4c26c9e0c283f715
 var mouseDown = false;
 var mouseUp = true;
 
@@ -15,62 +9,29 @@ var mouseX = null;
 var mouseY = null;
 
 var display = null;
-var canvas = document.getElementById("canvas");
+var canvas = null;
 
-canvas.style.left = "0px";
-canvas.style.top = "0px";
+document.addEventListener('DOMContentLoaded', function() {
+  canvas = document.getElementById('canvas');
+	canvas.style.left = "0px";
+	canvas.style.top = "0px";
 
-<<<<<<< HEAD
-class Particles extends Array {
-	constructor() {
-		super();
-	};
+	var width = Math.max(document.body.scrollWidth, document.documentElement.scrollWidth);
+	var height = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
 
-	add(particle) {
-		this.push(particle);
-	};
-=======
-var width = Math.max(document.body.scrollWidth, document.documentElement.scrollWidth);
-var height = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
->>>>>>> a7fd4c6731bb06ec1d0e645c4c26c9e0c283f715
+	canvas.width = width;
+	canvas.height = height;
 
-canvas.width = width;
-canvas.height = height;
+	if (canvas.getContext) {
+		display = canvas.getContext("2d");
+	}
 
-if (canvas.getContext) {
-	display = canvas.getContext("2d");
-}
+}, false);
 
 function print(message) {
 	console.log(message);
 }
 
-<<<<<<< HEAD
-
-
-	if (getMouseDown() && mouseX != null) {
-		var i;
-		for (i=0; i<2; i++) {
-
-			particles.add(new Particle([mouseX+randint(-10, 10), mouseY-randint(2, 7)], randint(5, 15), [randint(0, 2), randint(-7, -1)], randint(8, 15)/10, randchoice(fire), randint(5,8)/10, "fire"));
-
-		}
-		var i;
-		for (i=0; i<1; i++) {
-
-			particles2.add(new Particle([mouseX+randint(-10, 10), mouseY-60-randint(0, 50)], randint(15, 20), [randint(-3, 3)/3, randint(-2, -1)/1.25], -randint(2, 5)/10, randchoice(smoke), 0.005 + randint(0,3)/10, "smoke"));
-	}
-	print(particles.length + particles2.length);
-
-	}
-
-	//print(getRandom(-5, 5));
-	particles2.update();
-	particles2.draw();
-	particles.update();
-	particles.draw();
-
-=======
 function updatePeripherals() {
 	mouseUp = !mouseDown;
 }
@@ -78,7 +39,7 @@ function updatePeripherals() {
 function getMouseDown() {
 	return mouseDown;
 }
->>>>>>> a7fd4c6731bb06ec1d0e645c4c26c9e0c283f715
+
 
 function getMouseUp() {
 	return !mouseDown;
@@ -109,7 +70,7 @@ document.onmousemove = function(event) {
 
 function randrange(range) {
 	if (range[0] == range[1]) {
-		return range[0]; 
+		return range[0];
 	}
 	else {
 		var rawResult;
@@ -160,8 +121,7 @@ function drawCircle(pos, radius, color, alpha) {
 	display.fillStyle = color;
 	display.fill();
 }
-<<<<<<< HEAD
-=======
+
 
 class Particle {
 	constructor(pos, size, vel, color, alpha, sizeDecay, alphaDecay, shape) {
@@ -203,7 +163,7 @@ class ParticleGroup extends Array {
 		this.density = density;
 		this.shape = shape;
 	};
-	
+
 	add(particle) {
 		this.push(particle);
 	};
@@ -360,19 +320,17 @@ var fire = new ParticleSystem([[flames, [0, 0]], [smoke, [0, -50]]]);
 var particles = new ParticleSystem([[fire, [0, 0]], [fire, [75, 50]], [fire, [-75, 50]]], 75);
 
 gameLoop = function() {
-	display.clearRect(0, 0, canvas.width, canvas.height);	
+	display.clearRect(0, 0, canvas.width, canvas.height);
 
 	if (getMouseDown() && mouseX != null) {
 		particles.generate([mouseX, mouseY]);
 	}
-	
+
 	particles.update();
 	particles.draw();
-	
+
 	updatePeripherals();
 	window.requestAnimationFrame(gameLoop);
 }
 
 window.requestAnimationFrame(gameLoop);
-
->>>>>>> a7fd4c6731bb06ec1d0e645c4c26c9e0c283f715
