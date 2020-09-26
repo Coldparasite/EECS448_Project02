@@ -1,5 +1,3 @@
-
-
 var gameOver = false;
 var player = 1;
 var board1 = [];
@@ -17,15 +15,9 @@ var playerTwoShips = [];
 
 var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
 
-
-var display = null;
-var canvas = null;
-var ctx = null;
-
-document.addEventListener('DOMContentLoaded', function() {
-  canvas = document.getElementById('canvas');
-  ctx = canvas.getContext('2d');
-}, false);
+function print(message) {
+	console.log(message);
+}
 
 /* * = empty
     M = Miss
