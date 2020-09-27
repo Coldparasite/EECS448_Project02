@@ -31,7 +31,7 @@ class ParticleGroup extends Array {
 		super();
 		this.offset = [0, 0];
 		this.active = true;
-		this.frameCount = -1;
+		this.duration = -1;
 		this.posRange = posRange;
 		this.sizeRange = sizeRange;
 		this.velRange = velRange;
@@ -82,7 +82,7 @@ class ParticleGroup extends Array {
 	};
 
 	generate(spawnPos) {
-		if (this.active && this.frameCount == -1 || this.frameCount > 0) {
+		if (this.active && spawnPos[0] != null && spawnPos[1] != null && (this.duration == -1 || this.duration > 0)) {
 			var i, pos, size, vel, color, alpha, sizeDecay, alphaDecay;
 			for (i=0; i<this.density; i++) {
 				pos = [randrange(this.posRange[0])+spawnPos[0], randrange(this.posRange[1])+spawnPos[1]];
@@ -93,15 +93,16 @@ class ParticleGroup extends Array {
 				sizeDecay = [randrange(this.sizeDecayRange[0]), randrange(this.sizeDecayRange[1])];
 				alphaDecay = [randrange(this.alphaDecayRange[0]), randrange(this.alphaDecayRange[1])];
 				this.add(new Particle(pos, size, vel, color, alpha, sizeDecay, alphaDecay, this.shape));
-			}
-			if (this.frameCount > 0) {
-				this.frameCount--;
-			}
+
+				if (this.duration > 0) {
+					this.duration--;
+				}
+			}	
 		}
 	};
 
-	setFrameCount(frames) {
-		this.frameCount = frames;
+	setDuration(duration) {
+		this.duration = duration;
 	}
 
 	activate() {
@@ -110,36 +111,51 @@ class ParticleGroup extends Array {
 
 	deactivate() {
 		this.active = false;
-		this.frameCount = 0;
+		this.duration = -2;
+	};
+
+	dead() {
+		return (this.length == 0);
 	};
 };
 
 class ParticleSystem {
-	constructor(scale, ...particleObjs) {
+	constructor(...particleObjs) {
 		this.particles = {};
 		this.offset = [0, 0];
 		this.active = true;
 
 		for (var particleObj of particleObjs) {
-			this.add(scale, particleObj) 
+			this.add(particleObj[0], particleObj[1], particleObj[2]); 
 		}
-		
 	};
 
-	add(scale, particleObj) {
-		var newObj = deepClone(particleObj[1]);
-		newObj.offset = particleObj[2];
-		newObj.resize(scale);
-		
-		this.particles[particleObj[0]] = newObj;
+	add(name, type, offset, duration=-1, scale=100) {
+		if (!(name in this.particles)) {
+			var newObj = deepClone(type);
+			newObj.offset = offset;
+			newObj.resize(scale);
+			newObj.setDuration(duration);
+			this.particles[name] = newObj;
+		}
 	};
 
-	resize(scale) {
+	remove(key) {
+		delete this.particles[key];
+	};
+	
+	contains(key) {
+		return (key in this.particles);
+	};
+
+	resize(scale, relative=false) {
 		if (scale != 100 && scale > 0) {
 			for (var particleObj in this.particles) {
-				this.particles[particleObj].resize(scale);
+				this.particles[particleObj].resize(scale, relative);
 			}
-			this.offset = this.offset.map(value => value*(scale/100));
+			if (relative) {
+				this.offset = this.offset.map(value => value*(scale/100));
+			}
 		}
 	};
 
@@ -154,21 +170,24 @@ class ParticleSystem {
 	update() {
 		for (var particleObj in this.particles) {
 			this.particles[particleObj].update();
+			if (this.particles[particleObj].dead()) {			
+				this.remove(particleObj);
+			}
 		}
 	};
 
-	generate(spawnPos) {
-		if (this.active) {
+	generate(spawnPos=[0, 0]) {
+		if (this.active && spawnPos[0] != null && spawnPos[1] != null) {
 			for (var particleObj in this.particles) {
 				this.particles[particleObj].generate([spawnPos[0]+this.particles[particleObj].offset[0], spawnPos[1]+this.particles[particleObj].offset[1]]);
 			}
 		}
 	};
 
-	setFrameCount(frames) {
+	setDuration(duration) {
 		if (this.active) {
 			for (var particleObj in this.particles) {
-				this.particles[particleObj].setFrameCount(frames);
+				this.particles[particleObj].setDuration(duration);
 			}
 		}
 	}
@@ -195,6 +214,25 @@ class ParticleSystem {
 		else {
 			this.particles[key].deactivate();
 		}
+	};
+
+	toggleActive() {
+		if (this.active) {
+			this.deactivate();
+		}
+		else {
+			this.activate();
+		}
+	};
+
+	dead() {
+		var isDead = true;
+		for (var particleObj in this.particles) {
+			if (!this.particles[particleObj].dead()) {
+				isDead = false;
+			}
+		}
+		return isDead;
 	};
 
 };

@@ -273,6 +273,7 @@ function checkPlacement(row, col, board, length, horizontal) {
             }
         }
     }
+	makeFire([mouseX, mouseY]);
     return valid;
 }
 
@@ -280,7 +281,7 @@ function checkPlacement(row, col, board, length, horizontal) {
  * Initialize the player boards to their default empty values (*).
  */
 function createBoards() {
-    console.log("the boards were created");
+    //console.log("the boards were created");
     for (i = 0; i < 9; i++) {
         board1[i] = [];
         board2[i] = [];
@@ -299,7 +300,7 @@ function createBoards() {
  * @param {number} row The row that was clicked.
  */
 function clickCheck(board_num, col, row) {
-    console.log(board_num, row, col);
+    //console.log(board_num, row, col);
     if (placing && !waitForSwitch) {
         if (numShips == 0 || board_num !== 2) {
             // Have not selected number of ships or clicked wrong board
