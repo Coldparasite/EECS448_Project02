@@ -290,3 +290,4 @@ function drawCircle(ctx, pos, radius, color, alpha) {
 	ctx.fillStyle = color;
 	ctx.fill();
 }
+

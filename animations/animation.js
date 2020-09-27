@@ -6,7 +6,12 @@ var particles = new ParticleSystem();
 particles.deactivate();
 
 animationLoop = function() {
+	updateCoords();
+
 	display.clearRect(0, 0, canvas.width, canvas.height);
+	if (mouseDown) {
+		makeFire(mousePos, 10);
+	}
 	particles.generate();
 	particles.update();
 	particles.draw(display);
@@ -15,14 +20,9 @@ animationLoop = function() {
 	window.requestAnimationFrame(animationLoop);
 }
 
-addAnimations = function() {
-	if (getClick()) {
-		particles.add("Fire " + mouseX + ", " + mouseY, fire, [mouseX, mouseY]);
-	}	
-}
-
-makeFire = function(pos) {
-	particles.add(pos, fire, pos, 30);
+makeFire = function(pos, duration=1) {
+	particles.add(pos, fire, pos, duration);
 }
 
 window.requestAnimationFrame(animationLoop);
+

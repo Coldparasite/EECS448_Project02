@@ -7,6 +7,7 @@
     <script src="animations/particles.js"></script>
 	<script src="animations/definitions.js"></script>
 	<script src="animations/animation.js"></script>
+	<script src="board.js"></script>
 </head>
 <body>
 <canvas id="canvas" width=1445 height=1050 class="canvas"></canvas>
@@ -53,7 +54,7 @@
     <!-- BOARD B -->
     <div class="boardSeparator">
         <h2 id="boardlabelB", style="text-align: center;">Your Board</h2>
-        <div class="grid-container boardB">
+        <div class="grid-container boardB" id="boardB">
             <div class="numLabels">
                 <div>1</div>
                 <div>2</div>
@@ -179,7 +180,7 @@
     <!-- BOARD A -->
     <div class="boardSeparator">
         <h2 id="boardlabelA", style="text-align: center;">Enemy Board</h2>
-        <div class="grid-container boardA">
+        <div class="grid-container boardA" id="boardA">
             <div class="numLabels">
                 <div>1</div>
                 <div>2</div>
@@ -308,6 +309,5 @@
   <img id = "thirdShip" src = "assets/cruiser.png" style = "visibility: hidden;position:absolute;z-index: 2; left: 100; top: 100; width: 192px; height: 64px;pointer-events: none;">
   <img id = "fourthShip" src = "assets/battleship.png" style = "visibility: hidden;position:absolute;z-index: 2; left: 100; top: 100; width: 256px; height: 64px;pointer-events: none;">
   <img id = "fifthShip" src = "assets/aircarrier.png" style = "visibility: hidden;position:absolute;z-index: 2; left: 100; top: 100; width: 320px; height: 64px;pointer-events: none;">
-
   </body>
 </html>

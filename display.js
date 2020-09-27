@@ -1,13 +1,14 @@
 var mouseDown = false;
 var mouseUp = true;
 
+var mousePos = null;
 var mouseX = null;
 var mouseY = null;
 
 var display = null;
 var canvas = null;
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function() {
 	canvas = document.getElementById('canvas');
 	canvas.style.left = "0px";
 	canvas.style.top = "0px";
@@ -41,6 +42,7 @@ document.onmouseup = function(event) {
 document.onmousemove = function(event) {
 	mouseX = event.clientX;
 	mouseY = event.clientY;
+	mousePos = [mouseX, mouseY];
 }
 
 function print(message) {
@@ -62,3 +64,4 @@ function updatePeripherals() {
 function getClick() {
 	return !mouseDown && !mouseUp;
 }
+
