@@ -3,6 +3,7 @@
 */
 
 var particles = new ParticleSystem();
+particles.deactivate();
 
 animationLoop = function() {
 	display.clearRect(0, 0, canvas.width, canvas.height);
