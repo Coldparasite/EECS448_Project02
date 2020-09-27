@@ -148,7 +148,7 @@ function switchShips(flag)
 				else
 				{
 					ship.style.left = (posB[0] + ((playerOneShips[i][0])*64)-(i)*32) + "px";
-					ship.style.top = (posB[1] + ((playerOneShips[i][2]+1) *70)+(i)*36)   + "px";
+					ship.style.top = (posB[1] + ((playerOneShips[i][2]) *70)+(i)*36)   + "px";
 					ship.style.transform = "rotate(90deg)";
 				}
 				ship.style.visibility = "visible";
@@ -164,7 +164,7 @@ function switchShips(flag)
 				else
 				{
 					ship.style.left = (posB[0] + ((playerTwoShips[i][0])*64)-((i)*32)) + "px";
-					ship.style.top = (posB[1] + ((playerTwoShips[i][2]+1) *70)+(i)*36)   + "px";
+					ship.style.top = (posB[1] + ((playerTwoShips[i][2]) *70)+(i)*36)   + "px";
 					ship.style.transform = "rotate(90deg)";
 				}
 				ship.style.visibility = "visible";
