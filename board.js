@@ -44,15 +44,16 @@ function updateCoords() {
 
 		rectA = A.getBoundingClientRect();
 		rectB = B.getBoundingClientRect();
-	
-		posA = [rectA.left+gridStyle.padding[0], rectA.top+gridStyle.padding[1]];
-		posB = [rectB.left+gridStyle.padding[0], rectB.top+gridStyle.padding[1]];
+
+
+		posA = [rectA.left+gridStyle.padding[0] + window.pageXOffset,rectA.top+gridStyle.padding[1] + window.pageYOffset];
+		posB = [rectB.left+gridStyle.padding[0] + window.pageXOffset, rectB.top+gridStyle.padding[1] + window.pageYOffset];
 
 		sampleCol = document.getElementById("sampleCol");
 		rectCol = sampleCol.getBoundingClientRect();
-	
+
 		gridSize = [Math.abs(rectCol.right-rectCol.left), Math.abs(rectB.top-rectB.bottom)];
-	
+
 		gridA = {};
 		gridB = {};
 
@@ -62,7 +63,7 @@ function updateCoords() {
 				gridB[[i, j]] = [posB[0] + gridSize[0]*i + gridStyle.border[0], posB[1] + gridSize[1]*j + gridStyle.border[1]];
 			}
 		}
-		
+
 		if (printing) {
 			print(gridB);
 			printing = false;

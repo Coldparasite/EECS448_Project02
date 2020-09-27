@@ -93,39 +93,43 @@ function displayShip(x,y)
   else if(placingNum == 5) {ship = document.getElementById("fifthShip");}
   if(playerOneShips.length < numShips)
   {
-    if(horizontal)
-    {
-      ship.style.left = (315 + ((x-1)*64)) + "px";
-      ship.style.top = (500 + ((y-1)*70)) + "px";
-    }
-    else
-    {
-      ship.style.left = (315 + ((x-1)*64)) + "px";
-      ship.style.top = (491 + ((y-1)*70)) + "px";
-    }
+		if(horizontal)
+		{
+    	ship.style.left = (posB[0] + (x-1)*64) + "px";
+    	ship.style.top = (posB[1] + (y-1) *70)  + "px";
+			ship.style.transform = "rotate(0deg)";
+		}
+		else
+		{
+			ship.style.left = (posB[0] + ((x-1)*64)-((placingNum-1)*32)) + "px";
+			ship.style.top = (posB[1] + ((y-1) *70)+(placingNum-1)*36)   + "px";
+			ship.style.transform = "rotate(90deg)";
+		}
+		ship.style.visibility = "visible";
   }
-  else if (playerTwoPlacementReady && playerTwoShips.length < numShips)
+  else if (playerTwoPlacementReady)
   {
-    {
-      if(horizontal)
-      {
-        ship.style.left = (315 + ((x-1)*64)) + "px";
-        ship.style.top = (500 + ((y-1)*70)) + "px";
-      }
-      else
-      {
-        ship.style.left = (315 + ((x-1)*64)) + "px";
-        ship.style.top = (491 + ((y-1)*70)) + "px";
-      }
-    }
-  }
-  ship.style.visibility = "visible";
+		if(horizontal)
+		{
+			ship.style.left = (posB[0] + (x-1)*64) + "px";
+			ship.style.top = (posB[1] + (y-1) *70)  + "px";
+			ship.style.transform = "rotate(0deg)";
+		}
+		else
+		{
+			ship.style.left = (posB[0] + ((x-1)*64)-((placingNum-1)*32)) + "px";
+			ship.style.top = (posB[1] + ((y-1) *70)+(placingNum-1)*36)   + "px";
+			ship.style.transform = "rotate(90deg)";
+		}
+		ship.style.visibility = "visible";
+	}
 }
 
 function switchShips(flag)
 {
-  if(flag)
+  if(flag && !(placing))
   {
+		updateCoords();
     for(i = 0; i<numShips;i++)
     {
       if(i == 0)      {ship = document.getElementById("firstShip");}
@@ -134,24 +138,37 @@ function switchShips(flag)
       else if(i == 3) {ship = document.getElementById("fourthShip");}
       else if(i == 4) {ship = document.getElementById("fifthShip");}
       if(player == 1)
-      {
-        ship.style.left = playerOneShips[i][0] + "px";
-        ship.style.left = playerOneShips[i][1] + "px";
-        if(playerOneShips[i][2])
-          ship.style.transform = "rotate(0deg)";
-        else {
-          ship.style.transform = "rotate(90deg)";
-        }
-        ship.style.visibility = "hidden";
-      }
-      else
-      {
-        ship.style.left = playerTwoShips[i][0] + "px";
-        ship.style.left = playerTwoShips[i][1] + "px";
-        if(playerOneShips[i][2]) {ship.style.transform = "rotate(0deg)";}
-        else {ship.style.transform = "rotate(90deg)";}
-        ship.style.visibility = "hidden";
-      }
+			{
+				if(playerOneShips[i][2])
+				{
+					ship.style.left = (posB[0] + (playerOneShips[i][0])*64) + "px";
+					ship.style.top = (posB[1] + (playerOneShips[i][1]) *70)  + "px";
+					ship.style.transform = "rotate(0deg)";
+				}
+				else
+				{
+					ship.style.left = (posB[0] + ((playerOneShips[i][0])*64)-(i)*32) + "px";
+					ship.style.top = (posB[1] + ((playerOneShips[i][2]+1) *70)+(i)*36)   + "px";
+					ship.style.transform = "rotate(90deg)";
+				}
+				ship.style.visibility = "visible";
+			}
+			else
+			{
+				if(playerTwoShips[i][2])
+				{
+					ship.style.left = (posB[0] + (playerTwoShips[i][0])*64) + "px";
+					ship.style.top = (posB[1] + (playerTwoShips[i][1]) *70)  + "px";
+					ship.style.transform = "rotate(0deg)";
+				}
+				else
+				{
+					ship.style.left = (posB[0] + ((playerTwoShips[i][0])*64)-((i)*32)) + "px";
+					ship.style.top = (posB[1] + ((playerTwoShips[i][2]+1) *70)+(i)*36)   + "px";
+					ship.style.transform = "rotate(90deg)";
+				}
+				ship.style.visibility = "visible";
+			}
     }
   }
   else
@@ -161,6 +178,7 @@ function switchShips(flag)
       document.getElementById("thirdShip").style.visibility = "hidden";
       document.getElementById("fourthShip").style.visibility = "hidden";
       document.getElementById("fifthShip").style.visibility = "hidden";
+			console.log("hide");
   }
 }
 function hideShip()
@@ -183,26 +201,27 @@ function toggleDirection() {
     horizontal = !horizontal;
 
     let place_dir = "";
-    if (horizontal) {
-        place_dir = "Horizontally";
-        if(placingNum == 1)      {ship = document.getElementById("firstShip").style.transform = "rotate(0deg)";}
-        else if(placingNum == 2) {ship = document.getElementById("secondShip").style.transform = "rotate(0deg)";}
-        else if(placingNum == 3) {ship = document.getElementById("thirdShip").style.transform = "rotate(0deg)";}
-        else if(placingNum == 4) {ship = document.getElementById("fourthShip").style.transform = "rotate(0deg)";}
-        else if(placingNum == 5) {ship = document.getElementById("fifthShip").style.transform = "rotate(0deg)";}
-    } else {
-        place_dir = "Vertically";
-        if(placingNum == 1)      {ship = document.getElementById("firstShip").style.transform = "rotate(90deg)";}
-        else if(placingNum == 2) {ship = document.getElementById("secondShip").style.transform = "rotate(90deg)";}
-        else if(placingNum == 3) {ship = document.getElementById("thirdShip").style.transform = "rotate(90deg)";}
-        else if(placingNum == 4) {ship = document.getElementById("fourthShip").style.transform = "rotate(90deg)";}
-        else if(placingNum == 5) {ship = document.getElementById("fifthShip").style.transform = "rotate(90deg)";}
-    }
+		if(!placingFinished)
+		{
+	    if (horizontal) {
+	        place_dir = "Horizontally";
+	        if(placingNum == 1)      {ship = document.getElementById("firstShip").style.transform = "rotate(0deg)";}
+	        else if(placingNum == 2) {ship = document.getElementById("secondShip").style.transform = "rotate(0deg)";}
+	        else if(placingNum == 3) {ship = document.getElementById("thirdShip").style.transform = "rotate(0deg)";}
+	        else if(placingNum == 4) {ship = document.getElementById("fourthShip").style.transform = "rotate(0deg)";}
+	        else if(placingNum == 5) {ship = document.getElementById("fifthShip").style.transform = "rotate(0deg)";}
+	    } else {
+	        place_dir = "Vertically";
+	        if(placingNum == 1)      {ship = document.getElementById("firstShip").style.transform = "rotate(90deg)";}
+	        else if(placingNum == 2) {ship = document.getElementById("secondShip").style.transform = "rotate(90deg)";}
+	        else if(placingNum == 3) {ship = document.getElementById("thirdShip").style.transform = "rotate(90deg)";}
+	        else if(placingNum == 4) {ship = document.getElementById("fourthShip").style.transform = "rotate(90deg)";}
+	        else if(placingNum == 5) {ship = document.getElementById("fifthShip").style.transform = "rotate(90deg)";}
+	    }
+		}
 
     document.getElementById('toggleDir').innerHTML = 'Placing ' + place_dir;
 }
-
-
 
 /**
  * Place a ship on the given board based on length.
@@ -216,11 +235,19 @@ function toggleDirection() {
  */
 function placeShip(row, col, board, length, horizontal) {
     if (checkPlacement(row, col, board, length, horizontal)) {
-        if(playerOneShips.length < numShips) {playerOneShips[length-1] = ((315 + ((col-1)*64)), (500+((row-1)*70)),horizontal);}
-        if(playerOneShips.length == numShips && playerTwoShips.length < numShips)
+        if(playerOneShips.length < numShips)
+				{
+					playerOneShips[length-1] = [col,row,horizontal];
+					if(playerOneShips.length == numShips){placingFinished = true;}
+				}
+        else if(playerOneShips.length == numShips && playerTwoShips.length <= numShips)
         {
-          playerTwoShips[length-1] = ((315 + ((col-1)*64)), (500+((row-1)*70)),horizontal);
-          if(!placingFinished && placingNum == numShips) {placingFinished = true;}
+          playerTwoShips[length-1] = [col,row,horizontal];
+          if(!placingFinished && placingNum == numShips)
+					{
+						placingFinished = true;
+						playerTwoPlacementReady = false;
+					}
         }
         for (i = 0; i < length; i++) {
             if (horizontal) {
@@ -359,18 +386,11 @@ function getBoard(num = NaN) {
  * Check if the turn is over and then switch the current player.
  */
 function switchPlayer() {
-    if (waitForSwitch) {
-        hideShip(true);
+		if (waitForSwitch) {
         if(placing && placingFinished)
         {
           playerTwoPlacementReady = true;
           placingFinished = false;
-          document.getElementById("firstShip").style =  "visibility: hidden;position:absolute;z-index: 2;width: 64px; height: 64px;pointer-events: none;";
-          document.getElementById("secondShip").style = "visibility: hidden;position:absolute;z-index: 2;width: 128px; height: 64px;pointer-events: none;";
-          document.getElementById("thirdShip").style =  "visibility: hidden;position:absolute;z-index: 2;width: 192px; height: 64px;pointer-events: none;";
-          document.getElementById("fourthShip").style = "visibility: hidden;position:absolute;z-index: 2;width: 256px; height: 64px;pointer-events: none;";
-          document.getElementById("fifthShip").style =  "visibility: hidden;position:absolute;z-index: 2;width: 320px; height: 64px;pointer-events: none;";
-
         }
         if (player == 1) {
             player = 2;
@@ -388,12 +408,14 @@ function switchPlayer() {
         }
         document.getElementById('ships').innerHTML = 'Click Ready';
         horizontal = true;
+				toggleDirection();
         waitForSwitch = false;
         document.getElementById('ready').style.display = 'inline-block';
         document.querySelector("#result").innerText = "  ";
     }
     else {
         document.querySelector("#result").innerText = " You have not finished your turn! ";
+				switchShips(true);
     }
     checkForWinner();
 }
@@ -414,6 +436,7 @@ function drawBoards() {
     } else {
         document.getElementById('ships').innerHTML = 'Choose where to shoot on enemy\'s board';
     }
+		switchShips(true);
 }
 
 /**
@@ -425,6 +448,7 @@ function hideBoards() {
     document.getElementsByClassName('boardSeparator')[0].style.visibility = 'hidden';
     document.getElementsByClassName('boardSeparator')[1].style.visibility = 'hidden';
     document.getElementById('switch').style.display = 'none';
+		switchShips(false);
 }
 
 /**
@@ -603,11 +627,13 @@ function checkForShip(row, col) {
     }
     else {
         document.querySelector("#result").innerText = " You have already guessed here, please try again. ";
+				switchShips(true);
         return false;
     }
     drawGuessBoard(board);
     drawPlayerBoard(otherBoard);
     document.getElementById('ships').innerHTML = 'Click Switch Players';
+		switchShips(true);
     return true;
 }
 
@@ -667,4 +693,3 @@ function checkForWinner() {
 document.addEventListener("DOMContentLoaded", () => {
     createBoards();
 });
-
