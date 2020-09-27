@@ -25,7 +25,7 @@ var gridSize = null;
 var gridA;
 var gridB;
 
-var printing = true;
+var testing = true;
 
 document.addEventListener("DOMContentLoaded", function() {
 	contentLoaded = true;
@@ -62,10 +62,12 @@ function updateCoords() {
 				gridB[[i, j]] = [posB[0] + gridSize[0]*i + gridStyle.border[0], posB[1] + gridSize[1]*j + gridStyle.border[1]];
 			}
 		}
-		
-		if (printing) {
-			print(gridB);
-			printing = false;
+
+		makeFire(gridA[[3, 3]], 25);
+
+		if (testing) {
+			print(gridA);
+			testing = false;
 		}
 	}
 }

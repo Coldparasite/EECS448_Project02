@@ -32,6 +32,9 @@ class ParticleGroup extends Array {
 		this.offset = [0, 0];
 		this.active = true;
 		this.duration = -1;
+		this.cycle = 1;
+		this.counter = 0;
+		
 		this.posRange = posRange;
 		this.sizeRange = sizeRange;
 		this.velRange = velRange;
@@ -41,6 +44,12 @@ class ParticleGroup extends Array {
 		this.alphaDecayRange = alphaDecayRange;
 		this.density = density;
 		this.shape = shape;
+
+		if (this.density < 1) {
+			this.cycle = Math.ceil((1/this.density));
+			this.density = 1;
+ 		}
+	
 	};
 
 	add(particle) {
@@ -82,23 +91,34 @@ class ParticleGroup extends Array {
 	};
 
 	generate(spawnPos) {
+		
 		if (this.active && spawnPos[0] != null && spawnPos[1] != null && (this.duration == -1 || this.duration > 0)) {
-			var i, pos, size, vel, color, alpha, sizeDecay, alphaDecay;
-			for (i=0; i<this.density; i++) {
-				pos = [randrange(this.posRange[0])+spawnPos[0], randrange(this.posRange[1])+spawnPos[1]];
-				size =  randrange(this.sizeRange);
-				vel = [randrange(this.velRange[0]), randrange(this.velRange[1])];
-				color = randchoice(this.colorGroup);
-				alpha = randrange(this.alphaRange)/100;
-				sizeDecay = [randrange(this.sizeDecayRange[0]), randrange(this.sizeDecayRange[1])];
-				alphaDecay = [randrange(this.alphaDecayRange[0]), randrange(this.alphaDecayRange[1])];
-				this.add(new Particle(pos, size, vel, color, alpha, sizeDecay, alphaDecay, this.shape));
-
-				if (this.duration > 0) {
-					this.duration--;
+			if (this.counter%this.cycle == 0) {
+				var i, numParticles, pos, size, vel, color, alpha, sizeDecay, alphaDecay;
+				for (i=0; i<this.density; i++) {
+					pos = [randrange(this.posRange[0])+spawnPos[0], randrange(this.posRange[1])+spawnPos[1]];
+					size =  randrange(this.sizeRange);
+					vel = [randrange(this.velRange[0]), randrange(this.velRange[1])];
+					color = randchoice(this.colorGroup);
+					alpha = randrange(this.alphaRange)/100;
+					sizeDecay = [randrange(this.sizeDecayRange[0]), randrange(this.sizeDecayRange[1])];
+					alphaDecay = [randrange(this.alphaDecayRange[0]), randrange(this.alphaDecayRange[1])];
+					this.add(new Particle(pos, size, vel, color, alpha, sizeDecay, alphaDecay, this.shape));
 				}
-			}	
+				this.counter = 0;
+			}
+			if (this.duration > 0) {
+				this.duration--;
+			}
+			if (this.cycle != 1) {
+				this.counter++;
+			}
+			if (this.duration == 0) {
+				this.counter = this.cycle;
+			}
+			
 		}
+		
 	};
 
 	setDuration(duration) {
@@ -115,7 +135,7 @@ class ParticleGroup extends Array {
 	};
 
 	dead() {
-		return (this.length == 0);
+		return (this.length == 0 && this.counter == this.cycle);
 	};
 };
 
@@ -143,7 +163,7 @@ class ParticleSystem {
 	remove(key) {
 		delete this.particles[key];
 	};
-	
+
 	contains(key) {
 		return (key in this.particles);
 	};
@@ -290,4 +310,3 @@ function drawCircle(ctx, pos, radius, color, alpha) {
 	ctx.fillStyle = color;
 	ctx.fill();
 }
-

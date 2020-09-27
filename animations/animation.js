@@ -3,7 +3,7 @@
 */
 
 var particles = new ParticleSystem();
-particles.deactivate();
+//particles.deactivate();
 
 animationLoop = function() {
 	updateCoords();
