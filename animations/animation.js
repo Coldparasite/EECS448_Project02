@@ -12,6 +12,9 @@ animationLoop = function() {
 	if (mouseDown) {
 		makeFire(mousePos, 10);
 	}
+	if (getClick()) {
+		print(mousePos);
+	}
 	particles.generate();
 	particles.update();
 	particles.draw(display);
