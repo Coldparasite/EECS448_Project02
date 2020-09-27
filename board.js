@@ -58,12 +58,10 @@ function updateCoords() {
 
 		for (var i = 0; i<numGrids[0]; i++) {
 			for (var j = 0; j<numGrids[1]; j++) {
-				gridA[[i, j]] = [posA[0] + gridSize[0]*i + gridStyle.border[0], posA[1] + gridSize[1]*j + gridStyle.border[1]];
-				gridB[[i, j]] = [posB[0] + gridSize[0]*i + gridStyle.border[0], posB[1] + gridSize[1]*j + gridStyle.border[1]];
+				gridA[[i, j]] = [posA[0] + gridSize[0]*i + gridStyle.border[0] + window.pageXOffset, posA[1] + gridSize[1]*j + gridStyle.border[1] + window.pageYOffset];
+				gridB[[i, j]] = [posB[0] + gridSize[0]*i + gridStyle.border[0] + window.pageXOffset, posB[1] + gridSize[1]*j + gridStyle.border[1] + window.pageYOffset];
 			}
 		}
-
-		makeFire(gridA[[3, 3]], 25);
 
 		if (testing) {
 			print(gridA);
