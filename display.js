@@ -40,8 +40,8 @@ document.onmouseup = function(event) {
 }
 
 document.onmousemove = function(event) {
-	mouseX = event.clientX;
-	mouseY = event.clientY;
+	mouseX = event.clientX + window.pageXOffset;
+	mouseY = event.clientY + window.pageYOffset;
 	mousePos = [mouseX, mouseY];
 }
 
