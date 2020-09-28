@@ -8,110 +8,16 @@ var waitForSwitch = false;
 var horizontal = true;
 var placing = true;
 var placingNum = 1;
+var placingFinished = false;
+var playerTwoPlacementReady = false;
+var playerOneShips = [];
+var playerTwoShips = [];
 
 var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
 
-var display = null;
-var canvas = document.getElementById("canvas");
-canvas.style.left = "0px";
-canvas.style.top = "0px";
-
-if (canvas.getContext) {
-	display = canvas.getContext("2d");
+function print(message) {
+	console.log(message);
 }
-
-class Particles extends Array {
-	constructor() {
-		super();	
-	};
-	
-	add(particle) {
-		this.push(particle);
-	};
-
-	draw() {
-		var particle;
-		for (particle of this) {
-			particle.draw();
-		}
-	};
-
-	update() {
-		var particle, i;
-		var toRemove = [];
-		for (particle of this) {
-			particle.update();
-			if (particle.radius <= 0 || particle.alpha <= 0) {
-				toRemove.push(this.indexOf(particle));
-			}
-		}
-		var offset = 0;
-		for (i of toRemove) {
-			this.splice(i-offset, 1);
-			offset++;
-		}
-	};
-};
-
-class Particle {
-	constructor(pos, radius, vel, decay, color, alpha, type) {
-		this.pos = pos;
-		this.radius = radius;
-		this.vel = vel;
-		this.decay = decay;
-		this.color = color;
-		this.alpha = alpha;
-		this.type = type;
-	};
-
-	draw() {
-		display.beginPath();
-		display.arc(this.pos[0], this.pos[1], this.radius, 0, Math.PI*2);
-		display.globalAlpha = this.alpha;
-		display.fillStyle = this.color;
-		display.fill();
-	};
-
-	update() {
-		this.pos = [this.pos[0] + this.vel[0], this.pos[1] + this.vel[1]]
-		this.radius -= this.decay;
-		this.alpha -= 0.015*this.alpha + 0.00025;
-
-	};
-};
-
-function randint(start, end) {
-	return (start + Math.floor(Math.random()*(end-start)));
-}
-
-function randchoice(arr) {
-	return arr[Math.floor(Math.random()*arr.length)];
-}
-
-var particles = new Particles();
-var fire = ["rgb(255, 0, 0)", "rgb(255, 100, 50)", "rgb(184, 15, 10)", "rgb(255, 100, 100)", "rgb(255, 50, 50)"];
-var smoke = ["rgb(100, 100, 100)", "rgb(150, 150, 150)", "rgb(50, 50, 50)", "rgb(0, 0,0 )"];
-
-gameLoop = function() {
-	display.clearRect(0, 0, canvas.width, canvas.height);
-
-	var i;
-	for (i=0; i<2; i++) {
-		particles.add(new Particle([150+randint(-10, 10), 600-randint(2, 7)], randint(5, 15), [randint(0, 2), randint(-7, -1)], randint(8, 15)/10, randchoice(fire), randint(5,8)/10, "fire"));
-	}
-
-	var i;
-	for (i=0; i<1; i++) {
-
-		particles.add(new Particle([150+randint(-10, 10), 600-60-randint(0, 50)], randint(10, 15), [randint(-2, 2)/3, randint(-2, -1)/1.25], -randint(2, 3)/10, randchoice(smoke), 0.0025 + randint(0,2)/10, "smoke"));
-	}
-
-	particles.update();
-	particles.draw();
-	window.requestAnimationFrame(gameLoop);
-}
-
-window.requestAnimationFrame(gameLoop);
 
 /* * = empty
     M = Miss
@@ -129,7 +35,7 @@ function AIChoice(num){
         for (let i = 1; i < 3; i++){
             document.getElementById(i + "Button").remove();
         }
-        document.getElementById("visibleButtons").style= "visibility: visible";
+        document.getElementById("visibleButtons").style= "display: block";
         document.getElementById("AIDifficulty").style= "visibility: visible";
     }
     else{
@@ -137,7 +43,7 @@ function AIChoice(num){
         for (let i = 1; i < 3; i++){
             document.getElementById(i + "Button").remove();
         }
-        document.getElementById("numShips").style= "visibility: visible";
+        document.getElementById("numShips").style= "display: block";
         document.getElementById("visibleButtons2").style= "visibility: visible";
     }
 }
@@ -192,14 +98,114 @@ function numShipFunction(num) {
     }
 };
 
-function displayShip()
+function displayShip(x,y)
 {
-
+  if(placingNum == 1)      {ship = document.getElementById("firstShip");}
+  else if(placingNum == 2) {ship = document.getElementById("secondShip");}
+  else if(placingNum == 3) {ship = document.getElementById("thirdShip");}
+  else if(placingNum == 4) {ship = document.getElementById("fourthShip");}
+  else if(placingNum == 5) {ship = document.getElementById("fifthShip");}
+  if(playerOneShips.length < numShips)
+  {
+		if(horizontal)
+		{
+    	ship.style.left = (posB[0] + (x-1)*64) + "px";
+    	ship.style.top = (posB[1] + (y-1) *70)  + "px";
+			ship.style.transform = "rotate(0deg)";
+		}
+		else
+		{
+			ship.style.left = (posB[0] + ((x-1)*64)-((placingNum-1)*32)) + "px";
+			ship.style.top = (posB[1] + ((y-1) *70)+(placingNum-1)*36)   + "px";
+			ship.style.transform = "rotate(90deg)";
+		}
+		ship.style.visibility = "visible";
+  }
+  else if (playerTwoPlacementReady)
+  {
+		if(horizontal)
+		{
+			ship.style.left = (posB[0] + (x-1)*64) + "px";
+			ship.style.top = (posB[1] + (y-1) *70)  + "px";
+			ship.style.transform = "rotate(0deg)";
+		}
+		else
+		{
+			ship.style.left = (posB[0] + ((x-1)*64)-((placingNum-1)*32)) + "px";
+			ship.style.top = (posB[1] + ((y-1) *70)+(placingNum-1)*36)   + "px";
+			ship.style.transform = "rotate(90deg)";
+		}
+		ship.style.visibility = "visible";
+	}
 }
 
+function switchShips(flag)
+{
+  if(flag && !(placing))
+  {
+		updateCoords();
+    for(i = 0; i<numShips;i++)
+    {
+      if(i == 0)      {ship = document.getElementById("firstShip");}
+      else if(i == 1) {ship = document.getElementById("secondShip");}
+      else if(i == 2) {ship = document.getElementById("thirdShip");}
+      else if(i == 3) {ship = document.getElementById("fourthShip");}
+      else if(i == 4) {ship = document.getElementById("fifthShip");}
+      if(player == 1)
+			{
+				if(playerOneShips[i][2])
+				{
+					ship.style.left = (posB[0] + (playerOneShips[i][0])*64) + "px";
+					ship.style.top = (posB[1] + (playerOneShips[i][1]) *70)  + "px";
+					ship.style.transform = "rotate(0deg)";
+				}
+				else
+				{
+					ship.style.left = (posB[0] + ((playerOneShips[i][0])*64)-(i)*32) + "px";
+					ship.style.top = (posB[1] + ((playerOneShips[i][2]) *70)+(i)*36)   + "px";
+					ship.style.transform = "rotate(90deg)";
+				}
+				ship.style.visibility = "visible";
+			}
+			else
+			{
+				if(playerTwoShips[i][2])
+				{
+					ship.style.left = (posB[0] + (playerTwoShips[i][0])*64) + "px";
+					ship.style.top = (posB[1] + (playerTwoShips[i][1]) *70)  + "px";
+					ship.style.transform = "rotate(0deg)";
+				}
+				else
+				{
+					ship.style.left = (posB[0] + ((playerTwoShips[i][0])*64)-((i)*32)) + "px";
+					ship.style.top = (posB[1] + ((playerTwoShips[i][2]) *70)+(i)*36)   + "px";
+					ship.style.transform = "rotate(90deg)";
+				}
+				ship.style.visibility = "visible";
+			}
+    }
+  }
+  else
+  {
+      document.getElementById("firstShip").style.visibility = "hidden";
+      document.getElementById("secondShip").style.visibility = "hidden";
+      document.getElementById("thirdShip").style.visibility = "hidden";
+      document.getElementById("fourthShip").style.visibility = "hidden";
+      document.getElementById("fifthShip").style.visibility = "hidden";
+			console.log("hide");
+  }
+}
 function hideShip()
 {
-
+    if(placing && !placingFinished)
+    {
+      if(placingNum == 1)      {ship = document.getElementById("firstShip");}
+      else if(placingNum == 2) {ship = document.getElementById("secondShip");}
+      else if(placingNum == 3) {ship = document.getElementById("thirdShip");}
+      else if(placingNum == 4) {ship = document.getElementById("fourthShip");}
+      else if(placingNum == 5) {ship = document.getElementById("fifthShip");}
+      ship.style.visibility = "hidden";
+    }
 }
 
 /**
@@ -209,15 +215,27 @@ function toggleDirection() {
     horizontal = !horizontal;
 
     let place_dir = "";
-    if (horizontal) {
-        place_dir = "Horizontally";
-    } else {
-        place_dir = "Vertically";
-    }
+		if(!placingFinished)
+		{
+	    if (horizontal) {
+	        place_dir = "Horizontally";
+	        if(placingNum == 1)      {ship = document.getElementById("firstShip").style.transform = "rotate(0deg)";}
+	        else if(placingNum == 2) {ship = document.getElementById("secondShip").style.transform = "rotate(0deg)";}
+	        else if(placingNum == 3) {ship = document.getElementById("thirdShip").style.transform = "rotate(0deg)";}
+	        else if(placingNum == 4) {ship = document.getElementById("fourthShip").style.transform = "rotate(0deg)";}
+	        else if(placingNum == 5) {ship = document.getElementById("fifthShip").style.transform = "rotate(0deg)";}
+	    } else {
+	        place_dir = "Vertically";
+	        if(placingNum == 1)      {ship = document.getElementById("firstShip").style.transform = "rotate(90deg)";}
+	        else if(placingNum == 2) {ship = document.getElementById("secondShip").style.transform = "rotate(90deg)";}
+	        else if(placingNum == 3) {ship = document.getElementById("thirdShip").style.transform = "rotate(90deg)";}
+	        else if(placingNum == 4) {ship = document.getElementById("fourthShip").style.transform = "rotate(90deg)";}
+	        else if(placingNum == 5) {ship = document.getElementById("fifthShip").style.transform = "rotate(90deg)";}
+	    }
+		}
+
     document.getElementById('toggleDir').innerHTML = 'Placing ' + place_dir;
 }
-
-
 
 /**
  * Place a ship on the given board based on length.
@@ -231,6 +249,20 @@ function toggleDirection() {
  */
 function placeShip(row, col, board, length, horizontal) {
     if (checkPlacement(row, col, board, length, horizontal)) {
+        if(playerOneShips.length < numShips)
+				{
+					playerOneShips[length-1] = [col,row,horizontal];
+					if(playerOneShips.length == numShips){placingFinished = true;}
+				}
+        else if(playerOneShips.length == numShips && playerTwoShips.length <= numShips)
+        {
+          playerTwoShips[length-1] = [col,row,horizontal];
+          if(!placingFinished && placingNum == numShips)
+					{
+						placingFinished = true;
+						playerTwoPlacementReady = false;
+					}
+        }
         for (i = 0; i < length; i++) {
             if (horizontal) {
                 board[row][col + i] = "@" + length;
@@ -289,7 +321,7 @@ function checkPlacement(row, col, board, length, horizontal) {
  * Initialize the player boards to their default empty values (*).
  */
 function createBoards() {
-    console.log("the boards were created");
+    //console.log("the boards were created");
     for (i = 0; i < 9; i++) {
         board1[i] = [];
         board2[i] = [];
@@ -308,7 +340,7 @@ function createBoards() {
  * @param {number} row The row that was clicked.
  */
 function clickCheck(board_num, col, row) {
-    console.log(board_num, row, col);
+    //console.log(board_num, row, col);
     if (placing && !waitForSwitch) {
         if (numShips == 0 || board_num !== 2) {
             // Have not selected number of ships or clicked wrong board
@@ -327,7 +359,7 @@ function clickCheck(board_num, col, row) {
             } else {
                 placing = false;
                 waitForSwitch = true;
-                document.getElementById('toggleDir').style.visibility = 'hidden';
+                document.getElementById('toggleDir').style.display = 'none';
             }
         }
         if (placing) {
@@ -367,7 +399,12 @@ function getBoard(num = NaN) {
  * Check if the turn is over and then switch the current player.
  */
 function switchPlayer() {
-    if (waitForSwitch) {
+		if (waitForSwitch) {
+        if(placing && placingFinished)
+        {
+          playerTwoPlacementReady = true;
+          placingFinished = false;
+        }
         if (player == 1) {
             player = 2;
             hideBoards();
@@ -384,12 +421,14 @@ function switchPlayer() {
         }
         document.getElementById('ships').innerHTML = 'Click Ready';
         horizontal = true;
+				toggleDirection();
         waitForSwitch = false;
         document.getElementById('ready').style.display = 'inline-block';
         document.querySelector("#result").innerText = "  ";
     }
     else {
-        document.querySelector("#result").innerText = " You have not finished your turn! ";
+        document.querySelector("#result").innerText = " Turn not finished! ";
+				switchShips(true);
     }
     checkForWinner();
 }
@@ -410,6 +449,7 @@ function drawBoards() {
     } else {
         document.getElementById('ships').innerHTML = 'Choose where to shoot on enemy\'s board';
     }
+		switchShips(true);
 }
 
 /**
@@ -421,6 +461,7 @@ function hideBoards() {
     document.getElementsByClassName('boardSeparator')[0].style.visibility = 'hidden';
     document.getElementsByClassName('boardSeparator')[1].style.visibility = 'hidden';
     document.getElementById('switch').style.display = 'none';
+		switchShips(false);
 }
 
 /**
@@ -599,11 +640,13 @@ function checkForShip(row, col) {
     }
     else {
         document.querySelector("#result").innerText = " You have already guessed here, please try again. ";
+				switchShips(true);
         return false;
     }
     drawGuessBoard(board);
     drawPlayerBoard(otherBoard);
     document.getElementById('ships').innerHTML = 'Click Switch Players';
+		switchShips(true);
     return true;
 }
 
