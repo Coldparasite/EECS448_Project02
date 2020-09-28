@@ -9,7 +9,7 @@ var docPos;
 var defaultAPos;
 var defaultBPos;
 
-var defaultPageOffset;
+//var defaultPageOffset;
 
 var A; //right
 var B; //left
@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function updateCoords() {
 	if (contentLoaded) {
+		//document.body.style.transform = "scale(1)";
 		doc = document.body.getBoundingClientRect();
 		docPos = [doc.left, doc.top];
 
@@ -76,31 +77,16 @@ function updateCoords() {
 			defaultAPos = posA;
 			defaultBPos = posB;
 
-			defaultPageOffset = [window.pageXOffset, window.pageYOffset];
+			//defaultPageOffset = [window.pageXOffset, window.pageYOffset];
 
-			makeFire(gridA[[3, 3]], -1);
+			ignite(gridA[[3, 3]]);
 
-			print(gridA);
+			//print(gridA);
 			init = false;
 		}
 		
-		offsetDiff = [window.pageXOffset-defaultPageOffset[0], window.pageYOffset-defaultPageOffset[1]];
+		//offsetDiff = [window.pageXOffset-defaultPageOffset[0], window.pageYOffset-defaultPageOffset[1]];
 		difference = [posA[0]-defaultAPos[0], posA[1]-defaultAPos[1]];
-
-		if (init) {
-			defaultAPos = posA;
-			defaultBPos = posB;
-
-			defaultPageOffset = [window.pageXOffset, window.pageYOffset];
-
-			makeFire(gridA[[3, 3]], -1);
-
-			print(gridA);
-			init = false;
-		}
-		
-		offsetDiff = [window.pageXOffset-defaultPageOffset[0], window.pageYOffset-defaultPageOffset[1]];
-		difference = [posA[0]-defaultAPos[0]+offsetDiff[0], posA[1]-defaultAPos[1]+offsetDiff[1]];
 
 	}
 }

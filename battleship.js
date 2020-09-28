@@ -300,7 +300,6 @@ function checkPlacement(row, col, board, length, horizontal) {
             }
         }
     }
-	makeFire([mouseX, mouseY]);
     return valid;
 }
 
