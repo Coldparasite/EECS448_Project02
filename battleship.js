@@ -36,7 +36,7 @@ function AIChoice(num){
         for (let i = 1; i < 3; i++){
             document.getElementById(i + "Button").remove();
         }
-        document.getElementById("visibleButtons").style= "visibility: visible";
+        document.getElementById("visibleButtons").style= "display: block";
         document.getElementById("AIDifficulty").style= "visibility: visible";
     }
     else{
@@ -44,7 +44,7 @@ function AIChoice(num){
         for (let i = 1; i < 3; i++){
             document.getElementById(i + "Button").remove();
         }
-        document.getElementById("numShips").style= "visibility: visible";
+        document.getElementById("numShips").style= "display: block";
         document.getElementById("visibleButtons2").style= "visibility: visible";
     }
 }
@@ -317,7 +317,6 @@ function checkPlacement(row, col, board, length, horizontal) {
             }
         }
     }
-	makeFire([mouseX, mouseY]);
     return valid;
 }
 
@@ -363,7 +362,7 @@ function clickCheck(board_num, col, row) {
             } else {
                 placing = false;
                 waitForSwitch = true;
-                document.getElementById('toggleDir').style.visibility = 'hidden';
+                document.getElementById('toggleDir').style.display = 'none';
             }
         }
         if (placing) {
@@ -431,7 +430,7 @@ function switchPlayer() {
         document.querySelector("#result").innerText = "  ";
     }
     else {
-        document.querySelector("#result").innerText = " You have not finished your turn! ";
+        document.querySelector("#result").innerText = " Turn not finished! ";
 				switchShips(true);
     }
     checkForWinner();

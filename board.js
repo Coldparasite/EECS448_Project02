@@ -1,15 +1,12 @@
 /*
 
 */
-contentLoaded = false;
 
 var doc;
 var docPos;
 
 var defaultAPos;
 var defaultBPos;
-
-var defaultPageOffset;
 
 var A; //right
 var B; //left
@@ -31,8 +28,8 @@ var gridA;
 var gridB;
 
 var difference;
-var offsetDifference;
 
+var contentLoaded = false;
 var init = true;
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -71,6 +68,18 @@ function updateCoords() {
 				gridB[[i, j]] = [posB[0] + gridSize[0]*i + gridStyle.border[0] + window.pageXOffset, posB[1] + gridSize[1]*j + gridStyle.border[1] + window.pageYOffset];
 			}
 		}
+
+		if (init) {
+			defaultAPos = posA;
+			defaultBPos = posB;
+
+			ignite(gridA[[3, 3]]);
+
+			init = false;
+		}
+		
+		difference = [posA[0]-defaultAPos[0], posA[1]-defaultAPos[1]];
+
 	}
 }
 function getStyle(element) {
