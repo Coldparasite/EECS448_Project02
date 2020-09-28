@@ -20,6 +20,9 @@ animationLoop = function() {
 	particles.draw(display);
 
 	updatePeripherals();
+
+	var img = document.getElementById("testAnimation");
+	display.drawImage(img,0,0,64,64);
 	window.requestAnimationFrame(animationLoop);
 }
 

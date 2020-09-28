@@ -64,4 +64,3 @@ function updatePeripherals() {
 function getClick() {
 	return !mouseDown && !mouseUp;
 }
-

@@ -19,6 +19,7 @@ function print(message) {
 	console.log(message);
 }
 
+
 /* * = empty
     M = Miss
     H = Hit
@@ -84,8 +85,14 @@ function numShipFunction(num) {
     }
 };
 
+/**
+* Shows the ship currently being placed on the screen.
+* @param {x} num The x coordinate on the grid.
+* @param {y} num The y coordinate on the grid.
+*/
 function displayShip(x,y)
 {
+	playAction(0,0);
   if(placingNum == 1)      {ship = document.getElementById("firstShip");}
   else if(placingNum == 2) {ship = document.getElementById("secondShip");}
   else if(placingNum == 3) {ship = document.getElementById("thirdShip");}
@@ -125,6 +132,11 @@ function displayShip(x,y)
 	}
 }
 
+/**
+* Places the ships on the screen at the start of each players turn or hides them
+* at the end of the turn.
+* @param {flag} boolean determines if the ships are supposed to be on screen.
+*/
 function switchShips(flag)
 {
   if(flag && !(placing))
@@ -181,6 +193,11 @@ function switchShips(flag)
 			console.log("hide");
   }
 }
+
+/**
+* Hides the ships when the mouse is no longer over a cell during the placement
+* of ships.
+*/
 function hideShip()
 {
     if(placing && !placingFinished)
@@ -635,6 +652,13 @@ function checkForShip(row, col) {
     document.getElementById('ships').innerHTML = 'Click Switch Players';
 		switchShips(true);
     return true;
+}
+
+function playAction(row,col)
+{
+	console.log("play");
+	var img = document.getElementById("testAnimation");
+ 	display.drawImage(img,0,0,64,64);
 }
 
 /**
