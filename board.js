@@ -72,11 +72,6 @@ function updateCoords() {
 			}
 		}
 
-<<<<<<< HEAD
-		if (printing) {
-			print(gridB);
-			printing = false;
-=======
 		if (init) {
 			defaultAPos = posA;
 			defaultBPos = posB;
@@ -87,11 +82,10 @@ function updateCoords() {
 
 			print(gridA);
 			init = false;
->>>>>>> d5af7988a8a99abce0ea5ba3e2b371bd55c16fcd
 		}
 		
 		offsetDiff = [window.pageXOffset-defaultPageOffset[0], window.pageYOffset-defaultPageOffset[1]];
-		difference = [posA[0]-defaultAPos[0]+offsetDiff[0], posA[1]-defaultAPos[1]+offsetDiff[1]];
+		difference = [posA[0]-defaultAPos[0], posA[1]-defaultAPos[1]];
 
 	}
 }

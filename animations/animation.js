@@ -12,12 +12,14 @@ animationLoop = function() {
 	if (mouseDown) {
 		makeFire([mouseX-difference[0], mouseY-difference[1]], 10);
 	}
+
 	if (getClick()) {
 		print(gridA);
 		print(difference);
 		print(offsetDiff);
 		print(mousePos);
 	}
+
 	particles.generate(difference);
 	particles.update();
 	particles.draw(display);
