@@ -87,9 +87,23 @@ function updateCoords() {
 		offsetDiff = [window.pageXOffset-defaultPageOffset[0], window.pageYOffset-defaultPageOffset[1]];
 		difference = [posA[0]-defaultAPos[0], posA[1]-defaultAPos[1]];
 
+		if (init) {
+			defaultAPos = posA;
+			defaultBPos = posB;
+
+			defaultPageOffset = [window.pageXOffset, window.pageYOffset];
+
+			makeFire(gridA[[3, 3]], -1);
+
+			print(gridA);
+			init = false;
+		}
+		
+		offsetDiff = [window.pageXOffset-defaultPageOffset[0], window.pageYOffset-defaultPageOffset[1]];
+		difference = [posA[0]-defaultAPos[0]+offsetDiff[0], posA[1]-defaultAPos[1]+offsetDiff[1]];
+
 	}
 }
-
 function getStyle(element) {
 	var style = element.currentStyle || window.getComputedStyle(element);
 	var attributes = {

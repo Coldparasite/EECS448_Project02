@@ -10,13 +10,10 @@ animationLoop = function() {
 
 	display.clearRect(0, 0, canvas.width, canvas.height);
 	if (mouseDown) {
-		makeFire([mouseX-difference[0], mouseY-difference[1]], 10);
+		makeFire(mousePos, 10);
 	}
 
 	if (getClick()) {
-		print(gridA);
-		print(difference);
-		print(offsetDiff);
 		print(mousePos);
 	}
 
@@ -33,4 +30,3 @@ makeFire = function(pos, duration=1) {
 }
 
 window.requestAnimationFrame(animationLoop);
-
