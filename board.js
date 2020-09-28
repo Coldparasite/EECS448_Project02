@@ -1,15 +1,12 @@
 /*
 
 */
-contentLoaded = false;
 
 var doc;
 var docPos;
 
 var defaultAPos;
 var defaultBPos;
-
-//var defaultPageOffset;
 
 var A; //right
 var B; //left
@@ -31,8 +28,8 @@ var gridA;
 var gridB;
 
 var difference;
-var offsetDifference;
 
+var contentLoaded = false;
 var init = true;
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -42,7 +39,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function updateCoords() {
 	if (contentLoaded) {
-		//document.body.style.transform = "scale(1)";
 		doc = document.body.getBoundingClientRect();
 		docPos = [doc.left, doc.top];
 
@@ -77,15 +73,11 @@ function updateCoords() {
 			defaultAPos = posA;
 			defaultBPos = posB;
 
-			//defaultPageOffset = [window.pageXOffset, window.pageYOffset];
-
 			ignite(gridA[[3, 3]]);
 
-			//print(gridA);
 			init = false;
 		}
 		
-		//offsetDiff = [window.pageXOffset-defaultPageOffset[0], window.pageYOffset-defaultPageOffset[1]];
 		difference = [posA[0]-defaultAPos[0], posA[1]-defaultAPos[1]];
 
 	}

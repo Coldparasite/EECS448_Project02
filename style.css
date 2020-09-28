@@ -1,5 +1,14 @@
-body {
-	position: fixed;
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	overflow: hidden;
+	display: block;
+}
+
+p {
+	margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
 }
 
 h1{
@@ -11,7 +20,19 @@ h1{
 }
 
 h2 {
+	margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
     text-align: center;
+}
+
+.interface {
+	display: flex;
+	justify-content: center;
+}
+
+.buttons {
+	padding-left: 96px;
+	padding-right: 54px;
 }
 
 .shipButtons {
@@ -19,10 +40,12 @@ h2 {
 }
 
 .playerButtons{
+	padding-top: 16px;
     text-align: center;
 }
 
 .difficultyButtons{
+	display: none;
     text-align: center;
 }
 
@@ -39,8 +62,10 @@ h2 {
 }
 
 .canvas {
+	left: 0px;
+	top: 0px;
 	pointer-events: none;
-	position: fixed;
+	position: absolute;
 	z-index: 1;
 }
 
@@ -52,14 +77,14 @@ h2 {
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(10, 64px);
-    padding: 64px;
+    grid-template-columns: repeat(10, 56px);
+	justify-content: center;
 }
 
 .numLabels{
     font-style: oblique;
     font-weight: bold;
-    line-height: 70px;
+    line-height: 62px;
     text-align: center;
 }
 
@@ -72,12 +97,13 @@ h2 {
   color: white;
   text-align: center;
   vertical-align: middle;
-  line-height: 64px;
-  height: 64px;
-  width: 64px;
+  line-height: 56px;
+  height: 56px;
+  width: 56px;
 }
 #buttons{
   text-align: center;
+  padding-bottom: 16px;
 
 }
 #switch {
@@ -111,7 +137,7 @@ h2 {
 
 }
 
-#switch:hover,#ready:hover {
+#switch:hover, #ready:hover {
     background-color: red;
     border: none;
     color: white;

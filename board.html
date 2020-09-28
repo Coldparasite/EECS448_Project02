@@ -16,42 +16,12 @@
 <h1>Battleship</h1>
 
 <h2 id= "playerChoice">Do you want to play the AI or another Player?</h2>
-<div class= "playerButtons">
-    <button onclick= "AIChoice(1)" id= "1Button">AI</button>
-    <button onclick= "AIChoice(2)" id= "2Button">Player</button>
-</div>
-
 <h2 id= "AIDifficulty" style= "visibility: hidden; position: absolute">Choose the difficulty of the AI</h2>
-<div class= "difficultyButtons" id= "visibleButtons" style= "visibility: hidden">
-    <button onclick= "AILevel(1)" id= "1Difficulty">Easy</button>
-    <button onclick= "AILevel(2)" id= "2Difficulty">Medium</button>
-    <button onclick= "AILevel(3)" id= "3Difficulty">Hard</button>
-
-</div>
-
 <h2 id="numShips" style= "visibility: hidden; position: absolute">How many ships do you want?</h2>
-<div class="shipButtons" id= "visibleButtons2" style= "visibility: hidden">
-    <button onclick="numShipFunction(1)" id="1Ship">1</button>
-    <button onclick="numShipFunction(2)" id="2Ship">2</button>
-    <button onclick="numShipFunction(3)" id="3Ship">3</button>
-    <button onclick="numShipFunction(4)" id="4Ship">4</button>
-    <button onclick="numShipFunction(5)" id="5Ship">5</button>
-</div>
-
-<p id="ships"> </p>
-
 <h2 id="playersTurn"> </h2> <!-- This is where you place Player 1 or Player 2 whenever we swtich turns -->
 
-<br>
-
-<h2 id="result"></h2>
-<div id="buttons">
-    <button id="ready" onclick="drawBoards()" style="display:none">Ready</button>
-    <button id="switch" onclick="switchPlayer()">Switch Players</button>
-    <br>
-    <button onclick="toggleDirection()" id="toggleDir">Placing Horizontally</button>
-</div>
-<div id="boardContainer">
+<p id="ships"> </p>
+<div id="interface" class="interface">
     <!-- BOARD B -->
     <div class="boardSeparator">
         <h2 id="boardlabelB", style="text-align: center;">Your Board</h2>
@@ -146,7 +116,7 @@
                 <div class="cell empty" id="B73" onclick="clickCheck(2,7,3)" onmouseover = "displayShip(7,3)" onmouseout = "hideShip()"></div>
                 <div class="cell empty" id="B74" onclick="clickCheck(2,7,4)" onmouseover = "displayShip(7,4)" onmouseout = "hideShip()"></div>
                 <div class="cell empty" id="B75" onclick="clickCheck(2,7,5)" onmouseover = "displayShip(7,5)" onmouseout = "hideShip()"></div>
-                <div class="cell empty" id="B76" onclick="clickCheck(2,7,6)" onmouseover = "displayShip(7,6)" onmouseout = "hideShip()"></div>
+				<div class="cell empty" id="B76" onclick="clickCheck(2,7,6)" onmouseover = "displayShip(7,6)" onmouseout = "hideShip()"></div>
                 <div class="cell empty" id="B77" onclick="clickCheck(2,7,7)" onmouseover = "displayShip(7,7)" onmouseout = "hideShip()"></div>
                 <div class="cell empty" id="B78" onclick="clickCheck(2,7,8)" onmouseover = "displayShip(7,8)" onmouseout = "hideShip()"></div>
                 <div class="cell empty" id="B79" onclick="clickCheck(2,7,9)" onmouseover = "displayShip(7,9)" onmouseout = "hideShip()"></div>
@@ -178,6 +148,38 @@
 
         </div>
     </div>
+
+	<div id="buttons" class="buttons">
+    <button id="ready" onclick="drawBoards()" style="display:none">Ready</button>
+    <button id="switch" onclick="switchPlayer()">Switch Players</button>
+    <br>
+    <button onclick="toggleDirection()" id="toggleDir">Placing Horizontally</button>
+
+
+<div class= "playerButtons">
+    <button onclick= "AIChoice(1)" id= "1Button">AI</button>
+    <button onclick= "AIChoice(2)" id= "2Button">Player</button>
+</div>
+
+<div class= "difficultyButtons" id= "visibleButtons" style= "visibility: hidden">
+    <button onclick= "AILevel(1)" id= "1Difficulty">Easy</button>
+    <button onclick= "AILevel(2)" id= "2Difficulty">Medium</button>
+    <button onclick= "AILevel(3)" id= "3Difficulty">Hard</button>
+
+</div>
+
+<div class="shipButtons" id= "visibleButtons2" style= "visibility: hidden">
+    <button onclick="numShipFunction(1)" id="1Ship">1</button>
+    <button onclick="numShipFunction(2)" id="2Ship">2</button>
+    <button onclick="numShipFunction(3)" id="3Ship">3</button>
+    <button onclick="numShipFunction(4)" id="4Ship">4</button>
+    <button onclick="numShipFunction(5)" id="5Ship">5</button>
+</div>
+<h2 id="result"></h2>
+
+<br>
+</div>
+
     <!-- BOARD A -->
     <div class="boardSeparator">
         <h2 id="boardlabelA", style="text-align: center;">Enemy Board</h2>
@@ -303,7 +305,7 @@
             </div>
         </div>
     </div>
-  </div>
+ </div>
   <!-- Player 1 ships -->
   <img id = "firstShip" src = "assets/patrolship.png" style = "visibility: hidden;position:absolute;z-index: 2; left: 100; top: 100; width: 64px; height: 64px;pointer-events: none; overflow:hidden">
   <img id = "secondShip" src = "assets/submarine.png" style = "visibility: hidden;position:absolute;z-index: 2; left: 100; top: 100; width: 128px; height: 64px;pointer-events: none;overflow:hidden">

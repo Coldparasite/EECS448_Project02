@@ -10,7 +10,7 @@ animationLoop = function() {
 
 	display.clearRect(0, 0, canvas.width, canvas.height);
 	//if (mouseDown) {
-	//	makeFire([mouseX-difference[0], mouseY-difference[1]], 10);
+	//	ignite([mouseX-difference[0], mouseY-difference[1]], 10);
 	//}
 
 	//if (getClick()) {
