@@ -631,14 +631,17 @@ function checkForShip(row, col) {
     if (board[row - 1][col - 1] == '*') {
         board[row - 1][col - 1] = 'M';
         document.querySelector("#result").innerText = " MISS ";
+				playMissAnimation();
     }
     else if (board[row - 1][col - 1].startsWith('@')) {
         let shipNum = board[row - 1][col - 1][1];
         board[row - 1][col - 1] = 'H' + shipNum;
         if (checkSunk(board, shipNum)) {
             document.querySelector("#result").innerText = " SUNK! ";
+						playSunkAnimation();
         } else {
             document.querySelector("#result").innerText = " HIT ";
+						playHitAnimation(col,row);
         }
     }
     else {
