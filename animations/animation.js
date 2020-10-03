@@ -15,12 +15,11 @@ var particles = [boards["right"], boards["left"], global];
 
 animationLoop = function() {
 	updateCoords();
-
 	display.clearRect(0, 0, canvas.width, canvas.height);
 	//if (mouseDown) {
 	//	ignite([mouseX-difference[0], mouseY-difference[1]], 10);
 	//}
-	
+
 	/*
 	if (getClick()) {
 		print(player);
@@ -31,9 +30,9 @@ animationLoop = function() {
 		print("\n");
 	}
 	*/
-	
+
 	//iteratively update particle systems
-	for (var system of this) {
+	for (var system of particles) {
 		system.generate(scale);
 		system.update();
 		system.draw(display);
