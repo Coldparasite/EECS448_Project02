@@ -27,7 +27,7 @@ var gridSize = null;
 var gridA;
 var gridB;
 
-var difference;
+var scale;
 
 var contentLoaded = false;
 var init = true;
@@ -73,15 +73,18 @@ function updateCoords() {
 			defaultAPos = posA;
 			defaultBPos = posB;
 
-			ignite(gridA[[3, 3]]);
-
 			init = false;
 		}
 		
-		difference = [posA[0]-defaultAPos[0], posA[1]-defaultAPos[1]];
+		scale = [posA[0]-defaultAPos[0], posA[1]-defaultAPos[1]];
 
 	}
 }
+
+function getGridCenter(pos) {
+	return [pos[0]+gridSize[0]/2, pos[1]+gridSize[1]/2];
+}
+
 function getStyle(element) {
 	var style = element.currentStyle || window.getComputedStyle(element);
 	var attributes = {
@@ -89,6 +92,6 @@ function getStyle(element) {
 			margin: [parseFloat(style.marginLeft), parseFloat(style.marginTop)],
 			padding: [parseFloat(style.paddingLeft), parseFloat(style.paddingTop)],
 			border: [parseFloat(style.borderLeftWidth), parseFloat(style.borderTopWidth)],
-	};
+	}
 	return attributes;
 }
