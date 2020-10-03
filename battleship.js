@@ -19,7 +19,6 @@ function print(message) {
 	console.log(message);
 }
 
-
 /* * = empty
     M = Miss
     H = Hit

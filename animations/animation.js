@@ -7,7 +7,7 @@ var global = new ParticleSystem();
 var boards = {
 				"right": new ParticleSystem(),
 				"left": new ParticleSystem(),
-			}
+			};
 
 //particles.deactivate();
 
@@ -20,7 +20,8 @@ animationLoop = function() {
 	//if (mouseDown) {
 	//	ignite([mouseX-difference[0], mouseY-difference[1]], 10);
 	//}
-
+	
+	/*
 	if (getClick()) {
 		print(player);
 		print("Board A: "+gridA[[0,0]]);
@@ -29,11 +30,14 @@ animationLoop = function() {
 		print("Mouse: " + mousePos);
 		print("\n");
 	}
-
+	*/
+	
 	//iteratively update particle systems
-	global.generate(scale);
-	global.update();
-	global.draw(display);
+	for (var system of this) {
+		system.generate(scale);
+		system.update();
+		system.draw(display);
+	}
 
 	updatePeripherals();
 
