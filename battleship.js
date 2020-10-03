@@ -12,6 +12,7 @@ var placingFinished = false;
 var playerTwoPlacementReady = false;
 var playerOneShips = [];
 var playerTwoShips = [];
+var difficulty = "";
 var isAI= false;
 var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
 
@@ -57,6 +58,7 @@ function AILevel(num){
         }
         document.getElementById("numShips").style= "visibility: visible";
         document.getElementById("visibleButtons2").style= "visibility: visible";
+        difficulty = "Easy";
     }
     else if(num == 2){
         document.getElementById("AIDifficulty").remove();
@@ -65,6 +67,7 @@ function AILevel(num){
         }
         document.getElementById("numShips").style= "visibility: visible";
         document.getElementById("visibleButtons2").style= "visibility: visible";
+        difficulty = "Medium";
     }
     else{
         document.getElementById("AIDifficulty").remove();
@@ -73,6 +76,7 @@ function AILevel(num){
         }
         document.getElementById("numShips").style= "visibility: visible";
         document.getElementById("visibleButtons2").style= "visibility: visible";
+        difficulty = "Hard";
     }
 }
 
@@ -399,6 +403,10 @@ function clickCheck(board_num, col, row) {
         document.getElementById('ready').style.display = 'none';
     }
 }
+/**
+ * Randomly place ships for AI
+ * @param {number} num The number of ships that need to be placed.
+ */
 function placeAIship(num)
 {
     let length =placingNum;
@@ -493,7 +501,17 @@ function switchPlayer() {
                     placing=false;
                 }
                 else{
-                    handleEasy();
+                    if(difficulty == "Easy")
+                    {
+                        handleEasy();
+                    }
+                    else if (difficulty == "Medium")
+                    {
+                        //handleMedium();
+                    }
+                    else{
+                        //handleHard();
+                    }
                 }
                 if(!checkForWinner())
                 {
@@ -518,6 +536,9 @@ function switchPlayer() {
     }
     checkForWinner();
 }
+/**
+ * Handles AI functionality when difficulty is Easy
+ */
 function handleEasy()
 {
     let row = 0;
