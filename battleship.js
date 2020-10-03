@@ -12,7 +12,7 @@ var placingFinished = false;
 var playerTwoPlacementReady = false;
 var playerOneShips = [];
 var playerTwoShips = [];
-
+var isAI= false;
 var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
 
 function print(message) {
@@ -37,6 +37,7 @@ function AIChoice(num){
         }
         document.getElementById("visibleButtons").style= "display: block";
         document.getElementById("AIDifficulty").style= "visibility: visible";
+        isAI = true;
     }
     else{
         document.getElementById("playerChoice").remove();
@@ -256,7 +257,10 @@ function placeShip(row, col, board, length, horizontal) {
                 board[row + i][col] = "@" + length;
             }
         }
-        drawPlayerBoard(board);
+        if (isAI ==false || player == 1)
+        {
+            drawPlayerBoard(board);
+        }
         return true;
     } else {
         return false;
@@ -280,7 +284,7 @@ function checkPlacement(row, col, board, length, horizontal) {
             valid = false;
         }
         else {
-            for (let i = 0; i < length; i++) {
+            for (let i = 0; i < length; i++) {  
                 if (board[row][col + i] != "*") {
                     valid = false;
                     break;
@@ -337,15 +341,31 @@ function clickCheck(board_num, col, row) {
                 placingNum++;
             }
         }
-        if (placingNum > numShips) {
-            document.getElementById('ready').style.display = 'none';
-            if (player == 1) {
-                placingNum = 1;
-                waitForSwitch = true;
-            } else {
-                placing = false;
-                waitForSwitch = true;
-                document.getElementById('toggleDir').style.display = 'none';
+        if (isAI==false)
+        {
+            if (placingNum > numShips) {
+                document.getElementById('ready').style.display = 'none';
+                if (player == 1) {
+                    placingNum = 1;
+                    waitForSwitch = true;
+                } else {
+                    placing = false;
+                    waitForSwitch = true;
+                    document.getElementById('toggleDir').style.display = 'none';
+                }
+            }
+        }
+        else
+        {
+            if (placingNum > numShips) {
+                document.getElementById('ready').style.display = 'none';
+                if (player == 1) {
+                    placingNum = 1;
+                    waitForSwitch = true;
+                    //placing = true;
+                    document.getElementById('toggleDir').style.display = 'none';
+                    
+                }
             }
         }
         if (placing) {
@@ -357,12 +377,41 @@ function clickCheck(board_num, col, row) {
         } else {
             document.getElementById('ships').innerHTML = 'Click Switch Players';
         }
-    } else if (board_num == 1 && !waitForSwitch) {
+    }
+    else if (board_num == 1 && !waitForSwitch) {
         waitForSwitch = checkForShip(row, col);
         document.getElementById('ready').style.display = 'none';
     }
 }
-
+function placeAIship(num)
+{
+    let length =placingNum;
+    do
+    {
+        let row = 10;
+        let col = 10;
+        let hori = true;
+        let orientation= 0;
+        do{
+            row = Math.floor(Math.random()*9)+1;
+            col = Math.floor(Math.random()*9)+1;
+            orientation =  Math.floor(Math.random()*2);
+            if(orientation == 0)
+            {
+                hori= false;
+            }
+            else{
+                hori =true;
+            }
+            //2 ship works 5 do not
+            
+        }while(!(checkPlacement(row-1, col-1, getBoard(), length, hori)));
+        
+        if (placeShip(row - 1, col - 1, getBoard(), placingNum, hori)) {
+            placingNum++;
+        }
+    }while (placingNum <= numShips);
+}
 /**
  * Get the current player board or by number.
  *
@@ -385,40 +434,83 @@ function getBoard(num = NaN) {
  * Check if the turn is over and then switch the current player.
  */
 function switchPlayer() {
-		if (waitForSwitch) {
-        if(placing && placingFinished)
+    if (waitForSwitch) {
+        if(isAI==false)
         {
-          playerTwoPlacementReady = true;
-          placingFinished = false;
+            if(placing && placingFinished)
+            {
+            playerTwoPlacementReady = true;
+            placingFinished = false;
+            }
+            if (player == 1) {
+                player = 2;
+                hideBoards();
+                drawGuessBoard(board1);
+                drawPlayerBoard(board2);
+                document.querySelector("#playersTurn").innerText = " It is now Player 2's turn! ";
+            }
+            else {
+                player = 1;
+                hideBoards();
+                drawGuessBoard(board2);
+                drawPlayerBoard(board1);
+                document.querySelector("#playersTurn").innerText = " It is now Player 1's turn! ";
+            }
+            document.getElementById('ships').innerHTML = 'Click Ready';
+            horizontal = true;
+                    toggleDirection();
+            waitForSwitch = false;
+            document.getElementById('ready').style.display = 'inline-block';
+            document.querySelector("#result").innerText = "  ";
         }
-        if (player == 1) {
-            player = 2;
-            hideBoards();
-            drawGuessBoard(board1);
-            drawPlayerBoard(board2);
-            document.querySelector("#playersTurn").innerText = " It is now Player 2's turn! ";
+        else
+        {
+            if (player == 1) {
+                player = 2; 
+                hideBoards();
+                drawGuessBoard(board2);
+                drawPlayerBoard(board1);
+                document.querySelector("#playersTurn").innerText = " It is now Player 2's turn! ";
+                if(placing)
+                {
+                    placeAIship(numShips);
+                    placing=false;
+                }
+                else{
+                    handleEasy();
+                }
+                if(!checkForWinner())
+                {
+                    player = 1;
+                    hideBoards();
+                    drawGuessBoard(board2);
+                    drawPlayerBoard(board1);
+                    document.querySelector("#playersTurn").innerText = " It is now Player 1's turn! ";
+                }
+            }
+            document.getElementById('ships').innerHTML = 'Click Ready';
+            horizontal = true;
+                    toggleDirection();
+            waitForSwitch = false;
+            document.getElementById('ready').style.display = 'inline-block';
+            document.querySelector("#result").innerText = "  ";
         }
-        else {
-            player = 1;
-            hideBoards();
-            drawGuessBoard(board2);
-            drawPlayerBoard(board1);
-            document.querySelector("#playersTurn").innerText = " It is now Player 1's turn! ";
-        }
-        document.getElementById('ships').innerHTML = 'Click Ready';
-        horizontal = true;
-				toggleDirection();
-        waitForSwitch = false;
-        document.getElementById('ready').style.display = 'inline-block';
-        document.querySelector("#result").innerText = "  ";
     }
     else {
         document.querySelector("#result").innerText = " Turn not finished! ";
-				switchShips(true);
+                switchShips(true);
     }
     checkForWinner();
 }
-
+function handleEasy()
+{
+    let row = 0;
+    let col = 0;
+    do{
+        row = Math.floor(Math.random()*9)+1;
+        col = Math.floor(Math.random()*9)+1;
+    }while(!(checkForShip(row, col)));       
+}
 /**
  * Set the boards to visible.
  */
