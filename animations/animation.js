@@ -89,16 +89,26 @@ function playFrame(x,y,frame)
 }
 
 
-function playMissAnimation()
+function playMissAnimation(x,y)
 {
+	frames = []
+	frames.push(document.getElementById("splash1"));
+	frames.push(document.getElementById("splash2"));
+	frames.push(document.getElementById("splash3"));
+	frames.push(document.getElementById("splash4"));
+	frames.push(document.getElementById("splash5"));
 
+	curX = x;
+	curY = y;
+	frameTimeOut = 1249;
+	window.requestAnimationFrame(renderFrame);
 	console.log("Miss");
 }
 
 /**
 * This function is the entry point to the hit animations
 * @param {number} x The left position on the screen
-* @param {number} y The top position on the screen 
+* @param {number} y The top position on the screen
 */
 function playHitAnimation(x,y)
 {
@@ -115,7 +125,6 @@ function playHitAnimation(x,y)
 	curX = x;
 	curY = y;
 	frameTimeOut = 1999;
-	currentFrame = 1;
 	window.requestAnimationFrame(renderFrame);
 
 }

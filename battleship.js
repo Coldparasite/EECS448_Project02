@@ -631,7 +631,7 @@ function checkForShip(row, col) {
     if (board[row - 1][col - 1] == '*') {
         board[row - 1][col - 1] = 'M';
         document.querySelector("#result").innerText = " MISS ";
-				playMissAnimation();
+				playMissAnimation(col,row);
     }
     else if (board[row - 1][col - 1].startsWith('@')) {
         let shipNum = board[row - 1][col - 1][1];
