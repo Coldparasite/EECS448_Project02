@@ -640,8 +640,9 @@ function checkForShip(row, col) {
             document.querySelector("#result").innerText = " SUNK! ";
 						for(i = 0; i < numShips; i ++)
 						{
-							if(player == 1 && (playerOneShips[i][0] < col && playerOneShips[i][1] == row))
+							if(player == 1)
 							{
+								if ((playerOneShips[i][0] < col <= playerOneShips[i][0]*i) && (playerOneShips[i][1] < row <= playerOneShips[i][1]*i))
 								playSunkAnimation();
 							}
 						}
