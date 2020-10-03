@@ -92,7 +92,7 @@ function numShipFunction(num) {
 */
 function displayShip(x,y)
 {
-	playAction(0,0);
+	//playAction(0,0);
   if(placingNum == 1)      {ship = document.getElementById("firstShip");}
   else if(placingNum == 2) {ship = document.getElementById("secondShip");}
   else if(placingNum == 3) {ship = document.getElementById("thirdShip");}
@@ -102,14 +102,14 @@ function displayShip(x,y)
   {
 		if(horizontal)
 		{
-    	ship.style.left = (posB[0] + (x-1)*64) + "px";
-    	ship.style.top = (posB[1] + (y-1) *70)  + "px";
+    	ship.style.left = (posB[0] + (x-1)*56) + "px";
+    	ship.style.top = (posB[1] + (y-1) *62)  + "px";
 			ship.style.transform = "rotate(0deg)";
 		}
 		else
 		{
-			ship.style.left = (posB[0] + ((x-1)*64)-((placingNum-1)*32)) + "px";
-			ship.style.top = (posB[1] + ((y-1) *70)+(placingNum-1)*36)   + "px";
+			ship.style.left = (posB[0] + ((x-1)*56)-((placingNum-1)*28)) + "px";
+			ship.style.top = (posB[1] + ((y-1) *62)+(placingNum-1)*31)   + "px";
 			ship.style.transform = "rotate(90deg)";
 		}
 		ship.style.visibility = "visible";
@@ -118,14 +118,14 @@ function displayShip(x,y)
   {
 		if(horizontal)
 		{
-			ship.style.left = (posB[0] + (x-1)*64) + "px";
-			ship.style.top = (posB[1] + (y-1) *70)  + "px";
+			ship.style.left = (posB[0] + (x-1)*56) + "px";
+			ship.style.top = (posB[1] + (y-1) *62)  + "px";
 			ship.style.transform = "rotate(0deg)";
 		}
 		else
 		{
-			ship.style.left = (posB[0] + ((x-1)*64)-((placingNum-1)*32)) + "px";
-			ship.style.top = (posB[1] + ((y-1) *70)+(placingNum-1)*36)   + "px";
+			ship.style.left = (posB[0] + ((x-1)*56)-((placingNum-1)*28)) + "px";
+			ship.style.top = (posB[1] + ((y-1) *62)+(placingNum-1)*31)   + "px";
 			ship.style.transform = "rotate(90deg)";
 		}
 		ship.style.visibility = "visible";
@@ -153,14 +153,14 @@ function switchShips(flag)
 			{
 				if(playerOneShips[i][2])
 				{
-					ship.style.left = (posB[0] + (playerOneShips[i][0])*64) + "px";
-					ship.style.top = (posB[1] + (playerOneShips[i][1]) *70)  + "px";
+					ship.style.left = (posB[0] + (playerOneShips[i][0])*56) + "px";
+					ship.style.top = (posB[1] + (playerOneShips[i][1]) *62)  + "px";
 					ship.style.transform = "rotate(0deg)";
 				}
 				else
 				{
-					ship.style.left = (posB[0] + ((playerOneShips[i][0])*64)-(i)*32) + "px";
-					ship.style.top = (posB[1] + ((playerOneShips[i][2]) *70)+(i)*36)   + "px";
+					ship.style.left = (posB[0] + ((playerOneShips[i][0])*56)-(i)*28) + "px";
+					ship.style.top = (posB[1] + ((playerOneShips[i][2]+1) *62)+(i)*31)   + "px";
 					ship.style.transform = "rotate(90deg)";
 				}
 				ship.style.visibility = "visible";
@@ -169,14 +169,14 @@ function switchShips(flag)
 			{
 				if(playerTwoShips[i][2])
 				{
-					ship.style.left = (posB[0] + (playerTwoShips[i][0])*64) + "px";
-					ship.style.top = (posB[1] + (playerTwoShips[i][1]) *70)  + "px";
+					ship.style.left = (posB[0] + (playerTwoShips[i][0])*56) + "px";
+					ship.style.top = (posB[1] + (playerTwoShips[i][1]) *62)  + "px";
 					ship.style.transform = "rotate(0deg)";
 				}
 				else
 				{
-					ship.style.left = (posB[0] + ((playerTwoShips[i][0])*64)-((i)*32)) + "px";
-					ship.style.top = (posB[1] + ((playerTwoShips[i][2]) *70)+(i)*36)   + "px";
+					ship.style.left = (posB[0] + ((playerTwoShips[i][0])*56)-((i)*28)) + "px";
+					ship.style.top = (posB[1] + ((playerTwoShips[i][2]+1) *62)+(i)*31)   + "px";
 					ship.style.transform = "rotate(90deg)";
 				}
 				ship.style.visibility = "visible";
