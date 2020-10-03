@@ -48,10 +48,6 @@ document.onmousemove = function(event) {
 	mousePos = [mouseX, mouseY];
 }
 
-function print(message) {
-	console.log(message);
-}
-
 function getMouseDown() {
 	return mouseDown;
 }
@@ -67,4 +63,3 @@ function updatePeripherals() {
 function getClick() {
 	return !mouseDown && !mouseUp;
 }
-

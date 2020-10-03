@@ -85,8 +85,14 @@ function numShipFunction(num) {
     }
 };
 
+/**
+* Shows the ship currently being placed on the screen.
+* @param {x} num The x coordinate on the grid.
+* @param {y} num The y coordinate on the grid.
+*/
 function displayShip(x,y)
 {
+	//playAction(0,0);
   if(placingNum == 1)      {ship = document.getElementById("firstShip");}
   else if(placingNum == 2) {ship = document.getElementById("secondShip");}
   else if(placingNum == 3) {ship = document.getElementById("thirdShip");}
@@ -96,14 +102,14 @@ function displayShip(x,y)
   {
 		if(horizontal)
 		{
-    	ship.style.left = (posB[0] + (x-1)*64) + "px";
-    	ship.style.top = (posB[1] + (y-1) *70)  + "px";
+    	ship.style.left = (posB[0] + (x-1)*56) + "px";
+    	ship.style.top = (posB[1] + (y-1) *62)  + "px";
 			ship.style.transform = "rotate(0deg)";
 		}
 		else
 		{
-			ship.style.left = (posB[0] + ((x-1)*64)-((placingNum-1)*32)) + "px";
-			ship.style.top = (posB[1] + ((y-1) *70)+(placingNum-1)*36)   + "px";
+			ship.style.left = (posB[0] + ((x-1)*56)-((placingNum-1)*28)) + "px";
+			ship.style.top = (posB[1] + ((y-1) *62)+(placingNum-1)*31)   + "px";
 			ship.style.transform = "rotate(90deg)";
 		}
 		ship.style.visibility = "visible";
@@ -112,20 +118,25 @@ function displayShip(x,y)
   {
 		if(horizontal)
 		{
-			ship.style.left = (posB[0] + (x-1)*64) + "px";
-			ship.style.top = (posB[1] + (y-1) *70)  + "px";
+			ship.style.left = (posB[0] + (x-1)*56) + "px";
+			ship.style.top = (posB[1] + (y-1) *62)  + "px";
 			ship.style.transform = "rotate(0deg)";
 		}
 		else
 		{
-			ship.style.left = (posB[0] + ((x-1)*64)-((placingNum-1)*32)) + "px";
-			ship.style.top = (posB[1] + ((y-1) *70)+(placingNum-1)*36)   + "px";
+			ship.style.left = (posB[0] + ((x-1)*56)-((placingNum-1)*28)) + "px";
+			ship.style.top = (posB[1] + ((y-1) *62)+(placingNum-1)*31)   + "px";
 			ship.style.transform = "rotate(90deg)";
 		}
 		ship.style.visibility = "visible";
 	}
 }
 
+/**
+* Places the ships on the screen at the start of each players turn or hides them
+* at the end of the turn.
+* @param {flag} boolean determines if the ships are supposed to be on screen.
+*/
 function switchShips(flag)
 {
   if(flag && !(placing))
@@ -142,14 +153,14 @@ function switchShips(flag)
 			{
 				if(playerOneShips[i][2])
 				{
-					ship.style.left = (posB[0] + (playerOneShips[i][0])*64) + "px";
-					ship.style.top = (posB[1] + (playerOneShips[i][1]) *70)  + "px";
+					ship.style.left = (posB[0] + (playerOneShips[i][0])*56) + "px";
+					ship.style.top = (posB[1] + (playerOneShips[i][1]) *62)  + "px";
 					ship.style.transform = "rotate(0deg)";
 				}
 				else
 				{
-					ship.style.left = (posB[0] + ((playerOneShips[i][0])*64)-(i)*32) + "px";
-					ship.style.top = (posB[1] + ((playerOneShips[i][2]) *70)+(i)*36)   + "px";
+					ship.style.left = (posB[0] + ((playerOneShips[i][0])*56)-(i)*28) + "px";
+					ship.style.top = (posB[1] + ((playerOneShips[i][2]+1) *62)+(i)*31)   + "px";
 					ship.style.transform = "rotate(90deg)";
 				}
 				ship.style.visibility = "visible";
@@ -158,14 +169,14 @@ function switchShips(flag)
 			{
 				if(playerTwoShips[i][2])
 				{
-					ship.style.left = (posB[0] + (playerTwoShips[i][0])*64) + "px";
-					ship.style.top = (posB[1] + (playerTwoShips[i][1]) *70)  + "px";
+					ship.style.left = (posB[0] + (playerTwoShips[i][0])*56) + "px";
+					ship.style.top = (posB[1] + (playerTwoShips[i][1]) *62)  + "px";
 					ship.style.transform = "rotate(0deg)";
 				}
 				else
 				{
-					ship.style.left = (posB[0] + ((playerTwoShips[i][0])*64)-((i)*32)) + "px";
-					ship.style.top = (posB[1] + ((playerTwoShips[i][2]) *70)+(i)*36)   + "px";
+					ship.style.left = (posB[0] + ((playerTwoShips[i][0])*56)-((i)*28)) + "px";
+					ship.style.top = (posB[1] + ((playerTwoShips[i][2]+1) *62)+(i)*31)   + "px";
 					ship.style.transform = "rotate(90deg)";
 				}
 				ship.style.visibility = "visible";
@@ -182,6 +193,11 @@ function switchShips(flag)
 			console.log("hide");
   }
 }
+
+/**
+* Hides the ships when the mouse is no longer over a cell during the placement
+* of ships.
+*/
 function hideShip()
 {
     if(placing && !placingFinished)
@@ -706,14 +722,23 @@ function checkForShip(row, col) {
     if (board[row - 1][col - 1] == '*') {
         board[row - 1][col - 1] = 'M';
         document.querySelector("#result").innerText = " MISS ";
+				playMissAnimation(col,row);
     }
     else if (board[row - 1][col - 1].startsWith('@')) {
         let shipNum = board[row - 1][col - 1][1];
         board[row - 1][col - 1] = 'H' + shipNum;
         if (checkSunk(board, shipNum)) {
             document.querySelector("#result").innerText = " SUNK! ";
+						for(i = 0; i < numShips; i ++)
+						{
+							if(player == 1 && (playerOneShips[i][0] < col && playerOneShips[i][1] == row))
+							{
+								playSunkAnimation();
+							}
+						}
         } else {
             document.querySelector("#result").innerText = " HIT ";
+						playHitAnimation(col,row);
         }
     }
     else {
@@ -726,6 +751,13 @@ function checkForShip(row, col) {
     document.getElementById('ships').innerHTML = 'Click Switch Players';
 		switchShips(true);
     return true;
+}
+
+function playAction(row,col)
+{
+	console.log("play");
+	var img = document.getElementById("testAnimation");
+ 	display.drawImage(img,0,0,64,64);
 }
 
 /**
