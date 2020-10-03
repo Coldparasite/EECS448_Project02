@@ -638,7 +638,13 @@ function checkForShip(row, col) {
         board[row - 1][col - 1] = 'H' + shipNum;
         if (checkSunk(board, shipNum)) {
             document.querySelector("#result").innerText = " SUNK! ";
-						playSunkAnimation();
+						for(i = 0; i < numShips; i ++)
+						{
+							if(player == 1 && (playerOneShips[i][0] < col && playerOneShips[i][1] == row))
+							{
+								playSunkAnimation();
+							}
+						}
         } else {
             document.querySelector("#result").innerText = " HIT ";
 						playHitAnimation(col,row);
