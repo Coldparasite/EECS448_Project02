@@ -946,14 +946,23 @@ function checkForShip(row, col) {
         board[row - 1][col - 1] = 'M';
         document.querySelector("#result").innerText = " MISS ";
 				playMissAnimation(col,row);
-				splash(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[0]/2]);
+				if (!isAI || player == 1) {
+					splashing.play();
+					splash(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[0]/2]);
+				}
     }
     else if (board[row - 1][col - 1].startsWith('@')) {
         let shipNum = board[row - 1][col - 1][1];
         board[row - 1][col - 1] = 'H' + shipNum;
 		ignite(boards[3-player]["left"], [gridCenter(gridLeft[[col-1, row-1]])[0], gridCenter(gridLeft[[col-1, row-1]])[1]-gridSize[0]/2]);
+		if (!isAI || player == 1) {
+			boom.play();
+		}
         if (checkSunk(board, shipNum)) {
             document.querySelector("#result").innerText = " SUNK! ";
+			if (!isAI || player == 1) {
+				explode(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[1]/2]);
+			}
 						for(i = 0; i < numShips; i ++)
 						{
 							if(player == 2)
@@ -981,13 +990,15 @@ function checkForShip(row, col) {
 						}
         } else {
             document.querySelector("#result").innerText = " HIT ";
-						boom.play();
 						playHitAnimation(col,row);
-						explode(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[1]/2]);
+						if (!isAI || player == 1) {
+							boom.play();
+							explode(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[1]/2]);
+						}
         }
     }
     else {
-        document.querySelector("#result").innerText = " You have already guessed here, please try again. ";
+        document.querySelector("#result").innerText = " Already guessed. ";
 				switchShips(true);
         return false;
     }
@@ -1044,6 +1055,8 @@ function checkForWinner() {
         document.querySelector("#playersTurn").innerText = "";
         hideBoards();
         document.getElementById('ready').style.display = 'none';
+		startBackgroundMusic()
+		victory.play();
     }
     return won;
 }

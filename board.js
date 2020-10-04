@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	contentLoaded = true;
 	updateCoords();
 	music = document.getElementById("backGroundMusic");
-	music.volume = .10;
+	music.volume = .50;
 
 }, false);
 
@@ -97,7 +97,6 @@ function updateCoords() {
 		if (init) {
 			defaultAPos = posA;
 			defaultBPos = posB;
-			//ignite(global, gridRight[[3, 3]]);
 			init = false;
 		}
 
