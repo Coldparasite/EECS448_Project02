@@ -23,7 +23,6 @@ function updateBoardVisibility() {
 
 animationLoop = function() {
 	updateCoords();
-
 	display.clearRect(0, 0, canvas.width, canvas.height);
 	
 	//if (mouseDown) {
