@@ -128,7 +128,7 @@ function displayShip(x,y)
 		if(horizontal)
 		{
     	ship.style.left = (posB[0] + (x-1)*56) + "px";
-    	ship.style.top = (posB[1] + (y-1) *62 - 6)  + "px";
+    	ship.style.top = (posB[1] + (y-1) *62)  + "px";
 			ship.style.transform = "rotate(0deg)";
 		}
 		else
@@ -144,7 +144,7 @@ function displayShip(x,y)
 		if(horizontal)
 		{
 			ship.style.left = (posB[0] + (x-1)*56) + "px";
-			ship.style.top = (posB[1] + (y-1) *62 + 28)  + "px";
+			ship.style.top = (posB[1] + (y-1) *62)  + "px";
 			ship.style.transform = "rotate(0deg)";
 		}
 		else
@@ -180,13 +180,16 @@ function switchShips(flag)
 				{
 					ship.style.left = (posB[0] + (playerOneShips[i][0])*56) + "px";
 					ship.style.top = (posB[1] + (playerOneShips[i][1]) *62)  + "px";
-					ship.style.transform = "rotate(0deg)";
+					ship.rotation = (0,0,0);
 				}
 				else
 				{
+					//ship.style.left = (posB[0] + ((x-1)*56)-((placingNum-1)*28)) + "px";
+					//ship.style.top = (posB[1] + ((y-1) *62)+(placingNum-1)*31)   + "px";
+
 					ship.style.left = (posB[0] + ((playerOneShips[i][0])*56)-(i)*28) + "px";
-					ship.style.top = (posB[1] + ((playerOneShips[i][2]+1) *62)+(i)*31)   + "px";
-					ship.style.transform = "rotate(90deg)";
+					ship.style.top = (posB[1] + ((playerOneShips[i][2]) *62)+(i+2)*31)   + "px";
+					ship.rotation = (1,1,1);
 				}
 				ship.style.visibility = "visible";
 			}
@@ -196,13 +199,13 @@ function switchShips(flag)
 				{
 					ship.style.left = (posB[0] + (playerTwoShips[i][0])*56) + "px";
 					ship.style.top = (posB[1] + (playerTwoShips[i][1]) *62)  + "px";
-					ship.style.transform = "rotate(0deg)";
+					ship.rotation = (0,0,0);
 				}
 				else
 				{
 					ship.style.left = (posB[0] + ((playerTwoShips[i][0])*56)-((i)*28)) + "px";
-					ship.style.top = (posB[1] + ((playerTwoShips[i][2]+1) *62)+(i)*31)   + "px";
-					ship.style.transform = "rotate(90deg)";
+					ship.style.top = (posB[1] + ((playerTwoShips[i][2]) *62)+(i+2)*31)   + "px";
+					ship.rotation = (1,1,1);
 				}
 				ship.style.visibility = "visible";
 			}
@@ -246,18 +249,18 @@ function toggleDirection() {
 		{
 	    if (horizontal) {
 	        place_dir = "Horizontally";
-	        if(placingNum == 1)      {ship = document.getElementById("firstShip").style.transform = "rotate(0deg)";}
-	        else if(placingNum == 2) {ship = document.getElementById("secondShip").style.transform = "rotate(0deg)";}
-	        else if(placingNum == 3) {ship = document.getElementById("thirdShip").style.transform = "rotate(0deg)";}
-	        else if(placingNum == 4) {ship = document.getElementById("fourthShip").style.transform = "rotate(0deg)";}
-	        else if(placingNum == 5) {ship = document.getElementById("fifthShip").style.transform = "rotate(0deg)";}
+	        if(placingNum == 1)      {ship = document.getElementById("firstShip").rotation = (0,0,0);}
+	        else if(placingNum == 2) {ship = document.getElementById("secondShip").rotation = (0,0,0);}
+	        else if(placingNum == 3) {ship = document.getElementById("thirdShip").rotation = (0,0,0);}
+	        else if(placingNum == 4) {ship = document.getElementById("fourthShip").rotation = (0,0,0);}
+	        else if(placingNum == 5) {ship = document.getElementById("fifthShip").rotation = (0,0,0);}
 	    } else {
 	        place_dir = "Vertically";
-	        if(placingNum == 1)      {ship = document.getElementById("firstShip").style.transform = "rotate(90deg)";}
-	        else if(placingNum == 2) {ship = document.getElementById("secondShip").style.transform = "rotate(90deg)";}
-	        else if(placingNum == 3) {ship = document.getElementById("thirdShip").style.transform = "rotate(90deg)";}
-	        else if(placingNum == 4) {ship = document.getElementById("fourthShip").style.transform = "rotate(90deg)";}
-	        else if(placingNum == 5) {ship = document.getElementById("fifthShip").style.transform = "rotate(90deg)";}
+	        if(placingNum == 1)      {ship = document.getElementById("firstShip").rotation = (0,1,0);}
+	        else if(placingNum == 2) {ship = document.getElementById("secondShip").rotation = (0,1,0);}
+	        else if(placingNum == 3) {ship = document.getElementById("thirdShip").rotation = (0,1,0);}
+	        else if(placingNum == 4) {ship = document.getElementById("fourthShip").rotation = (0,1,0);}
+	        else if(placingNum == 5) {ship = document.getElementById("fifthShip").rotation = (0,1,0);}
 	    }
 		}
 
