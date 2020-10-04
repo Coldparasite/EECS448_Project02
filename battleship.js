@@ -778,6 +778,7 @@ function hideBoards() {
     document.getElementsByClassName('boardSeparator')[1].style.visibility = 'hidden';
     document.getElementById('switch').style.display = 'none';
 		switchShips(false);
+		clearFrames();
 }
 
 /**
