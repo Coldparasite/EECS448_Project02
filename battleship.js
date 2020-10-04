@@ -81,9 +81,9 @@ function hardMode()
     {
         for(let j = 0; j < 9; j++)
         {
-           if(board[i][j] == '@')
+           if(board1[i][j] == '@')
            {
-               board[i][j] == 'H';
+               board1[i][j] == 'H';
            }
         }
     }
