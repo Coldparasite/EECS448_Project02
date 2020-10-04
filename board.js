@@ -34,6 +34,7 @@ var init = true;
 
 var music;
 document.addEventListener("DOMContentLoaded", function() {
+	print("Loaded");
 	contentLoaded = true;
 	updateCoords();
 	music = document.getElementById("backGroundMusic");

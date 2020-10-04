@@ -808,6 +808,7 @@ function checkForShip(row, col) {
 						}
         } else {
             document.querySelector("#result").innerText = " HIT ";
+						boom.play();
 						playHitAnimation(col,row);
 						explode(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[1]/2]);
         }
