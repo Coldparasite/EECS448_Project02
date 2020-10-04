@@ -80,16 +80,23 @@ function AILevel(num){
     }
 }
 
-function hardMode()
+function handleHard()
 {
+    let pos = false;
     for(let i = 0; i < 9; i++)
     {
         for(let j = 0; j < 9; j++)
         {
-           if(board1[i][j] == '@')
+           if(board1[i][j].startsWith('@'))
            {
-               board1[i][j] == 'H';
+               checkForShip(i+1, j+1);
+               pos = true;
+               break;
            }
+        }
+        if(pos)
+        {
+            break;
         }
     }
 }
@@ -530,7 +537,7 @@ function switchPlayer() {
                         //handleMedium();
                     }
                     else{
-                        //handleHard();
+                        handleHard();
                     }
                 }
                 if(!checkForWinner())
