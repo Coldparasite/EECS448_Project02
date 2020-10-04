@@ -128,7 +128,7 @@ function displayShip(x,y)
 		if(horizontal)
 		{
     	ship.style.left = (posB[0] + (x-1)*56) + "px";
-    	ship.style.top = (posB[1] + (y-1) *62)  + "px";
+    	ship.style.top = (posB[1] + (y-1) *62 - 6)  + "px";
 			ship.style.transform = "rotate(0deg)";
 		}
 		else
@@ -144,7 +144,7 @@ function displayShip(x,y)
 		if(horizontal)
 		{
 			ship.style.left = (posB[0] + (x-1)*56) + "px";
-			ship.style.top = (posB[1] + (y-1) *62)  + "px";
+			ship.style.top = (posB[1] + (y-1) *62 + 28)  + "px";
 			ship.style.transform = "rotate(0deg)";
 		}
 		else
@@ -506,7 +506,6 @@ function switchPlayer() {
             }
             document.getElementById('ships').innerHTML = 'Click Ready';
             horizontal = true;
-                    toggleDirection();
             waitForSwitch = false;
             document.getElementById('ready').style.display = 'inline-block';
             document.querySelector("#result").innerText = "  ";
@@ -516,7 +515,7 @@ function switchPlayer() {
             if (player == 1) {
                 player = 2;
                 hideBoards();
-				
+
                 drawGuessBoard(board2);
                 drawPlayerBoard(board1);
                 document.querySelector("#playersTurn").innerText = " It is now Player 2's turn! ";

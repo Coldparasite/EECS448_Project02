@@ -32,11 +32,30 @@ var scale;
 var contentLoaded = false;
 var init = true;
 
+var music;
 document.addEventListener("DOMContentLoaded", function() {
 	print("Loaded");
 	contentLoaded = true;
 	updateCoords();
+	music = document.getElementById("backGroundMusic");
+	music.volume = .10;
+
 }, false);
+
+function startBackgroundMusic()
+{
+	if(music.paused == true)
+	{
+		document.getElementById("playMusicButton").innerHTML = "Pause Music";
+		music.play();
+		music.loop = true;
+	}
+	else
+	{
+			music.pause();
+			document.getElementById("playMusicButton").innerHTML = "Play Music";
+	}
+}
 
 function updateCoords() {
 	if (contentLoaded) {
@@ -76,7 +95,7 @@ function updateCoords() {
 			//ignite(global, gridRight[[3, 3]]);
 			init = false;
 		}
-		
+
 		scale = [posA[0]-defaultAPos[0], posA[1]-defaultAPos[1]];
 
 	}

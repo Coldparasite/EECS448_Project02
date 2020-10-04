@@ -331,6 +331,7 @@
 
   <canvas id="canvas" width=1445 height=1050 class="canvas"></canvas>
 
+  <!-- Default destruction animation frames for the Submarine-->
   <img id = "ship2death1" src = "assets/Animations/ship2death1.png" style = "visibility: hidden;position:absolute;width: 112px; height: 56px;pointer-events: none;">
   <img id = "ship2death2" src = "assets/Animations/ship2death2.png" style = "visibility: hidden;position:absolute;width: 112px; height: 56px;pointer-events: none;">
   <img id = "ship2death3" src = "assets/Animations/ship2death3.png" style = "visibility: hidden;position:absolute;width: 112px; height: 56px;pointer-events: none;">
@@ -338,6 +339,7 @@
   <img id = "ship2death5" src = "assets/Animations/ship2death5.png" style = "visibility: hidden;position:absolute;width: 112px; height: 56px;pointer-events: none;">
   <img id = "ship2death6" src = "assets/Animations/ship2death6.png" style = "visibility: hidden;position:absolute;width: 112px; height: 56px;pointer-events: none;">
 
+  <!-- Default destruction animation frames for the Cruiser-->
   <img id = "ship3death1" src = "assets/Animations/ship3death1.png" style = "visibility: hidden;position:absolute;width: 168px; height: 56px;pointer-events: none;">
   <img id = "ship3death2" src = "assets/Animations/ship3death2.png" style = "visibility: hidden;position:absolute;width: 168px; height: 56px;pointer-events: none;">
   <img id = "ship3death3" src = "assets/Animations/ship3death3.png" style = "visibility: hidden;position:absolute;width: 168px; height: 56px;pointer-events: none;">
@@ -345,6 +347,7 @@
   <img id = "ship3death5" src = "assets/Animations/ship3death5.png" style = "visibility: hidden;position:absolute;width: 168px; height: 56px;pointer-events: none;">
   <img id = "ship3death6" src = "assets/Animations/ship3death6.png" style = "visibility: hidden;position:absolute;width: 168px; height: 56px;pointer-events: none;">
 
+  <!-- Default destruction animation frames for the Battleship-->
   <img id = "ship4death1" src = "assets/Animations/ship4death1.png" style = "visibility: hidden;position:absolute;width: 224px; height: 56px;pointer-events: none;">
   <img id = "ship4death2" src = "assets/Animations/ship4death2.png" style = "visibility: hidden;position:absolute;width: 224px; height: 56px;pointer-events: none;">
   <img id = "ship4death3" src = "assets/Animations/ship4death3.png" style = "visibility: hidden;position:absolute;width: 224px; height: 56px;pointer-events: none;">
@@ -352,12 +355,19 @@
   <img id = "ship4death5" src = "assets/Animations/ship4death5.png" style = "visibility: hidden;position:absolute;width: 224px; height: 56px;pointer-events: none;">
   <img id = "ship4death6" src = "assets/Animations/ship4death6.png" style = "visibility: hidden;position:absolute;width: 224px; height: 56px;pointer-events: none;">
 
+  <!-- Default destruction animation frames for the Aircraft carrier-->
   <img id = "ship5death1" src = "assets/Animations/ship5death1.png" style = "visibility: hidden;position:absolute;width: 280px; height: 56px;pointer-events: none;">
   <img id = "ship5death2" src = "assets/Animations/ship5death2.png" style = "visibility: hidden;position:absolute;width: 280px; height: 56px;pointer-events: none;">
   <img id = "ship5death3" src = "assets/Animations/ship5death3.png" style = "visibility: hidden;position:absolute;width: 280px; height: 56px;pointer-events: none;">
   <img id = "ship5death4" src = "assets/Animations/ship5death4.png" style = "visibility: hidden;position:absolute;width: 280px; height: 56px;pointer-events: none;">
   <img id = "ship5death5" src = "assets/Animations/ship5death5.png" style = "visibility: hidden;position:absolute;width: 280px; height: 56px;pointer-events: none;">
   <img id = "ship5death6" src = "assets/Animations/ship5death6.png" style = "visibility: hidden;position:absolute;width: 280px; height: 56px;pointer-events: none;">
-  
+
+  <audio id = "backGroundMusic">
+    <source src = "assets/battleshipMusic.mp4" type = "audio/mpeg" >
+  </audio>
+
+  <button id = "playMusicButton" onclick = "startBackgroundMusic()" type = "button" style = "left:48%;position:absolute;">Play Music</button>
+
  </body>
 </html>
