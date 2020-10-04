@@ -5,31 +5,51 @@
 var global = new ParticleSystem();
 
 var boards = {
-				"right": new ParticleSystem(),
-				"left": new ParticleSystem(),
+				1: {"right": new ParticleSystem(), "left": new ParticleSystem()},
+				2: {"right": new ParticleSystem(), "left": new ParticleSystem()},
 			};
 
 //particles.deactivate();
 
-var particles = [boards["right"], boards["left"], global];
+var particles = [boards[1]["right"], boards[1]["left"], boards[2]["right"], boards[2]["left"], global];
+
+function updateBoardVisibility() {
+	global.toggleActive();
+	boards[player]["left"].activate();
+	boards[player]["right"].deactivate();
+	boards[3-player]["left"].deactivate();
+	boards[3-player]["right"].activate();
+}
 
 animationLoop = function() {
 	updateCoords();
 	display.clearRect(0, 0, canvas.width, canvas.height);
+	
 	//if (mouseDown) {
 	//	ignite([mouseX-difference[0], mouseY-difference[1]], 10);
 	//}
 
-	/*
 	if (getClick()) {
-		print(player);
-		print("Board A: "+gridA[[0,0]]);
-		print("Grid size: "+gridSize);
-		print("Center of [0, 0]: "+getGridCenter(gridA[[0,0]]));
 		print("Mouse: " + mousePos);
+		print("Scale: " + scale);
+		print([window.pageXOffset, window.pageYOffset]);
+		print(player+" left: " + boards[player]["left"].active + ", " + boards[player]["left"].length());
+		print(player+" right: " + boards[player]["right"].active + ", " + boards[player]["right"].length());
+		print((3-player) + " left: " + boards[3-player]["left"].active + ", " + boards[3-player]["left"].length());
+		print((3-player) + " right: " + boards[3-player]["right"].active + ", " + boards[3-player]["right"].length());
+		//print("Global: " + global.active);
+		/*for (var particle in global.particles) {
+			for (var p in global.particles[particle].particles) {
+				print(p+": "+global.particles[particle].particles[p].duration);
+			}
+		}*/
+		//print(player);
+		//print("Board A: "+gridA[[0,0]]);
+		//print("Grid size: "+gridSize);
+		//print("Center of [0, 0]: "+getGridCenter(gridA[[0,0]]));
+		//print("Mouse: " + mousePos);
 		print("\n");
 	}
-	*/
 
 	//iteratively update particle systems
 	for (var system of particles) {

@@ -12,6 +12,7 @@ var placingFinished = false;
 var playerTwoPlacementReady = false;
 var playerOneShips = [];
 var playerTwoShips = [];
+var difficulty = "";
 var isAI= false;
 var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
 
@@ -57,6 +58,7 @@ function AILevel(num){
         }
         document.getElementById("numShips").style= "visibility: visible";
         document.getElementById("visibleButtons2").style= "visibility: visible";
+        difficulty = "Easy";
     }
     else if(num == 2){
         document.getElementById("AIDifficulty").remove();
@@ -65,6 +67,7 @@ function AILevel(num){
         }
         document.getElementById("numShips").style= "visibility: visible";
         document.getElementById("visibleButtons2").style= "visibility: visible";
+        difficulty = "Medium";
     }
     else{
         document.getElementById("AIDifficulty").remove();
@@ -73,6 +76,7 @@ function AILevel(num){
         }
         document.getElementById("numShips").style= "visibility: visible";
         document.getElementById("visibleButtons2").style= "visibility: visible";
+        difficulty = "Hard";
     }
 }
 
@@ -398,6 +402,10 @@ function clickCheck(board_num, col, row) {
         document.getElementById('ready').style.display = 'none';
     }
 }
+/**
+ * Randomly place ships for AI
+ * @param {number} num The number of ships that need to be placed.
+ */
 function placeAIship(num)
 {
     let length =placingNum;
@@ -492,7 +500,17 @@ function switchPlayer() {
                     placing=false;
                 }
                 else{
-                    handleEasy();
+                    if(difficulty == "Easy")
+                    {
+                        handleEasy();
+                    }
+                    else if (difficulty == "Medium")
+                    {
+                        //handleMedium();
+                    }
+                    else{
+                        //handleHard();
+                    }
                 }
                 if(!checkForWinner())
                 {
@@ -517,6 +535,9 @@ function switchPlayer() {
     }
     checkForWinner();
 }
+/**
+ * Handles AI functionality when difficulty is Easy
+ */
 function handleEasy()
 {
     let row = 0;
@@ -549,6 +570,7 @@ function drawBoards() {
  * Set the boards to invisible.
  */
 function hideBoards() {
+	updateBoardVisibility();
     document.getElementsByClassName('grid-container boardA')[0].style.visibility = 'hidden';
     document.getElementsByClassName('grid-container boardB')[0].style.visibility = 'hidden';
     document.getElementsByClassName('boardSeparator')[0].style.visibility = 'hidden';
@@ -726,6 +748,7 @@ function checkForShip(row, col) {
     else if (board[row - 1][col - 1].startsWith('@')) {
         let shipNum = board[row - 1][col - 1][1];
         board[row - 1][col - 1] = 'H' + shipNum;
+		ignite(boards[3-player]["left"], [gridCenter(gridLeft[[row-1, col-1]])[0], gridCenter(gridLeft[[row-1, col-1]])[1]-20]);
         if (checkSunk(board, shipNum)) {
             document.querySelector("#result").innerText = " SUNK! ";
 						for(i = 0; i < numShips; i ++)
