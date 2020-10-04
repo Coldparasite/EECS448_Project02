@@ -31,7 +31,7 @@ animationLoop = function() {
 
 	/*
 
-	
+
 	//if (mouseDown) {
 	//	ignite([mouseX-difference[0], mouseY-difference[1]], 10);
 	//}
@@ -45,7 +45,7 @@ animationLoop = function() {
 		print((3-player) + " right: " + boards[3-player]["right"].active + ", " + boards[3-player]["right"].length());
 		print(boards[1]["left"]);
 		print(boards[2]["left"]);
-		
+
 		print("\n");
 	}
 	*/
@@ -58,7 +58,6 @@ animationLoop = function() {
 	}
 
 	updatePeripherals();
-
 
 	window.requestAnimationFrame(animationLoop);
 }

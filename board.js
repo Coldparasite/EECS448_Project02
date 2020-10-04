@@ -42,6 +42,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 }, false);
 
+/**
+* This function is the handler for the playMusicButton once clicked the backGroundMusic
+* will begin to play and if clicked again it shall pause the music and repeat upon multiple
+* clicks.
+*/
 function startBackgroundMusic()
 {
 	if(music.paused == true)
