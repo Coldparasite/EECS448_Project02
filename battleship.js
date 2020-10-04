@@ -485,7 +485,6 @@ function switchPlayer() {
             }
             document.getElementById('ships').innerHTML = 'Click Ready';
             horizontal = true;
-                    toggleDirection();
             waitForSwitch = false;
             document.getElementById('ready').style.display = 'inline-block';
             document.querySelector("#result").innerText = "  ";
@@ -495,7 +494,7 @@ function switchPlayer() {
             if (player == 1) {
                 player = 2;
                 hideBoards();
-				
+
                 drawGuessBoard(board2);
                 drawPlayerBoard(board1);
                 document.querySelector("#playersTurn").innerText = " It is now Player 2's turn! ";
