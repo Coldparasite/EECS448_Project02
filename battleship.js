@@ -573,7 +573,7 @@ function handleEasy()
 }
 
 /**
- * Handles AI functionality when difficulty is Medium
+ * Handles AI functionality when difficulty is Medium. pr and pc represent the location of a ship that has been founded by handleMedium. The second half of handleMedium and the four helper functions use that as a reference for where to search
 */
 var pr = -1;
 var pc = -1;
@@ -589,6 +589,7 @@ function handleMedium()
 			pc = Math.floor(Math.random() * 9);
 			if(checkForShip(pr+1, pc+1))
 			{
+				//if the selected part of the board is not a ship's location, has not been hit conditionally, then pr and pc are reset.
         if(!board1[pr][pc].startsWith("H"))
         {
           pr = -1;
@@ -600,8 +601,8 @@ function handleMedium()
 	}
 	else
 	{
-    //retrieve ship value from board and if not sunk, check surrounding squares. When sunk, reset pr and pc
-    if(checkSunk(board1, board1[pr][pc][1])) //in the event the ship is sunk
+    //retrieve ship value from board and if not sunk, check surrounding squares.
+    if(checkSunk(board1, board1[pr][pc][1])) //in the event the ship is sunk, reset pr and pc and run handleMedium to get new coordinates then return.
 		{
 			pr = -1;
 			pc = -1;
@@ -609,7 +610,7 @@ function handleMedium()
 			return;
 		}
 
-		//these medium helper functions make use of the CheckForShip function, so we input the row and columns an integer larger
+		//these medium helper functions make use of the CheckForShip function, so we input pr and pc an integer larger. If there are no spaces left to search in one direction, we move on to the next direction until the ship is sunk
 		if(mediumCheckLeft(pr+1,pc+1))
 		{
 			return;
@@ -629,17 +630,23 @@ function handleMedium()
 	}
 }
 
-
+/**
+	*the four helper functions below each check in a certain direction for the point given. They act recursively to check each point in their direction.
+	*function takes in r and c between 1 and 9 and determines if a move can be made left.
+*/
 function mediumCheckLeft(r,c)
 {
+	//code will run if column is greater than 1, that is we can check left without going offboard
 	if(c > 1)
 	{
+		//if we can check the left for a ship, we can return true
     if(checkForShip(r,c-1))
     {
       return true;
     }
     else
 		{
+			//if the space to the left on the board is a hit portion of the ship, we can recur the function to check left at that space. Otherwise, we'll return false; we cannot search left.
 			if(board1[r-1][c-2].startsWith("H"))
     	{
       	return mediumCheckLeft(r,c-1);
@@ -650,12 +657,15 @@ function mediumCheckLeft(r,c)
 			}
 		}
 	}
-	else //c being 1 would be left side of board
+	else
 	{
 		return false;
 	}
 }
 
+/**
+	*function takes in r and c between 1 and 9 and determines if a move can be made right.
+*/
 function mediumCheckRight(r,c)
 {
 	if(c < 8)
@@ -682,18 +692,21 @@ function mediumCheckRight(r,c)
 	}
 }
 
+/**
+	*function takes in r and c between 1 and 9 and determines if a move can be made up.
+*/
 function mediumCheckUp(r,c)
 {
   if(r > 1)
   {
-		console.log(r);
-		console.log(c);
+		//if we can check above for a ship, we will return true. Else, we run an if statement determining if upper location is a hit ship and check from there.
     if(checkForShip(r-1,c))
     {
       return true;
     }
     else
 		{
+			//r+1,c+1 represent the space r-1, c-1. To go down, to go down a row, we have r-2, c-1
 			if(board1[r-2][c-1].startsWith("H"))
     	{
       	return mediumCheckUp(r-1,c);
@@ -710,6 +723,9 @@ function mediumCheckUp(r,c)
 	}
 }
 
+/**
+	*function takes in r and c between 1 and 9 and determines if a move can be made down.
+*/
 function mediumCheckDown(r,c)
 {
   if(r < 9)
