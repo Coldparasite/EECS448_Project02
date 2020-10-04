@@ -30,11 +30,11 @@ function hideBoardParticles() {
 animationLoop = function() {
 	updateCoords();
 	display.clearRect(0, 0, canvas.width, canvas.height);
-	
+
 	//if (mouseDown) {
 	//	ignite([mouseX-difference[0], mouseY-difference[1]], 10);
 	//}
-		
+
 	if (getClick()) {
 		//print("Mouse: " + mousePos);
 		//print("Scale: " + scale);
@@ -58,7 +58,7 @@ animationLoop = function() {
 		//print("Mouse: " + mousePos);
 		print("\n");
 	}
-	
+
 	//iteratively update particle systems
 	for (var system of particles) {
 		system.generate(scale);
@@ -127,6 +127,10 @@ function playFrame(x,y,frame)
 	console.log("Frame Complete");
 }
 
+/**
+* This function resets the frames list and makes all images within frames visibility
+* set to hidden
+*/
 function clearFrames()
 {
 	for(i = 0; i<frames.length;i++)
@@ -136,6 +140,11 @@ function clearFrames()
 	frames = [];
 }
 
+/**
+* This function plays the miss animation
+* @param {number} x This is the left position on the screen
+* @param {number} y This is the top position on the screen
+*/
 function playMissAnimation(x,y)
 {
 	frames = [];
@@ -175,6 +184,12 @@ function playHitAnimation(x,y)
 
 }
 
+/**
+* This function plays the death animation of a ship once all it's hitpoints are gone
+* @param {number} x The left position on the screen
+* @param {number} y The top position on the screen
+* @param {number} length How big the ship to be destroyed is
+*/
 function playSunkAnimation(x,y,length)
 {
 	if(length == 1)
