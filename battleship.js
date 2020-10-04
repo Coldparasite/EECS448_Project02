@@ -668,7 +668,7 @@ function mediumCheckLeft(r,c)
 */
 function mediumCheckRight(r,c)
 {
-	if(c < 8)
+	if(c < 9)
 	{
 		if(checkForShip(r,c+1))
   	{
