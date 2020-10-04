@@ -80,6 +80,27 @@ function AILevel(num){
     }
 }
 
+function handleHard()
+{
+    let pos = false;
+    for(let i = 0; i < 9; i++)
+    {
+        for(let j = 0; j < 9; j++)
+        {
+           if(board1[i][j].startsWith('@'))
+           {
+               checkForShip(i+1, j+1);
+               pos = true;
+               break;
+           }
+        }
+        if(pos)
+        {
+            break;
+        }
+    }
+}
+
 function numShipFunction(num) {
     document.getElementById('ships').innerHTML = 'Place your ' + placingNum + '-length ship on your board';
     numShips = num;
@@ -515,7 +536,7 @@ function switchPlayer() {
                         //handleMedium();
                     }
                     else{
-                        //handleHard();
+                        handleHard();
                     }
                 }
                 if(!checkForWinner())
