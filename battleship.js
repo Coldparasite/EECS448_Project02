@@ -468,6 +468,8 @@ function switchPlayer() {
             if (player == 1) {
                 player = 2;
                 hideBoards();
+				hideBoardParticles();
+				print("Hiding");
                 drawGuessBoard(board1);
                 drawPlayerBoard(board2);
                 document.querySelector("#playersTurn").innerText = " It is now Player 2's turn! ";
@@ -475,6 +477,8 @@ function switchPlayer() {
             else {
                 player = 1;
                 hideBoards();
+				hideBoardParticles();
+				print("Hiding");
                 drawGuessBoard(board2);
                 drawPlayerBoard(board1);
                 document.querySelector("#playersTurn").innerText = " It is now Player 1's turn! ";
@@ -491,9 +495,12 @@ function switchPlayer() {
             if (player == 1) {
                 player = 2;
                 hideBoards();
+				
                 drawGuessBoard(board2);
                 drawPlayerBoard(board1);
                 document.querySelector("#playersTurn").innerText = " It is now Player 2's turn! ";
+				hideBoardParticles();
+				print("Hiding");
                 if(placing)
                 {
                     placeAIship(numShips);
@@ -519,6 +526,8 @@ function switchPlayer() {
                     drawGuessBoard(board2);
                     drawPlayerBoard(board1);
                     document.querySelector("#playersTurn").innerText = " It is now Player 1's turn! ";
+					hideBoardParticles();
+					print("Hiding");
                 }
             }
             document.getElementById('ships').innerHTML = 'Click Ready';
@@ -551,6 +560,8 @@ function handleEasy()
  * Set the boards to visible.
  */
 function drawBoards() {
+	updateParticleVisibility();
+	print("Updating");
     document.getElementsByClassName('grid-container boardA')[0].style.visibility = 'visible';
     document.getElementsByClassName('grid-container boardB')[0].style.visibility = 'visible';
     document.getElementsByClassName('boardSeparator')[0].style.visibility = 'visible';
@@ -570,7 +581,6 @@ function drawBoards() {
  * Set the boards to invisible.
  */
 function hideBoards() {
-	updateBoardVisibility();
     document.getElementsByClassName('grid-container boardA')[0].style.visibility = 'hidden';
     document.getElementsByClassName('grid-container boardB')[0].style.visibility = 'hidden';
     document.getElementsByClassName('boardSeparator')[0].style.visibility = 'hidden';
@@ -748,7 +758,7 @@ function checkForShip(row, col) {
     else if (board[row - 1][col - 1].startsWith('@')) {
         let shipNum = board[row - 1][col - 1][1];
         board[row - 1][col - 1] = 'H' + shipNum;
-		ignite(boards[3-player]["left"], [gridCenter(gridLeft[[row-1, col-1]])[0], gridCenter(gridLeft[[row-1, col-1]])[1]-20]);
+		ignite(boards[3-player]["left"], [gridCenter(gridLeft[[col-1, row-1]])[0], gridCenter(gridLeft[[col-1, row-1]])[1]-30]);
         if (checkSunk(board, shipNum)) {
             document.querySelector("#result").innerText = " SUNK! ";
 						for(i = 0; i < numShips; i ++)
