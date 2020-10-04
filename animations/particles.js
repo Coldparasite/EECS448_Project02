@@ -129,7 +129,7 @@ class ParticleGroup extends Array {
 
 	activate() {
 		this.active = true;
-		
+		print("DURATION: " + this.savedDuration);
 		this.duration = this.savedDuration;
 		if (this.partial) {
 			this.cycle = Math.ceil((1/this.density));
@@ -239,9 +239,11 @@ class ParticleSystem {
 
 	deactivate(key=null) {
 		if (key == null) {
-			this.active = false;
-			for (var particleObj in this.particles) {
-				this.particles[particleObj].deactivate();
+			if (this.active) {
+				this.active = false;
+				for (var particleObj in this.particles) {
+					this.particles[particleObj].deactivate();
+				}
 			}
 		}
 		else {
