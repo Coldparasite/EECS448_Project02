@@ -70,6 +70,9 @@ var curX;
 var curY;
 var frameTimeOut;
 var frames;
+var vertical;
+var shipLength;
+var framePlaying;
 
 /**
 *	This function handles the rending of images within the variable frames
@@ -94,11 +97,13 @@ function renderFrame(timestamp)
 	else if(!waitForSwitch) {
 		start = undefined
 		clearFrames()
+		framePlaying = false;
 	}
 	else
 	{
 		start = undefined
 		clearFrames()
+		framePlaying = false;
 	}
 }
 
@@ -111,12 +116,53 @@ function renderFrame(timestamp)
 */
 function playFrame(x,y,frame)
 {
-	frames[currentFrame].style.visibility = "visible";
-	frame.style.left = posA[0] + ((x-1)*56) + "px";
-	frame.style.top = posA[1] + ((y-1)*62) + "px";
-	console.log("Frame Complete");
+	if(shipLength >-1)
+	{
+		if(vertical)
+		{
+			frame.style.transform = "rotate(0deg)";
+			frame.style.left = posA[0] + ((x-1)*56) + "px";
+			frame.style.top = posA[1] + ((y-1)*62) + "px";
+		}
+		else if (shipLength <=2) {
+			frame.style.transform = "rotate(90deg)";
+			frame.style.left = (posA[0] + ((x-1)*56)- (shipLength*14)) + "px";
+			frame.style.top = (posA[1] + ((y-1)*62)+(shipLength*17)) + "px";
+
+		}
+		else if (shipLength == 3)
+		{
+			frame.style.transform = "rotate(90deg)";
+			frame.style.left = (posA[0] + ((x-1)*56)- (shipLength*18)) + "px";
+			frame.style.top = (posA[1] + ((y-1)*62)+(shipLength*20)) + "px";
+		}
+		else if (shipLength == 4)
+		{
+			frame.style.transform = "rotate(90deg)";
+			frame.style.left = (posA[0] + ((x-1)*56)- (shipLength*21)) + "px";
+			frame.style.top = (posA[1] + ((y-1)*62)+(shipLength*24)) + "px";
+		}
+		else
+		{
+			frame.style.transform = "rotate(90deg)";
+			frame.style.left = (posA[0] + ((x-1)*56)- (shipLength*23)) + "px";
+			frame.style.top = (posA[1] + ((y-1)*62)+(shipLength*27)) + "px";
+		}
+	}
+	else
+	{
+		frame.style.left = posA[0] + ((x-1)*56) + "px";
+		frame.style.top = posA[1] + ((y-1)*62) + "px";
+	}
+	frame.style.visibility = "visible";
 }
 
+/**
+* Horizontal ships working
+* 	1, 2 , 3 () 4 not working
+* Vertical ships working
+*		1, 2
+*/
 /**
 * This function resets the frames list and makes all images within frames visibility
 * set to hidden
@@ -137,6 +183,7 @@ function clearFrames()
 */
 function playMissAnimation(x,y)
 {
+	framePlaying = true;
 	frames = [];
 	frames.push(document.getElementById("splash1"));
 	frames.push(document.getElementById("splash2"));
@@ -147,6 +194,8 @@ function playMissAnimation(x,y)
 	curX = x;
 	curY = y;
 	frameTimeOut = 1249;
+	vertical = true;
+	shipLength = -1;
 	window.requestAnimationFrame(renderFrame);
 }
 
@@ -157,7 +206,7 @@ function playMissAnimation(x,y)
 */
 function playHitAnimation(x,y)
 {
-	frames = []
+	clearFrames();
 	frames.push(document.getElementById("hit1"));
 	frames.push(document.getElementById("hit2"));
 	frames.push(document.getElementById("hit3"));
@@ -167,9 +216,11 @@ function playHitAnimation(x,y)
 	frames.push(document.getElementById("hit7"));
 	frames.push(document.getElementById("hit8"));
 
+	vertical = true;
 	curX = x;
 	curY = y;
 	frameTimeOut = 1999;
+	shipLength = -1;
 	window.requestAnimationFrame(renderFrame);
 
 }
@@ -180,15 +231,17 @@ function playHitAnimation(x,y)
 * @param {number} y The top position on the screen
 * @param {number} length How big the ship to be destroyed is
 */
-function playSunkAnimation(x,y,length)
+function playSunkAnimation(x,y,length,rotation)
 {
+	vertical = rotation;
+	shipLength = length;
+	clearFrames();
 	if(length == 1)
 	{
 		playHitAnimation(x+1,y+1);
 	}
 	else if (length == 2)
 	{
-		frames = []
 		frames.push(document.getElementById("ship2death1"));
 		frames.push(document.getElementById("ship2death2"));
 		frames.push(document.getElementById("ship2death3"));
@@ -198,12 +251,11 @@ function playSunkAnimation(x,y,length)
 
 		curX = x+1;
 		curY = y+1;
-		frameTimeOut = 1249;
+		frameTimeOut = 1260;
 		window.requestAnimationFrame(renderFrame);
 	}
 	else if (length == 3)
 	{
-		frames = []
 		frames.push(document.getElementById("ship3death1"));
 		frames.push(document.getElementById("ship3death2"));
 		frames.push(document.getElementById("ship3death3"));
@@ -213,12 +265,11 @@ function playSunkAnimation(x,y,length)
 
 		curX = x+1;
 		curY = y+1;
-		frameTimeOut = 1249;
+		frameTimeOut = 1260;
 		window.requestAnimationFrame(renderFrame);
 	}
 	else if (length == 4)
 	{
-		frames = []
 		frames.push(document.getElementById("ship4death1"));
 		frames.push(document.getElementById("ship4death2"));
 		frames.push(document.getElementById("ship4death3"));
@@ -228,12 +279,11 @@ function playSunkAnimation(x,y,length)
 
 		curX = x+1;
 		curY = y+1;
-		frameTimeOut = 1249;
+		frameTimeOut = 1260;
 		window.requestAnimationFrame(renderFrame);
 	}
 	else
 	{
-		frames = []
 		frames.push(document.getElementById("ship5death1"));
 		frames.push(document.getElementById("ship5death2"));
 		frames.push(document.getElementById("ship5death3"));
@@ -243,8 +293,7 @@ function playSunkAnimation(x,y,length)
 
 		curX = x+1;
 		curY = y+1;
-		frameTimeOut = 1249;
+		frameTimeOut = 1260;
 		window.requestAnimationFrame(renderFrame);
 	}
-	console.log("Entered animation sunk");
 }

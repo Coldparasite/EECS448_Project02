@@ -180,15 +180,10 @@ function switchShips(flag)
 				{
 					ship.style.left = (posB[0] + (playerOneShips[i][0])*56) + "px";
 					ship.style.top = (posB[1] + (playerOneShips[i][1]) *62)  + "px";
-					console.log("Players rotation:" + playerOneShips[i][2] + " Ship: " + i);
 					ship.style.transform = "rotate(0deg)";
-					console.log("Ships rotation: " + ship.rotation);
 				}
 				else
 				{
-					//ship.style.left = (posB[0] + ((x-1)*56)-((placingNum-1)*28)) + "px";
-					//ship.style.top = (posB[1] + ((y-1) *62)+(placingNum-1)*31)   + "px";
-
 					ship.style.left = (posB[0] + ((playerOneShips[i][0])*56)-(i)*28) + "px";
 					ship.style.top = (posB[1] + ((playerOneShips[i][1])*62)+(i)*31)   + "px";
 					ship.style.transform = "rotate(90deg)";
@@ -946,11 +941,14 @@ function checkForShip(row, col) {
 						{
 							if(player == 2)
 							{
-								var colCheck = ((playerOneShips[i][0] <= (row-1)) && ((row-1) <= playerOneShips[i][0]+i));
-								var rowCheck = ((playerOneShips[i][1] <= (col-1)) && ((col-1) <= playerOneShips[i][1]+i));
+								var colCheck = ((playerOneShips[i][0] <= (col-1)) && ((col-1) <= playerOneShips[i][0]+i));
+								var rowCheck = ((playerOneShips[i][1] <= (row-1)) && ((row-1) <= playerOneShips[i][1]+i));
 								if (colCheck && rowCheck)
 								{
-									playSunkAnimation(playerOneShips[i][0],playerOneShips[i][1],(i+1));
+									// Weird bug sends wrong location?
+									console.log("This is what i is : " + i);
+									playSunkAnimation(playerOneShips[i][0],playerOneShips[i][1],(i+1),playerOneShips[i][2]);
+									break;
 								}
 							}
 							else
@@ -959,7 +957,8 @@ function checkForShip(row, col) {
 								var rowCheck = ((playerTwoShips[i][1] <= (row-1)) && ((row-1) <= playerTwoShips[i][1]+i));
 								if (colCheck && rowCheck)
 								{
-									playSunkAnimation(playerTwoShips[i][0],playerTwoShips[i][1],(i+1));
+									playSunkAnimation(playerTwoShips[i][0],playerTwoShips[i][1],(i+1),playerTwoShips[i][2]);
+									break;
 								}
 							}
 						}
