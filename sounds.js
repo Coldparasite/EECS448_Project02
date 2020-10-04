@@ -12,10 +12,7 @@ function sound(src) {
     this.sound.pause();
 	}
   this.start = function() {
-	
-	this.stop();
 	this.sound.currentTime = 0;
-	
 	this.play();
 	}
 }
