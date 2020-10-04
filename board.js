@@ -33,6 +33,7 @@ var contentLoaded = false;
 var init = true;
 
 document.addEventListener("DOMContentLoaded", function() {
+	print("Loaded");
 	contentLoaded = true;
 	updateCoords();
 }, false);

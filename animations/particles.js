@@ -201,8 +201,7 @@ class ParticleSystem {
 	update() {
 		for (var particleObj in this.particles) {
 			this.particles[particleObj].update();
-			if (this.particles[particleObj].dead()) {	
-				print("REMOVING");		
+			if (this.particles[particleObj].dead()) {		
 				this.remove(particleObj);
 			}
 		}
