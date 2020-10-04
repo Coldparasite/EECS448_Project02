@@ -775,11 +775,12 @@ function checkForShip(row, col) {
         board[row - 1][col - 1] = 'M';
         document.querySelector("#result").innerText = " MISS ";
 				playMissAnimation(col,row);
+				splash(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[0]/2]);
     }
     else if (board[row - 1][col - 1].startsWith('@')) {
         let shipNum = board[row - 1][col - 1][1];
         board[row - 1][col - 1] = 'H' + shipNum;
-		ignite(boards[3-player]["left"], [gridCenter(gridLeft[[col-1, row-1]])[0], gridCenter(gridLeft[[col-1, row-1]])[1]-30]);
+		ignite(boards[3-player]["left"], [gridCenter(gridLeft[[col-1, row-1]])[0], gridCenter(gridLeft[[col-1, row-1]])[1]-gridSize[0]/2]);
         if (checkSunk(board, shipNum)) {
             document.querySelector("#result").innerText = " SUNK! ";
 						for(i = 0; i < numShips; i ++)
@@ -806,6 +807,7 @@ function checkForShip(row, col) {
         } else {
             document.querySelector("#result").innerText = " HIT ";
 						playHitAnimation(col,row);
+						explode(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[1]/2]);
         }
     }
     else {

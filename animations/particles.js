@@ -129,7 +129,6 @@ class ParticleGroup extends Array {
 
 	activate() {
 		this.active = true;
-		print("DURATION: " + this.savedDuration);
 		this.duration = this.savedDuration;
 		if (this.partial) {
 			this.cycle = Math.ceil((1/this.density));
