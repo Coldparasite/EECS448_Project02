@@ -75,12 +75,12 @@ function renderFrame(timestamp)
 	}
 	else if(!waitForSwitch) {
 		start = undefined
-		frames[currentFrame].style.visibility = "hidden";
+		clearFrames()
 	}
 	else
 	{
 		start = undefined
-		frames[currentFrame-1].style.visibility = "hidden";
+		clearFrames()
 	}
 }
 
@@ -99,10 +99,18 @@ function playFrame(x,y,frame)
 	console.log("Frame Complete");
 }
 
+function clearFrames()
+{
+	for(i = 0; i<frames.length;i++)
+	{
+		frames[i].style.visibility = "hidden";
+	}
+	frames = [];
+}
 
 function playMissAnimation(x,y)
 {
-	frames = []
+	frames = [];
 	frames.push(document.getElementById("splash1"));
 	frames.push(document.getElementById("splash2"));
 	frames.push(document.getElementById("splash3"));
@@ -113,7 +121,6 @@ function playMissAnimation(x,y)
 	curY = y;
 	frameTimeOut = 1249;
 	window.requestAnimationFrame(renderFrame);
-	console.log("Miss");
 }
 
 /**
@@ -140,7 +147,71 @@ function playHitAnimation(x,y)
 
 }
 
-function playSunkAnimation()
+function playSunkAnimation(x,y,length)
 {
-	console.log("Sunk");
+	if(length == 1)
+	{
+		playHitAnimation(x+1,y+1);
+	}
+	else if (length == 2)
+	{
+		frames = []
+		frames.push(document.getElementById("ship2death1"));
+		frames.push(document.getElementById("ship2death2"));
+		frames.push(document.getElementById("ship2death3"));
+		frames.push(document.getElementById("ship2death4"));
+		frames.push(document.getElementById("ship2death5"));
+		frames.push(document.getElementById("ship2death6"));
+
+		curX = x+1;
+		curY = y+1;
+		frameTimeOut = 1249;
+		window.requestAnimationFrame(renderFrame);
+	}
+	else if (length == 3)
+	{
+		frames = []
+		frames.push(document.getElementById("ship3death1"));
+		frames.push(document.getElementById("ship3death2"));
+		frames.push(document.getElementById("ship3death3"));
+		frames.push(document.getElementById("ship3death4"));
+		frames.push(document.getElementById("ship3death5"));
+		frames.push(document.getElementById("ship3death6"));
+
+		curX = x+1;
+		curY = y+1;
+		frameTimeOut = 1249;
+		window.requestAnimationFrame(renderFrame);
+	}
+	else if (length == 4)
+	{
+		frames = []
+		frames.push(document.getElementById("ship4death1"));
+		frames.push(document.getElementById("ship4death2"));
+		frames.push(document.getElementById("ship4death3"));
+		frames.push(document.getElementById("ship4death4"));
+		frames.push(document.getElementById("ship4death5"));
+		frames.push(document.getElementById("ship4death6"));
+
+		curX = x+1;
+		curY = y+1;
+		frameTimeOut = 1249;
+		window.requestAnimationFrame(renderFrame);
+	}
+	else
+	{
+		frames = []
+		frames.push(document.getElementById("ship5death1"));
+		frames.push(document.getElementById("ship5death2"));
+		frames.push(document.getElementById("ship5death3"));
+		frames.push(document.getElementById("ship5death4"));
+		frames.push(document.getElementById("ship5death5"));
+		frames.push(document.getElementById("ship5death6"));
+
+		curX = x+1;
+		curY = y+1;
+		frameTimeOut = 1249;
+		window.requestAnimationFrame(renderFrame);
+	}
+	console.log("Entered animation sunk");
 }
