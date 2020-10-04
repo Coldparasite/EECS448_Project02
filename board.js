@@ -32,10 +32,35 @@ var scale;
 var contentLoaded = false;
 var init = true;
 
+var music;
 document.addEventListener("DOMContentLoaded", function() {
+	print("Loaded");
 	contentLoaded = true;
 	updateCoords();
+	music = document.getElementById("backGroundMusic");
+	music.volume = .50;
+
 }, false);
+
+/**
+* This function is the handler for the playMusicButton once clicked the backGroundMusic
+* will begin to play and if clicked again it shall pause the music and repeat upon multiple
+* clicks.
+*/
+function startBackgroundMusic()
+{
+	if(music.paused == true)
+	{
+		document.getElementById("playMusicButton").innerHTML = "Pause Music";
+		music.play();
+		music.loop = true;
+	}
+	else
+	{
+			music.pause();
+			document.getElementById("playMusicButton").innerHTML = "Play Music";
+	}
+}
 
 function updateCoords() {
 	if (contentLoaded) {
@@ -72,10 +97,9 @@ function updateCoords() {
 		if (init) {
 			defaultAPos = posA;
 			defaultBPos = posB;
-			//ignite(global, gridRight[[3, 3]]);
 			init = false;
 		}
-		
+
 		scale = [posA[0]-defaultAPos[0], posA[1]-defaultAPos[1]];
 
 	}

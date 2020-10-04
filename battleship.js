@@ -188,7 +188,7 @@ function switchShips(flag)
 				else
 				{
 					ship.style.left = (posB[0] + ((playerOneShips[i][0])*56)-(i)*28) + "px";
-					ship.style.top = (posB[1] + ((playerOneShips[i][2]+1) *62)+(i)*31)   + "px";
+					ship.style.top = (posB[1] + ((playerOneShips[i][1])*62)+(i)*31)   + "px";
 					ship.style.transform = "rotate(90deg)";
 				}
 				ship.style.visibility = "visible";
@@ -204,7 +204,7 @@ function switchShips(flag)
 				else
 				{
 					ship.style.left = (posB[0] + ((playerTwoShips[i][0])*56)-((i)*28)) + "px";
-					ship.style.top = (posB[1] + ((playerTwoShips[i][2]+1) *62)+(i)*31)   + "px";
+					ship.style.top = (posB[1] + ((playerTwoShips[i][1]) *62)+(i)*31)   + "px";
 					ship.style.transform = "rotate(90deg)";
 				}
 				ship.style.visibility = "visible";
@@ -249,18 +249,8 @@ function toggleDirection() {
 		{
 	    if (horizontal) {
 	        place_dir = "Horizontally";
-	        if(placingNum == 1)      {ship = document.getElementById("firstShip").style.transform = "rotate(0deg)";}
-	        else if(placingNum == 2) {ship = document.getElementById("secondShip").style.transform = "rotate(0deg)";}
-	        else if(placingNum == 3) {ship = document.getElementById("thirdShip").style.transform = "rotate(0deg)";}
-	        else if(placingNum == 4) {ship = document.getElementById("fourthShip").style.transform = "rotate(0deg)";}
-	        else if(placingNum == 5) {ship = document.getElementById("fifthShip").style.transform = "rotate(0deg)";}
 	    } else {
 	        place_dir = "Vertically";
-	        if(placingNum == 1)      {ship = document.getElementById("firstShip").style.transform = "rotate(90deg)";}
-	        else if(placingNum == 2) {ship = document.getElementById("secondShip").style.transform = "rotate(90deg)";}
-	        else if(placingNum == 3) {ship = document.getElementById("thirdShip").style.transform = "rotate(90deg)";}
-	        else if(placingNum == 4) {ship = document.getElementById("fourthShip").style.transform = "rotate(90deg)";}
-	        else if(placingNum == 5) {ship = document.getElementById("fifthShip").style.transform = "rotate(90deg)";}
 	    }
 		}
 
@@ -509,7 +499,6 @@ function switchPlayer() {
             }
             document.getElementById('ships').innerHTML = 'Click Ready';
             horizontal = true;
-                    toggleDirection();
             waitForSwitch = false;
             document.getElementById('ready').style.display = 'inline-block';
             document.querySelector("#result").innerText = "  ";
@@ -519,7 +508,7 @@ function switchPlayer() {
             if (player == 1) {
                 player = 2;
                 hideBoards();
-				
+
                 drawGuessBoard(board2);
                 drawPlayerBoard(board1);
                 document.querySelector("#playersTurn").innerText = " It is now Player 2's turn! ";
@@ -537,7 +526,7 @@ function switchPlayer() {
                     }
                     else if (difficulty == "Medium")
                     {
-                        //handleMedium();
+                        handleMedium();
                     }
                     else{
                         handleHard();
@@ -580,6 +569,187 @@ function handleEasy()
         col = Math.floor(Math.random()*9)+1;
     }while(!(checkForShip(row, col)));
 }
+
+/**
+ * Handles AI functionality when difficulty is Medium. pr and pc represent the location of a ship that has been founded by handleMedium. The second half of handleMedium and the four helper functions use that as a reference for where to search
+*/
+var pr = -1;
+var pc = -1;
+
+function handleMedium()
+{
+	if(pr == -1 && pc == -1)
+	{
+    guessed = false;
+		while(!guessed)
+		{
+			pr = Math.floor(Math.random() * 9);
+			pc = Math.floor(Math.random() * 9);
+			if(checkForShip(pr+1, pc+1))
+			{
+				//if the selected part of the board is not a ship's location, has not been hit conditionally, then pr and pc are reset.
+        if(!board1[pr][pc].startsWith("H"))
+        {
+          pr = -1;
+          pc = -1;
+        }
+        guessed = true;
+			}
+		}
+	}
+	else
+	{
+    //retrieve ship value from board and if not sunk, check surrounding squares.
+    if(checkSunk(board1, board1[pr][pc][1])) //in the event the ship is sunk, reset pr and pc and run handleMedium to get new coordinates then return.
+		{
+			pr = -1;
+			pc = -1;
+			handleMedium();
+			return;
+		}
+
+		//these medium helper functions make use of the CheckForShip function, so we input pr and pc an integer larger. If there are no spaces left to search in one direction, we move on to the next direction until the ship is sunk
+		if(mediumCheckLeft(pr+1,pc+1))
+		{
+			return;
+		}
+		if(mediumCheckRight(pr+1,pc+1))
+		{
+			return;
+		}
+		if(mediumCheckUp(pr+1,pc+1))
+		{
+			return;
+		}
+		if(mediumCheckDown(pr+1,pc+1))
+		{
+			return;
+		}
+	}
+}
+
+/**
+	*the four helper functions below each check in a certain direction for the point given. They act recursively to check each point in their direction.
+	*function takes in r and c between 1 and 9 and determines if a move can be made left.
+*/
+function mediumCheckLeft(r,c)
+{
+	//code will run if column is greater than 1, that is we can check left without going offboard
+	if(c > 1)
+	{
+		//if we can check the left for a ship, we can return true
+    if(checkForShip(r,c-1))
+    {
+      return true;
+    }
+    else
+		{
+			//if the space to the left on the board is a hit portion of the ship, we can recur the function to check left at that space. Otherwise, we'll return false; we cannot search left.
+			if(board1[r-1][c-2].startsWith("H"))
+    	{
+      	return mediumCheckLeft(r,c-1);
+    	}
+			else
+			{
+				return false;
+			}
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
+/**
+	*function takes in r and c between 1 and 9 and determines if a move can be made right.
+*/
+function mediumCheckRight(r,c)
+{
+	if(c < 9)
+	{
+		if(checkForShip(r,c+1))
+  	{
+    	return true;
+  	}
+  	else
+		{
+			if(board1[r-1][c].startsWith("H"))
+  		{
+    		return mediumCheckRight(r,c+1);
+  		}
+			else
+			{
+				return false;
+			}
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
+/**
+	*function takes in r and c between 1 and 9 and determines if a move can be made up.
+*/
+function mediumCheckUp(r,c)
+{
+  if(r > 1)
+  {
+		//if we can check above for a ship, we will return true. Else, we run an if statement determining if upper location is a hit ship and check from there.
+    if(checkForShip(r-1,c))
+    {
+      return true;
+    }
+    else
+		{
+			//r+1,c+1 represent the space r-1, c-1. To go down, to go down a row, we have r-2, c-1
+			if(board1[r-2][c-1].startsWith("H"))
+    	{
+      	return mediumCheckUp(r-1,c);
+    	}
+			else
+			{
+				return false;
+			}
+		}
+  }
+	else
+	{
+		return false;
+	}
+}
+
+/**
+	*function takes in r and c between 1 and 9 and determines if a move can be made down.
+*/
+function mediumCheckDown(r,c)
+{
+  if(r < 9)
+  {
+    if(checkForShip(r+1,c))
+    {
+      return true;
+    }
+    else
+		{
+			if(board1[r][c-1].startsWith("H"))
+    	{
+      	return mediumCheckDown(r+1,c);
+    	}
+    	else
+    	{
+      	return false;
+  		}
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
 /**
  * Set the boards to visible.
  */
@@ -611,6 +781,7 @@ function hideBoards() {
     document.getElementsByClassName('boardSeparator')[1].style.visibility = 'hidden';
     document.getElementById('switch').style.display = 'none';
 		switchShips(false);
+		clearFrames();
 }
 
 /**
@@ -778,22 +949,35 @@ function checkForShip(row, col) {
         board[row - 1][col - 1] = 'M';
         document.querySelector("#result").innerText = " MISS ";
 				playMissAnimation(col,row);
+				if (!isAI || player == 1) {
+					splashing.play();
+					splash(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[0]/2]);
+				}
     }
     else if (board[row - 1][col - 1].startsWith('@')) {
         let shipNum = board[row - 1][col - 1][1];
         board[row - 1][col - 1] = 'H' + shipNum;
-		ignite(boards[3-player]["left"], [gridCenter(gridLeft[[col-1, row-1]])[0], gridCenter(gridLeft[[col-1, row-1]])[1]-30]);
+		ignite(boards[3-player]["left"], [gridCenter(gridLeft[[col-1, row-1]])[0], gridCenter(gridLeft[[col-1, row-1]])[1]-gridSize[0]/2]);
+		if (!isAI || player == 1) {
+			boom.play();
+		}
         if (checkSunk(board, shipNum)) {
             document.querySelector("#result").innerText = " SUNK! ";
+			if (!isAI || player == 1) {
+				explode(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[1]/2]);
+			}
 						for(i = 0; i < numShips; i ++)
 						{
 							if(player == 2)
 							{
-								var colCheck = ((playerOneShips[i][0] <= (row-1)) && ((row-1) <= playerOneShips[i][0]+i));
-								var rowCheck = ((playerOneShips[i][1] <= (col-1)) && ((col-1) <= playerOneShips[i][1]+i));
+								var colCheck = ((playerOneShips[i][0] <= (col-1)) && ((col-1) <= playerOneShips[i][0]+i));
+								var rowCheck = ((playerOneShips[i][1] <= (row-1)) && ((row-1) <= playerOneShips[i][1]+i));
 								if (colCheck && rowCheck)
 								{
-									playSunkAnimation(playerOneShips[i][0],playerOneShips[i][1],(i+1));
+									// Weird bug sends wrong location?
+									console.log("This is what i is : " + i);
+									playSunkAnimation(playerOneShips[i][0],playerOneShips[i][1],(i+1),playerOneShips[i][2]);
+									break;
 								}
 							}
 							else
@@ -802,17 +986,22 @@ function checkForShip(row, col) {
 								var rowCheck = ((playerTwoShips[i][1] <= (row-1)) && ((row-1) <= playerTwoShips[i][1]+i));
 								if (colCheck && rowCheck)
 								{
-									playSunkAnimation(playerTwoShips[i][0],playerTwoShips[i][1],(i+1));
+									playSunkAnimation(playerTwoShips[i][0],playerTwoShips[i][1],(i+1),playerTwoShips[i][2]);
+									break;
 								}
 							}
 						}
         } else {
             document.querySelector("#result").innerText = " HIT ";
 						playHitAnimation(col,row);
+						if (!isAI || player == 1) {
+							boom.play();
+							explode(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[1]/2]);
+						}
         }
     }
     else {
-        document.querySelector("#result").innerText = " You have already guessed here, please try again. ";
+        document.querySelector("#result").innerText = " Already guessed. ";
 				switchShips(true);
         return false;
     }
@@ -869,6 +1058,8 @@ function checkForWinner() {
         document.querySelector("#playersTurn").innerText = "";
         hideBoards();
         document.getElementById('ready').style.display = 'none';
+		startBackgroundMusic()
+		victory.play();
     }
     return won;
 }
