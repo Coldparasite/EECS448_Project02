@@ -458,6 +458,7 @@ function drawBoards() {
  * Set the boards to invisible.
  */
 function hideBoards() {
+	updateBoardVisibility();
     document.getElementsByClassName('grid-container boardA')[0].style.visibility = 'hidden';
     document.getElementsByClassName('grid-container boardB')[0].style.visibility = 'hidden';
     document.getElementsByClassName('boardSeparator')[0].style.visibility = 'hidden';
@@ -635,6 +636,7 @@ function checkForShip(row, col) {
     else if (board[row - 1][col - 1].startsWith('@')) {
         let shipNum = board[row - 1][col - 1][1];
         board[row - 1][col - 1] = 'H' + shipNum;
+		ignite(boards[3-player]["left"], [gridCenter(gridLeft[[row-1, col-1]])[0], gridCenter(gridLeft[[row-1, col-1]])[1]-20]);
         if (checkSunk(board, shipNum)) {
             document.querySelector("#result").innerText = " SUNK! ";
 						for(i = 0; i < numShips; i ++)
