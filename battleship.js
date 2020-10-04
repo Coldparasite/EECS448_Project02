@@ -947,7 +947,7 @@ function checkForShip(row, col) {
         document.querySelector("#result").innerText = " MISS ";
 				playMissAnimation(col,row);
 				if (!isAI || player == 1) {
-					splashing.play();
+					splashing.start();
 					splash(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[0]/2]);
 				}
     }
@@ -956,7 +956,7 @@ function checkForShip(row, col) {
         board[row - 1][col - 1] = 'H' + shipNum;
 		ignite(boards[3-player]["left"], [gridCenter(gridLeft[[col-1, row-1]])[0], gridCenter(gridLeft[[col-1, row-1]])[1]-gridSize[0]/2]);
 		if (!isAI || player == 1) {
-			boom.play();
+			boom.start();
 		}
         if (checkSunk(board, shipNum)) {
             document.querySelector("#result").innerText = " SUNK! ";
@@ -992,7 +992,7 @@ function checkForShip(row, col) {
             document.querySelector("#result").innerText = " HIT ";
 						playHitAnimation(col,row);
 						if (!isAI || player == 1) {
-							boom.play();
+							boom.start();
 							explode(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[1]/2]);
 						}
         }

@@ -5,12 +5,19 @@ function sound(src) {
   this.sound.setAttribute("controls", "none");
   this.sound.style.display = "none";
   document.body.appendChild(this.sound);
-  this.play = function(){
+  this.play = function() {
     this.sound.play();
-  }
-  this.stop = function(){
+	}
+  this.stop = function() {
     this.sound.pause();
-  }
+	}
+  this.start = function() {
+	
+	this.stop();
+	this.sound.currentTime = 0;
+	
+	this.play();
+	}
 }
 
 var boom;
