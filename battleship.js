@@ -528,7 +528,7 @@ function switchPlayer() {
                     }
                     else if (difficulty == "Medium")
                     {
-                        //handleMedium();
+                        handleMedium();
                     }
                     else{
                         handleHard();
@@ -571,6 +571,171 @@ function handleEasy()
         col = Math.floor(Math.random()*9)+1;
     }while(!(checkForShip(row, col)));
 }
+
+/**
+ * Handles AI functionality when difficulty is Medium
+*/
+var pr = -1;
+var pc = -1;
+
+function handleMedium()
+{
+	if(pr == -1 && pc == -1)
+	{
+    guessed = false;
+		while(!guessed)
+		{
+			pr = Math.floor(Math.random() * 9);
+			pc = Math.floor(Math.random() * 9);
+			if(checkForShip(pr+1, pc+1))
+			{
+        if(!board1[pr][pc].startsWith("H"))
+        {
+          pr = -1;
+          pc = -1;
+        }
+        guessed = true;
+			}
+		}
+	}
+	else
+	{
+    //retrieve ship value from board and if not sunk, check surrounding squares. When sunk, reset pr and pc
+    if(checkSunk(board1, board1[pr][pc][1])) //in the event the ship is sunk
+		{
+			pr = -1;
+			pc = -1;
+			handleMedium();
+			return;
+		}
+
+		//these medium helper functions make use of the CheckForShip function, so we input the row and columns an integer larger
+		if(mediumCheckLeft(pr+1,pc+1))
+		{
+			return;
+		}
+		if(mediumCheckRight(pr+1,pc+1))
+		{
+			return;
+		}
+		if(mediumCheckUp(pr+1,pc+1))
+		{
+			return;
+		}
+		if(mediumCheckDown(pr+1,pc+1))
+		{
+			return;
+		}
+	}
+}
+
+
+function mediumCheckLeft(r,c)
+{
+	if(c > 1)
+	{
+    if(checkForShip(r,c-1))
+    {
+      return true;
+    }
+    else
+		{
+			if(board1[r-1][c-2].startsWith("H"))
+    	{
+      	return mediumCheckLeft(r,c-1);
+    	}
+			else
+			{
+				return false;
+			}
+		}
+	}
+	else //c being 1 would be left side of board
+	{
+		return false;
+	}
+}
+
+function mediumCheckRight(r,c)
+{
+	if(c < 8)
+	{
+		if(checkForShip(r,c+1))
+  	{
+    	return true;
+  	}
+  	else
+		{
+			if(board1[r-1][c].startsWith("H"))
+  		{
+    		return mediumCheckRight(r,c+1);
+  		}
+			else
+			{
+				return false;
+			}
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
+function mediumCheckUp(r,c)
+{
+  if(r > 1)
+  {
+		console.log(r);
+		console.log(c);
+    if(checkForShip(r-1,c))
+    {
+      return true;
+    }
+    else
+		{
+			if(board1[r-2][c-1].startsWith("H"))
+    	{
+      	return mediumCheckUp(r-1,c);
+    	}
+			else
+			{
+				return false;
+			}
+		}
+  }
+	else
+	{
+		return false;
+	}
+}
+
+function mediumCheckDown(r,c)
+{
+  if(r < 9)
+  {
+    if(checkForShip(r+1,c))
+    {
+      return true;
+    }
+    else
+		{
+			if(board1[r][c-1].startsWith("H"))
+    	{
+      	return mediumCheckDown(r+1,c);
+    	}
+    	else
+    	{
+      	return false;
+  		}
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
 /**
  * Set the boards to visible.
  */
