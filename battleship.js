@@ -80,6 +80,9 @@ function AILevel(num){
     }
 }
 
+/**
+ * When the difficulty is Hard, this code will run handling the AI functionallity 
+ */
 function handleHard()
 {
     let pos = false;
