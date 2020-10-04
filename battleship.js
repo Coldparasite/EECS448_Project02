@@ -128,7 +128,7 @@ function displayShip(x,y)
 		if(horizontal)
 		{
     	ship.style.left = (posB[0] + (x-1)*56) + "px";
-    	ship.style.top = (posB[1] + (y-1) *62)  + "px";
+    	ship.style.top = (posB[1] + (y-1) *62 - 6)  + "px";
 			ship.style.transform = "rotate(0deg)";
 		}
 		else
@@ -144,7 +144,7 @@ function displayShip(x,y)
 		if(horizontal)
 		{
 			ship.style.left = (posB[0] + (x-1)*56) + "px";
-			ship.style.top = (posB[1] + (y-1) *62)  + "px";
+			ship.style.top = (posB[1] + (y-1) *62 + 28)  + "px";
 			ship.style.transform = "rotate(0deg)";
 		}
 		else
