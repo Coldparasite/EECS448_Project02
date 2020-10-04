@@ -32,8 +32,10 @@ class ParticleGroup extends Array {
 		this.offset = [0, 0];
 		this.active = true;
 		this.duration = -1;
+		this.savedDuration = this.duration;
 		this.cycle = 1;
 		this.counter = 0;
+		this.partial = (density<1);
 		
 		this.posRange = posRange;
 		this.sizeRange = sizeRange;
@@ -127,10 +129,20 @@ class ParticleGroup extends Array {
 
 	activate() {
 		this.active = true;
+		print("DURATION: " + this.savedDuration);
+		this.duration = this.savedDuration;
+		if (this.partial) {
+			this.cycle = Math.ceil((1/this.density));
+		}
+		else {
+			this.cycle = 1;
+		}
+		this.counter = 0;
 	};
 
 	deactivate() {
 		this.active = false;
+		this.savedDuration = this.duration;
 		this.duration = -2;
 	};
 
@@ -190,7 +202,8 @@ class ParticleSystem {
 	update() {
 		for (var particleObj in this.particles) {
 			this.particles[particleObj].update();
-			if (this.particles[particleObj].dead()) {			
+			if (this.particles[particleObj].dead()) {	
+				print("REMOVING");		
 				this.remove(particleObj);
 			}
 		}
@@ -226,9 +239,11 @@ class ParticleSystem {
 
 	deactivate(key=null) {
 		if (key == null) {
-			this.active = false;
-			for (var particleObj in this.particles) {
-				this.particles[particleObj].deactivate();
+			if (this.active) {
+				this.active = false;
+				for (var particleObj in this.particles) {
+					this.particles[particleObj].deactivate();
+				}
 			}
 		}
 		else {
@@ -253,6 +268,14 @@ class ParticleSystem {
 			}
 		}
 		return isDead;
+	};
+
+	length() {
+		var length = 0;
+		for (var particleObj in this.particles) {
+			length += particleObj.length;
+		}
+		return length;
 	};
 
 };

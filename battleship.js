@@ -12,7 +12,8 @@ var placingFinished = false;
 var playerTwoPlacementReady = false;
 var playerOneShips = [];
 var playerTwoShips = [];
-
+var difficulty = "";
+var isAI= false;
 var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
 
 function print(message) {
@@ -37,6 +38,7 @@ function AIChoice(num){
         }
         document.getElementById("visibleButtons").style= "display: block";
         document.getElementById("AIDifficulty").style= "visibility: visible";
+        isAI = true;
     }
     else{
         document.getElementById("playerChoice").remove();
@@ -56,6 +58,7 @@ function AILevel(num){
         }
         document.getElementById("numShips").style= "visibility: visible";
         document.getElementById("visibleButtons2").style= "visibility: visible";
+        difficulty = "Easy";
     }
     else if(num == 2){
         document.getElementById("AIDifficulty").remove();
@@ -64,6 +67,7 @@ function AILevel(num){
         }
         document.getElementById("numShips").style= "visibility: visible";
         document.getElementById("visibleButtons2").style= "visibility: visible";
+        difficulty = "Medium";
     }
     else{
         document.getElementById("AIDifficulty").remove();
@@ -72,6 +76,7 @@ function AILevel(num){
         }
         document.getElementById("numShips").style= "visibility: visible";
         document.getElementById("visibleButtons2").style= "visibility: visible";
+        difficulty = "Hard";
     }
 }
 
@@ -98,8 +103,14 @@ function numShipFunction(num) {
     }
 };
 
+/**
+* Shows the ship currently being placed on the screen.
+* @param {x} num The x coordinate on the grid.
+* @param {y} num The y coordinate on the grid.
+*/
 function displayShip(x,y)
 {
+	//playAction(0,0);
   if(placingNum == 1)      {ship = document.getElementById("firstShip");}
   else if(placingNum == 2) {ship = document.getElementById("secondShip");}
   else if(placingNum == 3) {ship = document.getElementById("thirdShip");}
@@ -109,14 +120,14 @@ function displayShip(x,y)
   {
 		if(horizontal)
 		{
-    	ship.style.left = (posB[0] + (x-1)*64) + "px";
-    	ship.style.top = (posB[1] + (y-1) *70)  + "px";
+    	ship.style.left = (posB[0] + (x-1)*56) + "px";
+    	ship.style.top = (posB[1] + (y-1) *62)  + "px";
 			ship.style.transform = "rotate(0deg)";
 		}
 		else
 		{
-			ship.style.left = (posB[0] + ((x-1)*64)-((placingNum-1)*32)) + "px";
-			ship.style.top = (posB[1] + ((y-1) *70)+(placingNum-1)*36)   + "px";
+			ship.style.left = (posB[0] + ((x-1)*56)-((placingNum-1)*28)) + "px";
+			ship.style.top = (posB[1] + ((y-1) *62)+(placingNum-1)*31)   + "px";
 			ship.style.transform = "rotate(90deg)";
 		}
 		ship.style.visibility = "visible";
@@ -125,20 +136,25 @@ function displayShip(x,y)
   {
 		if(horizontal)
 		{
-			ship.style.left = (posB[0] + (x-1)*64) + "px";
-			ship.style.top = (posB[1] + (y-1) *70)  + "px";
+			ship.style.left = (posB[0] + (x-1)*56) + "px";
+			ship.style.top = (posB[1] + (y-1) *62)  + "px";
 			ship.style.transform = "rotate(0deg)";
 		}
 		else
 		{
-			ship.style.left = (posB[0] + ((x-1)*64)-((placingNum-1)*32)) + "px";
-			ship.style.top = (posB[1] + ((y-1) *70)+(placingNum-1)*36)   + "px";
+			ship.style.left = (posB[0] + ((x-1)*56)-((placingNum-1)*28)) + "px";
+			ship.style.top = (posB[1] + ((y-1) *62)+(placingNum-1)*31)   + "px";
 			ship.style.transform = "rotate(90deg)";
 		}
 		ship.style.visibility = "visible";
 	}
 }
 
+/**
+* Places the ships on the screen at the start of each players turn or hides them
+* at the end of the turn.
+* @param {flag} boolean determines if the ships are supposed to be on screen.
+*/
 function switchShips(flag)
 {
   if(flag && !(placing))
@@ -155,14 +171,14 @@ function switchShips(flag)
 			{
 				if(playerOneShips[i][2])
 				{
-					ship.style.left = (posB[0] + (playerOneShips[i][0])*64) + "px";
-					ship.style.top = (posB[1] + (playerOneShips[i][1]) *70)  + "px";
+					ship.style.left = (posB[0] + (playerOneShips[i][0])*56) + "px";
+					ship.style.top = (posB[1] + (playerOneShips[i][1]) *62)  + "px";
 					ship.style.transform = "rotate(0deg)";
 				}
 				else
 				{
-					ship.style.left = (posB[0] + ((playerOneShips[i][0])*64)-(i)*32) + "px";
-					ship.style.top = (posB[1] + ((playerOneShips[i][2]) *70)+(i)*36)   + "px";
+					ship.style.left = (posB[0] + ((playerOneShips[i][0])*56)-(i)*28) + "px";
+					ship.style.top = (posB[1] + ((playerOneShips[i][2]+1) *62)+(i)*31)   + "px";
 					ship.style.transform = "rotate(90deg)";
 				}
 				ship.style.visibility = "visible";
@@ -171,14 +187,14 @@ function switchShips(flag)
 			{
 				if(playerTwoShips[i][2])
 				{
-					ship.style.left = (posB[0] + (playerTwoShips[i][0])*64) + "px";
-					ship.style.top = (posB[1] + (playerTwoShips[i][1]) *70)  + "px";
+					ship.style.left = (posB[0] + (playerTwoShips[i][0])*56) + "px";
+					ship.style.top = (posB[1] + (playerTwoShips[i][1]) *62)  + "px";
 					ship.style.transform = "rotate(0deg)";
 				}
 				else
 				{
-					ship.style.left = (posB[0] + ((playerTwoShips[i][0])*64)-((i)*32)) + "px";
-					ship.style.top = (posB[1] + ((playerTwoShips[i][2]) *70)+(i)*36)   + "px";
+					ship.style.left = (posB[0] + ((playerTwoShips[i][0])*56)-((i)*28)) + "px";
+					ship.style.top = (posB[1] + ((playerTwoShips[i][2]+1) *62)+(i)*31)   + "px";
 					ship.style.transform = "rotate(90deg)";
 				}
 				ship.style.visibility = "visible";
@@ -192,9 +208,13 @@ function switchShips(flag)
       document.getElementById("thirdShip").style.visibility = "hidden";
       document.getElementById("fourthShip").style.visibility = "hidden";
       document.getElementById("fifthShip").style.visibility = "hidden";
-			console.log("hide");
   }
 }
+
+/**
+* Hides the ships when the mouse is no longer over a cell during the placement
+* of ships.
+*/
 function hideShip()
 {
     if(placing && !placingFinished)
@@ -270,7 +290,10 @@ function placeShip(row, col, board, length, horizontal) {
                 board[row + i][col] = "@" + length;
             }
         }
-        drawPlayerBoard(board);
+        if (isAI ==false || player == 1)
+        {
+            drawPlayerBoard(board);
+        }
         return true;
     } else {
         return false;
@@ -351,15 +374,31 @@ function clickCheck(board_num, col, row) {
                 placingNum++;
             }
         }
-        if (placingNum > numShips) {
-            document.getElementById('ready').style.display = 'none';
-            if (player == 1) {
-                placingNum = 1;
-                waitForSwitch = true;
-            } else {
-                placing = false;
-                waitForSwitch = true;
-                document.getElementById('toggleDir').style.display = 'none';
+        if (isAI==false)
+        {
+            if (placingNum > numShips) {
+                document.getElementById('ready').style.display = 'none';
+                if (player == 1) {
+                    placingNum = 1;
+                    waitForSwitch = true;
+                } else {
+                    placing = false;
+                    waitForSwitch = true;
+                    document.getElementById('toggleDir').style.display = 'none';
+                }
+            }
+        }
+        else
+        {
+            if (placingNum > numShips) {
+                document.getElementById('ready').style.display = 'none';
+                if (player == 1) {
+                    placingNum = 1;
+                    waitForSwitch = true;
+                    //placing = true;
+                    document.getElementById('toggleDir').style.display = 'none';
+
+                }
             }
         }
         if (placing) {
@@ -371,12 +410,45 @@ function clickCheck(board_num, col, row) {
         } else {
             document.getElementById('ships').innerHTML = 'Click Switch Players';
         }
-    } else if (board_num == 1 && !waitForSwitch) {
+    }
+    else if (board_num == 1 && !waitForSwitch) {
         waitForSwitch = checkForShip(row, col);
         document.getElementById('ready').style.display = 'none';
     }
 }
+/**
+ * Randomly place ships for AI
+ * @param {number} num The number of ships that need to be placed.
+ */
+function placeAIship(num)
+{
+    let length =placingNum;
+    do
+    {
+        let row = 10;
+        let col = 10;
+        let hori = true;
+        let orientation= 0;
+        do{
+            row = Math.floor(Math.random()*9)+1;
+            col = Math.floor(Math.random()*9)+1;
+            orientation =  Math.floor(Math.random()*2);
+            if(orientation == 0)
+            {
+                hori= false;
+            }
+            else{
+                hori =true;
+            }
+            //2 ship works 5 do not
 
+        }while(!(checkPlacement(row-1, col-1, getBoard(), length, hori)));
+
+        if (placeShip(row - 1, col - 1, getBoard(), placingNum, hori)) {
+            placingNum++;
+        }
+    }while (placingNum <= numShips);
+}
 /**
  * Get the current player board or by number.
  *
@@ -399,44 +471,111 @@ function getBoard(num = NaN) {
  * Check if the turn is over and then switch the current player.
  */
 function switchPlayer() {
-		if (waitForSwitch) {
-        if(placing && placingFinished)
+    if (waitForSwitch) {
+        if(isAI==false)
         {
-          playerTwoPlacementReady = true;
-          placingFinished = false;
+            if(placing && placingFinished)
+            {
+            playerTwoPlacementReady = true;
+            placingFinished = false;
+            }
+            if (player == 1) {
+                player = 2;
+                hideBoards();
+				hideBoardParticles();
+				print("Hiding");
+                drawGuessBoard(board1);
+                drawPlayerBoard(board2);
+                document.querySelector("#playersTurn").innerText = " It is now Player 2's turn! ";
+            }
+            else {
+                player = 1;
+                hideBoards();
+				hideBoardParticles();
+				print("Hiding");
+                drawGuessBoard(board2);
+                drawPlayerBoard(board1);
+                document.querySelector("#playersTurn").innerText = " It is now Player 1's turn! ";
+            }
+            document.getElementById('ships').innerHTML = 'Click Ready';
+            horizontal = true;
+                    toggleDirection();
+            waitForSwitch = false;
+            document.getElementById('ready').style.display = 'inline-block';
+            document.querySelector("#result").innerText = "  ";
         }
-        if (player == 1) {
-            player = 2;
-            hideBoards();
-            drawGuessBoard(board1);
-            drawPlayerBoard(board2);
-            document.querySelector("#playersTurn").innerText = " It is now Player 2's turn! ";
+        else
+        {
+            if (player == 1) {
+                player = 2;
+                hideBoards();
+				
+                drawGuessBoard(board2);
+                drawPlayerBoard(board1);
+                document.querySelector("#playersTurn").innerText = " It is now Player 2's turn! ";
+				hideBoardParticles();
+				print("Hiding");
+                if(placing)
+                {
+                    placeAIship(numShips);
+                    placing=false;
+                }
+                else{
+                    if(difficulty == "Easy")
+                    {
+                        handleEasy();
+                    }
+                    else if (difficulty == "Medium")
+                    {
+                        //handleMedium();
+                    }
+                    else{
+                        //handleHard();
+                    }
+                }
+                if(!checkForWinner())
+                {
+                    player = 1;
+                    hideBoards();
+                    drawGuessBoard(board2);
+                    drawPlayerBoard(board1);
+                    document.querySelector("#playersTurn").innerText = " It is now Player 1's turn! ";
+					hideBoardParticles();
+					print("Hiding");
+                }
+            }
+            document.getElementById('ships').innerHTML = 'Click Ready';
+            horizontal = true;
+                    toggleDirection();
+            waitForSwitch = false;
+            document.getElementById('ready').style.display = 'inline-block';
+            document.querySelector("#result").innerText = "  ";
         }
-        else {
-            player = 1;
-            hideBoards();
-            drawGuessBoard(board2);
-            drawPlayerBoard(board1);
-            document.querySelector("#playersTurn").innerText = " It is now Player 1's turn! ";
-        }
-        document.getElementById('ships').innerHTML = 'Click Ready';
-        horizontal = true;
-				toggleDirection();
-        waitForSwitch = false;
-        document.getElementById('ready').style.display = 'inline-block';
-        document.querySelector("#result").innerText = "  ";
     }
     else {
         document.querySelector("#result").innerText = " Turn not finished! ";
-				switchShips(true);
+                switchShips(true);
     }
     checkForWinner();
 }
-
+/**
+ * Handles AI functionality when difficulty is Easy
+ */
+function handleEasy()
+{
+    let row = 0;
+    let col = 0;
+    do{
+        row = Math.floor(Math.random()*9)+1;
+        col = Math.floor(Math.random()*9)+1;
+    }while(!(checkForShip(row, col)));
+}
 /**
  * Set the boards to visible.
  */
 function drawBoards() {
+	updateParticleVisibility();
+	print("Updating");
     document.getElementsByClassName('grid-container boardA')[0].style.visibility = 'visible';
     document.getElementsByClassName('grid-container boardB')[0].style.visibility = 'visible';
     document.getElementsByClassName('boardSeparator')[0].style.visibility = 'visible';
@@ -628,14 +767,38 @@ function checkForShip(row, col) {
     if (board[row - 1][col - 1] == '*') {
         board[row - 1][col - 1] = 'M';
         document.querySelector("#result").innerText = " MISS ";
+				playMissAnimation(col,row);
     }
     else if (board[row - 1][col - 1].startsWith('@')) {
         let shipNum = board[row - 1][col - 1][1];
         board[row - 1][col - 1] = 'H' + shipNum;
+		ignite(boards[3-player]["left"], [gridCenter(gridLeft[[col-1, row-1]])[0], gridCenter(gridLeft[[col-1, row-1]])[1]-30]);
         if (checkSunk(board, shipNum)) {
             document.querySelector("#result").innerText = " SUNK! ";
+						for(i = 0; i < numShips; i ++)
+						{
+							if(player == 2)
+							{
+								var colCheck = ((playerOneShips[i][0] <= (row-1)) && ((row-1) <= playerOneShips[i][0]+i));
+								var rowCheck = ((playerOneShips[i][1] <= (col-1)) && ((col-1) <= playerOneShips[i][1]+i));
+								if (colCheck && rowCheck)
+								{
+									playSunkAnimation(playerOneShips[i][0],playerOneShips[i][1],(i+1));
+								}
+							}
+							else
+							{
+								var colCheck = ((playerTwoShips[i][0] <= (col-1)) && ((col-1) <= playerTwoShips[i][0]+i));
+								var rowCheck = ((playerTwoShips[i][1] <= (row-1)) && ((row-1) <= playerTwoShips[i][1]+i));
+								if (colCheck && rowCheck)
+								{
+									playSunkAnimation(playerTwoShips[i][0],playerTwoShips[i][1],(i+1));
+								}
+							}
+						}
         } else {
             document.querySelector("#result").innerText = " HIT ";
+						playHitAnimation(col,row);
         }
     }
     else {

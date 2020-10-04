@@ -24,10 +24,10 @@ var posB;
 var numGrids = [9, 9];
 var gridSize = null;
 
-var gridA;
-var gridB;
+var gridRight;
+var gridLeft;
 
-var difference;
+var scale;
 
 var contentLoaded = false;
 var init = true;
@@ -59,29 +59,32 @@ function updateCoords() {
 
 		gridSize = [Math.abs(rectCol.right-rectCol.left), Math.abs(rectB.top-rectB.bottom)];
 
-		gridA = {};
-		gridB = {};
+		gridRight = {};
+		gridLeft = {};
 
 		for (var i = 0; i<numGrids[0]; i++) {
 			for (var j = 0; j<numGrids[1]; j++) {
-				gridA[[i, j]] = [posA[0] + gridSize[0]*i + gridStyle.border[0] + window.pageXOffset, posA[1] + gridSize[1]*j + gridStyle.border[1] + window.pageYOffset];
-				gridB[[i, j]] = [posB[0] + gridSize[0]*i + gridStyle.border[0] + window.pageXOffset, posB[1] + gridSize[1]*j + gridStyle.border[1] + window.pageYOffset];
+				gridRight[[i, j]] = [posA[0] + gridSize[0]*i + gridStyle.border[0] + window.pageXOffset, posA[1] + gridSize[1]*j + gridStyle.border[1] + window.pageYOffset];
+				gridLeft[[i, j]] = [posB[0] + gridSize[0]*i + gridStyle.border[0] + window.pageXOffset, posB[1] + gridSize[1]*j + gridStyle.border[1] + window.pageYOffset];
 			}
 		}
 
 		if (init) {
 			defaultAPos = posA;
 			defaultBPos = posB;
-
-			ignite(gridA[[3, 3]]);
-
+			//ignite(global, gridRight[[3, 3]]);
 			init = false;
 		}
 		
-		difference = [posA[0]-defaultAPos[0], posA[1]-defaultAPos[1]];
+		scale = [posA[0]-defaultAPos[0], posA[1]-defaultAPos[1]];
 
 	}
 }
+
+function gridCenter(pos) {
+	return [pos[0]+gridSize[0]/2, pos[1]+gridSize[1]/2];
+}
+
 function getStyle(element) {
 	var style = element.currentStyle || window.getComputedStyle(element);
 	var attributes = {
