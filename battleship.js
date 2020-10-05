@@ -16,6 +16,12 @@ var difficulty = "";
 var isAI= false;
 var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
 
+
+/**
+ * Prints message to console
+ *
+ * @param {string} message Message to print to console
+ */
 function print(message) {
 	console.log(message);
 }
@@ -363,7 +369,6 @@ function createBoards() {
  * @param {number} row The row that was clicked.
  */
 function clickCheck(board_num, col, row) {
-    //console.log(board_num, row, col);
     if (placing && !waitForSwitch) {
         if (numShips == 0 || board_num !== 2) {
             // Have not selected number of ships or clicked wrong board
@@ -949,7 +954,7 @@ function checkForShip(row, col) {
         document.querySelector("#result").innerText = " MISS ";
 				playMissAnimation(col,row);
 				if (!isAI || player == 1) {
-					splashing.play();
+					splashing.start();
 					splash(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[0]/2]);
 				}
     }
@@ -958,7 +963,7 @@ function checkForShip(row, col) {
         board[row - 1][col - 1] = 'H' + shipNum;
 		ignite(boards[3-player]["left"], [gridCenter(gridLeft[[col-1, row-1]])[0], gridCenter(gridLeft[[col-1, row-1]])[1]-gridSize[0]/2]);
 		if (!isAI || player == 1) {
-			boom.play();
+			boom.start();
 		}
         if (checkSunk(board, shipNum)) {
             document.querySelector("#result").innerText = " SUNK! ";
@@ -994,7 +999,7 @@ function checkForShip(row, col) {
             document.querySelector("#result").innerText = " HIT ";
 						playHitAnimation(col,row);
 						if (!isAI || player == 1) {
-							boom.play();
+							boom.start();
 							explode(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[1]/2]);
 						}
         }

@@ -1,7 +1,3 @@
-/*
-	Update mouse pos regularly instead of when mouse moves
-*/
-
 var global = new ParticleSystem();
 
 var boards = {
@@ -11,6 +7,10 @@ var boards = {
 
 var particles = [boards[1]["right"], boards[1]["left"], boards[2]["right"], boards[2]["left"], global];
 
+/**
+ * Hides or shows boards particle effects based on turn
+ *
+ */
 function updateParticleVisibility() {
 	boards[player]["left"].activate();
 	boards[player]["right"].deactivate();
@@ -18,6 +18,10 @@ function updateParticleVisibility() {
 	boards[3-player]["right"].activate();
 }
 
+/**
+ * Hide all board particle effects
+ *
+ */
 function hideBoardParticles() {
 	boards[player]["left"].deactivate();
 	boards[player]["right"].deactivate();
@@ -25,30 +29,12 @@ function hideBoardParticles() {
 	boards[3-player]["right"].deactivate();
 }
 
+/**
+ * Loop to constantly update particle effects
+ */
 animationLoop = function() {
 	updateCoords();
 	display.clearRect(0, 0, canvas.width, canvas.height);
-
-	/*
-
-
-	//if (mouseDown) {
-	//	ignite([mouseX-difference[0], mouseY-difference[1]], 10);
-	//}
-
-	if (getClick()) {
-		//print("Mouse: " + mousePos);
-		//print("Scale: " + scale);
-		print(player+" left: " + boards[player]["left"].active + ", " + boards[player]["left"].length());
-		print(player+" right: " + boards[player]["right"].active + ", " + boards[player]["right"].length());
-		print((3-player) + " left: " + boards[3-player]["left"].active + ", " + boards[3-player]["left"].length());
-		print((3-player) + " right: " + boards[3-player]["right"].active + ", " + boards[3-player]["right"].length());
-		print(boards[1]["left"]);
-		print(boards[2]["left"]);
-
-		print("\n");
-	}
-	*/
 
 	//iteratively update particle systems
 	for (var system of particles) {
