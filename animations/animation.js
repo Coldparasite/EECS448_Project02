@@ -1,7 +1,4 @@
-/*
-	Update mouse pos regularly instead of when mouse moves
-*/
-
+//particle systems to hold various particle effects
 var global = new ParticleSystem();
 
 var boards = {
@@ -11,6 +8,10 @@ var boards = {
 
 var particles = [boards[1]["right"], boards[1]["left"], boards[2]["right"], boards[2]["left"], global];
 
+/**
+ * Hides or shows boards particle effects based on turn
+ *
+ */
 function updateParticleVisibility() {
 	boards[player]["left"].activate();
 	boards[player]["right"].deactivate();
@@ -18,6 +19,10 @@ function updateParticleVisibility() {
 	boards[3-player]["right"].activate();
 }
 
+/**
+ * Hide all board particle effects
+ *
+ */
 function hideBoardParticles() {
 	boards[player]["left"].deactivate();
 	boards[player]["right"].deactivate();
@@ -25,16 +30,12 @@ function hideBoardParticles() {
 	boards[3-player]["right"].deactivate();
 }
 
+/**
+ * Loop to constantly update particle effects
+ */
 animationLoop = function() {
 	updateCoords();
 	display.clearRect(0, 0, canvas.width, canvas.height);
-
-	if (getClick()) {
-		print("Mouse: " + mousePos);
-		print("Scale: " + scale);
-		print("\n");
-	}
-
 
 	//iteratively update particle systems
 	for (var system of particles) {

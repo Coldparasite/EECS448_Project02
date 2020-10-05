@@ -62,6 +62,9 @@ function startBackgroundMusic()
 	}
 }
 
+/**
+ * Updates origin point and relative coordinates of boards and other elements on screen
+ */
 function updateCoords() {
 	if (contentLoaded) {
 		doc = document.body.getBoundingClientRect();
@@ -105,10 +108,22 @@ function updateCoords() {
 	}
 }
 
+/**
+ * Return center of given board coordinate position
+ *
+ * @param {array} pos Coordinate postion to be centered
+ * @return {array} Centered corrdinate position
+ */
 function gridCenter(pos) {
 	return [pos[0]+gridSize[0]/2, pos[1]+gridSize[1]/2];
 }
 
+/**
+ * Returns css style attributes of given element
+ *
+ * @param {element} element HTML element 
+ * @return {dict} returns css info about element
+ */
 function getStyle(element) {
 	var style = element.currentStyle || window.getComputedStyle(element);
 	var attributes = {

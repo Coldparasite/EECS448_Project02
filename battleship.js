@@ -16,6 +16,12 @@ var difficulty = "";
 var isAI= false;
 var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
 
+
+/**
+ * Prints message to console
+ *
+ * @param {string} message Message to print to console
+ */
 function print(message) {
 	console.log(message);
 }
@@ -27,7 +33,7 @@ function print(message) {
 */
 
 /**
- * Sets the number of ships to be placed for this game.
+ * Sets whether or not you want to play against a player or AI
  * @param {number} num The number of ships to play with this game
  */
 function AIChoice(num){
@@ -50,6 +56,10 @@ function AIChoice(num){
     }
 }
 
+/**
+ * Sets the difficulty of the AI to easy, medium, or hard
+ * @param {number} num The number of ships to play with this game
+ */
 function AILevel(num){
     if(num == 1){
         document.getElementById("AIDifficulty").remove();
@@ -80,6 +90,9 @@ function AILevel(num){
     }
 }
 
+/**
+ * When the difficulty is Hard, this code will run handling the AI functionallity 
+ */
 function handleHard()
 {
     let pos = false;
@@ -360,7 +373,6 @@ function createBoards() {
  * @param {number} row The row that was clicked.
  */
 function clickCheck(board_num, col, row) {
-    //console.log(board_num, row, col);
     if (placing && !waitForSwitch) {
         if (numShips == 0 || board_num !== 2) {
             // Have not selected number of ships or clicked wrong board
@@ -437,7 +449,6 @@ function placeAIship(num)
             else{
                 hori =true;
             }
-            //2 ship works 5 do not
 
         }while(!(checkPlacement(row-1, col-1, getBoard(), length, hori)));
 
