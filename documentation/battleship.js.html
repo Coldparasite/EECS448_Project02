@@ -1,88 +1,29 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: battleship.js</title>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> battleship.js</title>
-
-  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script src="./build/entry.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
-  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
-  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
-  <link type="text/css" rel="stylesheet" href="">
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-
-
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
 </head>
 
+<body>
 
+<div id="main">
 
-<body class="layout small-header">
-    <div id="stickyNavbarOverlay"></div>
+    <h1 class="page-title">Source: battleship.js</h1>
 
-
-<div class="top-nav">
-    <div class="inner">
-        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
-        <div class="logo">
-
-
-        </div>
-        <div class="menu">
-
-            <div class="navigation">
-                <a
-                    href="index.html"
-                    class="link"
-                >
-                    API Documentation
-                </a>
+    
 
 
 
-            </div>
-        </div>
-    </div>
-</div>
-    <div id="main">
-        <div
-            class="sidebar "
-            id="sidebarNav"
-        >
-
-            <nav>
-
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#checkForShip">checkForShip</a></li><li><a href="global.html#checkForWinner">checkForWinner</a></li><li><a href="global.html#checkPlacement">checkPlacement</a></li><li><a href="global.html#checkSunk">checkSunk</a></li><li><a href="global.html#clearCellLabel">clearCellLabel</a></li><li><a href="global.html#clickCheck">clickCheck</a></li><li><a href="global.html#colorCell">colorCell</a></li><li><a href="global.html#createBoards">createBoards</a></li><li><a href="global.html#drawBoards">drawBoards</a></li><li><a href="global.html#drawGuessBoard">drawGuessBoard</a></li><li><a href="global.html#drawPlayerBoard">drawPlayerBoard</a></li><li><a href="global.html#getBoard">getBoard</a></li><li><a href="global.html#hideBoards">hideBoards</a></li><li><a href="global.html#labelCell">labelCell</a></li><li><a href="global.html#labelShip">labelShip</a></li><li><a href="global.html#numShipFunction">numShipFunction</a></li><li><a href="global.html#placeShip">placeShip</a></li><li><a href="global.html#switchPlayer">switchPlayer</a></li><li><a href="global.html#toggleDirection">toggleDirection</a></li></ul></div>
-
-            </nav>
-        </div>
-        <div class="core" id="main-content-wrapper">
-            <div class="content">
-                <header class="page-title">
-                    <p>Source</p>
-                    <h1>battleship.js</h1>
-                </header>
-
-
-
-
-
+    
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>var gameOver = false;
@@ -95,8 +36,17 @@ var waitForSwitch = false;
 var horizontal = true;
 var placing = true;
 var placingNum = 1;
-
+var placingFinished = false;
+var playerTwoPlacementReady = false;
+var playerOneShips = [];
+var playerTwoShips = [];
+var difficulty = "";
+var isAI= false;
 var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
+
+function print(message) {
+	console.log(message);
+}
 
 /* * = empty
     M = Miss
@@ -108,6 +58,77 @@ var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
  * Sets the number of ships to be placed for this game.
  * @param {number} num The number of ships to play with this game
  */
+function AIChoice(num){
+    if(num == 1){
+        document.getElementById("playerChoice").remove();
+        for (let i = 1; i &lt; 3; i++){
+            document.getElementById(i + "Button").remove();
+        }
+        document.getElementById("visibleButtons").style= "display: block";
+        document.getElementById("AIDifficulty").style= "visibility: visible";
+        isAI = true;
+    }
+    else{
+        document.getElementById("playerChoice").remove();
+        for (let i = 1; i &lt; 3; i++){
+            document.getElementById(i + "Button").remove();
+        }
+        document.getElementById("numShips").style= "display: block";
+        document.getElementById("visibleButtons2").style= "visibility: visible";
+    }
+}
+
+function AILevel(num){
+    if(num == 1){
+        document.getElementById("AIDifficulty").remove();
+        for (let i = 1; i &lt; 4; i++){
+            document.getElementById(i + "Difficulty").remove();
+        }
+        document.getElementById("numShips").style= "visibility: visible";
+        document.getElementById("visibleButtons2").style= "visibility: visible";
+        difficulty = "Easy";
+    }
+    else if(num == 2){
+        document.getElementById("AIDifficulty").remove();
+        for (let i = 1; i &lt; 4; i++){
+            document.getElementById(i + "Difficulty").remove();
+        }
+        document.getElementById("numShips").style= "visibility: visible";
+        document.getElementById("visibleButtons2").style= "visibility: visible";
+        difficulty = "Medium";
+    }
+    else{
+        document.getElementById("AIDifficulty").remove();
+        for (let i = 1; i &lt; 4; i++){
+            document.getElementById(i + "Difficulty").remove();
+        }
+        document.getElementById("numShips").style= "visibility: visible";
+        document.getElementById("visibleButtons2").style= "visibility: visible";
+        difficulty = "Hard";
+    }
+}
+
+function handleHard()
+{
+    let pos = false;
+    for(let i = 0; i &lt; 9; i++)
+    {
+        for(let j = 0; j &lt; 9; j++)
+        {
+           if(board1[i][j].startsWith('@'))
+           {
+               checkForShip(i+1, j+1);
+               pos = true;
+               break;
+           }
+        }
+        if(pos)
+        {
+            break;
+        }
+    }
+}
+
 function numShipFunction(num) {
     document.getElementById('ships').innerHTML = 'Place your ' + placingNum + '-length ship on your board';
     numShips = num;
@@ -118,21 +139,148 @@ function numShipFunction(num) {
 };
 
 /**
+* Shows the ship currently being placed on the screen.
+* @param {x} num The x coordinate on the grid.
+* @param {y} num The y coordinate on the grid.
+*/
+function displayShip(x,y)
+{
+	//playAction(0,0);
+  if(placingNum == 1)      {ship = document.getElementById("firstShip");}
+  else if(placingNum == 2) {ship = document.getElementById("secondShip");}
+  else if(placingNum == 3) {ship = document.getElementById("thirdShip");}
+  else if(placingNum == 4) {ship = document.getElementById("fourthShip");}
+  else if(placingNum == 5) {ship = document.getElementById("fifthShip");}
+  if(playerOneShips.length &lt; numShips)
+  {
+		if(horizontal)
+		{
+    	ship.style.left = (posB[0] + (x-1)*56) + "px";
+    	ship.style.top = (posB[1] + (y-1) *62)  + "px";
+			ship.style.transform = "rotate(0deg)";
+		}
+		else
+		{
+			ship.style.left = (posB[0] + ((x-1)*56)-((placingNum-1)*28)) + "px";
+			ship.style.top = (posB[1] + ((y-1) *62)+(placingNum-1)*31)   + "px";
+			ship.style.transform = "rotate(90deg)";
+		}
+		ship.style.visibility = "visible";
+  }
+  else if (playerTwoPlacementReady)
+  {
+		if(horizontal)
+		{
+			ship.style.left = (posB[0] + (x-1)*56) + "px";
+			ship.style.top = (posB[1] + (y-1) *62)  + "px";
+			ship.style.transform = "rotate(0deg)";
+		}
+		else
+		{
+			ship.style.left = (posB[0] + ((x-1)*56)-((placingNum-1)*28)) + "px";
+			ship.style.top = (posB[1] + ((y-1) *62)+(placingNum-1)*31)   + "px";
+			ship.style.transform = "rotate(90deg)";
+		}
+		ship.style.visibility = "visible";
+	}
+}
+
+/**
+* Places the ships on the screen at the start of each players turn or hides them
+* at the end of the turn.
+* @param {flag} boolean determines if the ships are supposed to be on screen.
+*/
+function switchShips(flag)
+{
+  if(flag &amp;&amp; !(placing))
+  {
+		updateCoords();
+    for(i = 0; i&lt;numShips;i++)
+    {
+      if(i == 0)      {ship = document.getElementById("firstShip");}
+      else if(i == 1) {ship = document.getElementById("secondShip");}
+      else if(i == 2) {ship = document.getElementById("thirdShip");}
+      else if(i == 3) {ship = document.getElementById("fourthShip");}
+      else if(i == 4) {ship = document.getElementById("fifthShip");}
+      if(player == 1)
+			{
+				if(playerOneShips[i][2])
+				{
+					ship.style.left = (posB[0] + (playerOneShips[i][0])*56) + "px";
+					ship.style.top = (posB[1] + (playerOneShips[i][1]) *62)  + "px";
+					ship.style.transform = "rotate(0deg)";
+				}
+				else
+				{
+					ship.style.left = (posB[0] + ((playerOneShips[i][0])*56)-(i)*28) + "px";
+					ship.style.top = (posB[1] + ((playerOneShips[i][1])*62)+(i)*31)   + "px";
+					ship.style.transform = "rotate(90deg)";
+				}
+				ship.style.visibility = "visible";
+			}
+			else
+			{
+				if(playerTwoShips[i][2])
+				{
+					ship.style.left = (posB[0] + (playerTwoShips[i][0])*56) + "px";
+					ship.style.top = (posB[1] + (playerTwoShips[i][1]) *62)  + "px";
+					ship.style.transform = "rotate(0deg)";
+				}
+				else
+				{
+					ship.style.left = (posB[0] + ((playerTwoShips[i][0])*56)-((i)*28)) + "px";
+					ship.style.top = (posB[1] + ((playerTwoShips[i][1]) *62)+(i)*31)   + "px";
+					ship.style.transform = "rotate(90deg)";
+				}
+				ship.style.visibility = "visible";
+			}
+    }
+  }
+  else
+  {
+      document.getElementById("firstShip").style.visibility = "hidden";
+      document.getElementById("secondShip").style.visibility = "hidden";
+      document.getElementById("thirdShip").style.visibility = "hidden";
+      document.getElementById("fourthShip").style.visibility = "hidden";
+      document.getElementById("fifthShip").style.visibility = "hidden";
+  }
+}
+
+/**
+* Hides the ships when the mouse is no longer over a cell during the placement
+* of ships.
+*/
+function hideShip()
+{
+    if(placing &amp;&amp; !placingFinished)
+    {
+      if(placingNum == 1)      {ship = document.getElementById("firstShip");}
+      else if(placingNum == 2) {ship = document.getElementById("secondShip");}
+      else if(placingNum == 3) {ship = document.getElementById("thirdShip");}
+      else if(placingNum == 4) {ship = document.getElementById("fourthShip");}
+      else if(placingNum == 5) {ship = document.getElementById("fifthShip");}
+      ship.style.visibility = "hidden";
+    }
+}
+
+/**
  * Toggle the direction of the ship placement between Horizontal and Vertical.
  */
 function toggleDirection() {
     horizontal = !horizontal;
 
     let place_dir = "";
-    if (horizontal) {
-        place_dir = "Horizontally";
-    } else {
-        place_dir = "Vertically";
-    }
+		if(!placingFinished)
+		{
+	    if (horizontal) {
+	        place_dir = "Horizontally";
+	    } else {
+	        place_dir = "Vertically";
+	    }
+		}
+
     document.getElementById('toggleDir').innerHTML = 'Placing ' + place_dir;
 }
-
-
 
 /**
  * Place a ship on the given board based on length.
@@ -146,6 +294,20 @@ function toggleDirection() {
  */
 function placeShip(row, col, board, length, horizontal) {
     if (checkPlacement(row, col, board, length, horizontal)) {
+        if(playerOneShips.length &lt; numShips)
+				{
+					playerOneShips[length-1] = [col,row,horizontal];
+					if(playerOneShips.length == numShips){placingFinished = true;}
+				}
+        else if(playerOneShips.length == numShips &amp;&amp; playerTwoShips.length &lt;= numShips)
+        {
+          playerTwoShips[length-1] = [col,row,horizontal];
+          if(!placingFinished &amp;&amp; placingNum == numShips)
+					{
+						placingFinished = true;
+						playerTwoPlacementReady = false;
+					}
+        }
         for (i = 0; i &lt; length; i++) {
             if (horizontal) {
                 board[row][col + i] = "@" + length;
@@ -153,7 +315,10 @@ function placeShip(row, col, board, length, horizontal) {
                 board[row + i][col] = "@" + length;
             }
         }
-        drawPlayerBoard(board);
+        if (isAI ==false || player == 1)
+        {
+            drawPlayerBoard(board);
+        }
         return true;
     } else {
         return false;
@@ -204,7 +369,7 @@ function checkPlacement(row, col, board, length, horizontal) {
  * Initialize the player boards to their default empty values (*).
  */
 function createBoards() {
-    console.log("the boards were created");
+    //console.log("the boards were created");
     for (i = 0; i &lt; 9; i++) {
         board1[i] = [];
         board2[i] = [];
@@ -223,7 +388,7 @@ function createBoards() {
  * @param {number} row The row that was clicked.
  */
 function clickCheck(board_num, col, row) {
-    console.log(board_num, row, col);
+    //console.log(board_num, row, col);
     if (placing &amp;&amp; !waitForSwitch) {
         if (numShips == 0 || board_num !== 2) {
             // Have not selected number of ships or clicked wrong board
@@ -234,15 +399,31 @@ function clickCheck(board_num, col, row) {
                 placingNum++;
             }
         }
-        if (placingNum > numShips) {
-            document.getElementById('ready').style.display = 'none';
-            if (player == 1) {
-                placingNum = 1;
-                waitForSwitch = true;
-            } else {
-                placing = false;
-                waitForSwitch = true;
-                document.getElementById('toggleDir').style.visibility = 'hidden';
+        if (isAI==false)
+        {
+            if (placingNum > numShips) {
+                document.getElementById('ready').style.display = 'none';
+                if (player == 1) {
+                    placingNum = 1;
+                    waitForSwitch = true;
+                } else {
+                    placing = false;
+                    waitForSwitch = true;
+                    document.getElementById('toggleDir').style.display = 'none';
+                }
+            }
+        }
+        else
+        {
+            if (placingNum > numShips) {
+                document.getElementById('ready').style.display = 'none';
+                if (player == 1) {
+                    placingNum = 1;
+                    waitForSwitch = true;
+                    //placing = true;
+                    document.getElementById('toggleDir').style.display = 'none';
+
+                }
             }
         }
         if (placing) {
@@ -254,12 +435,45 @@ function clickCheck(board_num, col, row) {
         } else {
             document.getElementById('ships').innerHTML = 'Click Switch Players';
         }
-    } else if (board_num == 1 &amp;&amp; !waitForSwitch) {
+    }
+    else if (board_num == 1 &amp;&amp; !waitForSwitch) {
         waitForSwitch = checkForShip(row, col);
         document.getElementById('ready').style.display = 'none';
     }
 }
+/**
+ * Randomly place ships for AI
+ * @param {number} num The number of ships that need to be placed.
+ */
+function placeAIship(num)
+{
+    let length =placingNum;
+    do
+    {
+        let row = 10;
+        let col = 10;
+        let hori = true;
+        let orientation= 0;
+        do{
+            row = Math.floor(Math.random()*9)+1;
+            col = Math.floor(Math.random()*9)+1;
+            orientation =  Math.floor(Math.random()*2);
+            if(orientation == 0)
+            {
+                hori= false;
+            }
+            else{
+                hori =true;
+            }
+            //2 ship works 5 do not
 
+        }while(!(checkPlacement(row-1, col-1, getBoard(), length, hori)));
+
+        if (placeShip(row - 1, col - 1, getBoard(), placingNum, hori)) {
+            placingNum++;
+        }
+    }while (placingNum &lt;= numShips);
+}
 /**
  * Get the current player board or by number.
  *
@@ -283,36 +497,290 @@ function getBoard(num = NaN) {
  */
 function switchPlayer() {
     if (waitForSwitch) {
-        if (player == 1) {
-            player = 2;
-            hideBoards();
-            drawGuessBoard(board1);
-            drawPlayerBoard(board2);
-            document.querySelector("#playersTurn").innerText = " It is now Player 2's turn! ";
+        if(isAI==false)
+        {
+            if(placing &amp;&amp; placingFinished)
+            {
+            playerTwoPlacementReady = true;
+            placingFinished = false;
+            }
+            if (player == 1) {
+                player = 2;
+                hideBoards();
+				hideBoardParticles();
+				print("Hiding");
+                drawGuessBoard(board1);
+                drawPlayerBoard(board2);
+                document.querySelector("#playersTurn").innerText = " It is now Player 2's turn! ";
+            }
+            else {
+                player = 1;
+                hideBoards();
+				hideBoardParticles();
+				print("Hiding");
+                drawGuessBoard(board2);
+                drawPlayerBoard(board1);
+                document.querySelector("#playersTurn").innerText = " It is now Player 1's turn! ";
+            }
+            document.getElementById('ships').innerHTML = 'Click Ready';
+            horizontal = true;
+            waitForSwitch = false;
+            document.getElementById('ready').style.display = 'inline-block';
+            document.querySelector("#result").innerText = "  ";
         }
-        else {
-            player = 1;
-            hideBoards();
-            drawGuessBoard(board2);
-            drawPlayerBoard(board1);
-            document.querySelector("#playersTurn").innerText = " It is now Player 1's turn! ";
+        else
+        {
+            if (player == 1) {
+                player = 2;
+                hideBoards();
+
+                drawGuessBoard(board2);
+                drawPlayerBoard(board1);
+                document.querySelector("#playersTurn").innerText = " It is now Player 2's turn! ";
+				hideBoardParticles();
+				print("Hiding");
+                if(placing)
+                {
+                    placeAIship(numShips);
+                    placing=false;
+                }
+                else{
+                    if(difficulty == "Easy")
+                    {
+                        handleEasy();
+                    }
+                    else if (difficulty == "Medium")
+                    {
+                        handleMedium();
+                    }
+                    else{
+                        handleHard();
+                    }
+                }
+                if(!checkForWinner())
+                {
+                    player = 1;
+                    hideBoards();
+                    drawGuessBoard(board2);
+                    drawPlayerBoard(board1);
+                    document.querySelector("#playersTurn").innerText = " It is now Player 1's turn! ";
+					hideBoardParticles();
+					print("Hiding");
+                }
+            }
+            document.getElementById('ships').innerHTML = 'Click Ready';
+            horizontal = true;
+                    toggleDirection();
+            waitForSwitch = false;
+            document.getElementById('ready').style.display = 'inline-block';
+            document.querySelector("#result").innerText = "  ";
         }
-        document.getElementById('ships').innerHTML = 'Click Ready';
-        horizontal = true;
-        waitForSwitch = false;
-        document.getElementById('ready').style.display = 'inline-block';
-        document.querySelector("#result").innerText = "  ";
     }
     else {
-        document.querySelector("#result").innerText = " You have not finished your turn! ";
+        document.querySelector("#result").innerText = " Turn not finished! ";
+                switchShips(true);
     }
     checkForWinner();
+}
+/**
+ * Handles AI functionality when difficulty is Easy
+ */
+function handleEasy()
+{
+    let row = 0;
+    let col = 0;
+    do{
+        row = Math.floor(Math.random()*9)+1;
+        col = Math.floor(Math.random()*9)+1;
+    }while(!(checkForShip(row, col)));
+}
+
+/**
+ * Handles AI functionality when difficulty is Medium. pr and pc represent the location of a ship that has been founded by handleMedium. The second half of handleMedium and the four helper functions use that as a reference for where to search
+*/
+var pr = -1;
+var pc = -1;
+
+function handleMedium()
+{
+	if(pr == -1 &amp;&amp; pc == -1)
+	{
+    guessed = false;
+		while(!guessed)
+		{
+			pr = Math.floor(Math.random() * 9);
+			pc = Math.floor(Math.random() * 9);
+			if(checkForShip(pr+1, pc+1))
+			{
+				//if the selected part of the board is not a ship's location, has not been hit conditionally, then pr and pc are reset.
+        if(!board1[pr][pc].startsWith("H"))
+        {
+          pr = -1;
+          pc = -1;
+        }
+        guessed = true;
+			}
+		}
+	}
+	else
+	{
+    //retrieve ship value from board and if not sunk, check surrounding squares.
+    if(checkSunk(board1, board1[pr][pc][1])) //in the event the ship is sunk, reset pr and pc and run handleMedium to get new coordinates then return.
+		{
+			pr = -1;
+			pc = -1;
+			handleMedium();
+			return;
+		}
+
+		//these medium helper functions make use of the CheckForShip function, so we input pr and pc an integer larger. If there are no spaces left to search in one direction, we move on to the next direction until the ship is sunk
+		if(mediumCheckLeft(pr+1,pc+1))
+		{
+			return;
+		}
+		if(mediumCheckRight(pr+1,pc+1))
+		{
+			return;
+		}
+		if(mediumCheckUp(pr+1,pc+1))
+		{
+			return;
+		}
+		if(mediumCheckDown(pr+1,pc+1))
+		{
+			return;
+		}
+	}
+}
+
+/**
+	*the four helper functions below each check in a certain direction for the point given. They act recursively to check each point in their direction.
+	*function takes in r and c between 1 and 9 and determines if a move can be made left.
+*/
+function mediumCheckLeft(r,c)
+{
+	//code will run if column is greater than 1, that is we can check left without going offboard
+	if(c > 1)
+	{
+		//if we can check the left for a ship, we can return true
+    if(checkForShip(r,c-1))
+    {
+      return true;
+    }
+    else
+		{
+			//if the space to the left on the board is a hit portion of the ship, we can recur the function to check left at that space. Otherwise, we'll return false; we cannot search left.
+			if(board1[r-1][c-2].startsWith("H"))
+    	{
+      	return mediumCheckLeft(r,c-1);
+    	}
+			else
+			{
+				return false;
+			}
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
+/**
+	*function takes in r and c between 1 and 9 and determines if a move can be made right.
+*/
+function mediumCheckRight(r,c)
+{
+	if(c &lt; 9)
+	{
+		if(checkForShip(r,c+1))
+  	{
+    	return true;
+  	}
+  	else
+		{
+			if(board1[r-1][c].startsWith("H"))
+  		{
+    		return mediumCheckRight(r,c+1);
+  		}
+			else
+			{
+				return false;
+			}
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
+/**
+* function takes in r and c between 1 and 9 and determines if a move can be made up.
+*/
+function mediumCheckUp(r,c)
+{
+  if(r > 1)
+  {
+		//if we can check above for a ship, we will return true. Else, we run an if statement determining if upper location is a hit ship and check from there.
+    if(checkForShip(r-1,c))
+    {
+      return true;
+    }
+    else
+		{
+			//r+1,c+1 represent the space r-1, c-1. To go down, to go down a row, we have r-2, c-1
+			if(board1[r-2][c-1].startsWith("H"))
+    	{
+      	return mediumCheckUp(r-1,c);
+    	}
+			else
+			{
+				return false;
+			}
+		}
+  }
+	else
+	{
+		return false;
+	}
+}
+
+/**
+	*function takes in r and c between 1 and 9 and determines if a move can be made down.
+*/
+function mediumCheckDown(r,c)
+{
+  if(r &lt; 9)
+  {
+    if(checkForShip(r+1,c))
+    {
+      return true;
+    }
+    else
+		{
+			if(board1[r][c-1].startsWith("H"))
+    	{
+      	return mediumCheckDown(r+1,c);
+    	}
+    	else
+    	{
+      	return false;
+  		}
+		}
+	}
+	else
+	{
+		return false;
+	}
 }
 
 /**
  * Set the boards to visible.
  */
 function drawBoards() {
+	updateParticleVisibility();
+	print("Updating");
     document.getElementsByClassName('grid-container boardA')[0].style.visibility = 'visible';
     document.getElementsByClassName('grid-container boardB')[0].style.visibility = 'visible';
     document.getElementsByClassName('boardSeparator')[0].style.visibility = 'visible';
@@ -325,6 +793,7 @@ function drawBoards() {
     } else {
         document.getElementById('ships').innerHTML = 'Choose where to shoot on enemy\'s board';
     }
+		switchShips(true);
 }
 
 /**
@@ -336,6 +805,8 @@ function hideBoards() {
     document.getElementsByClassName('boardSeparator')[0].style.visibility = 'hidden';
     document.getElementsByClassName('boardSeparator')[1].style.visibility = 'hidden';
     document.getElementById('switch').style.display = 'none';
+		switchShips(false);
+		clearFrames();
 }
 
 /**
@@ -502,23 +973,67 @@ function checkForShip(row, col) {
     if (board[row - 1][col - 1] == '*') {
         board[row - 1][col - 1] = 'M';
         document.querySelector("#result").innerText = " MISS ";
+				playMissAnimation(col,row);
+				if (!isAI || player == 1) {
+					splashing.start();
+					splash(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[0]/2]);
+				}
     }
     else if (board[row - 1][col - 1].startsWith('@')) {
         let shipNum = board[row - 1][col - 1][1];
         board[row - 1][col - 1] = 'H' + shipNum;
+		ignite(boards[3-player]["left"], [gridCenter(gridLeft[[col-1, row-1]])[0], gridCenter(gridLeft[[col-1, row-1]])[1]-gridSize[0]/2]);
+		if (!isAI || player == 1) {
+			boom.start();
+		}
         if (checkSunk(board, shipNum)) {
             document.querySelector("#result").innerText = " SUNK! ";
+			if (!isAI || player == 1) {
+				explode(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[1]/2]);
+			}
+						for(i = 0; i &lt; numShips; i ++)
+						{
+							if(player == 2)
+							{
+								var colCheck = ((playerOneShips[i][0] &lt;= (col-1)) &amp;&amp; ((col-1) &lt;= playerOneShips[i][0]+i));
+								var rowCheck = ((playerOneShips[i][1] &lt;= (row-1)) &amp;&amp; ((row-1) &lt;= playerOneShips[i][1]+i));
+								if (colCheck &amp;&amp; rowCheck)
+								{
+									// Weird bug sends wrong location?
+									console.log("This is what i is : " + i);
+									playSunkAnimation(playerOneShips[i][0],playerOneShips[i][1],(i+1),playerOneShips[i][2]);
+									break;
+								}
+							}
+							else
+							{
+								var colCheck = ((playerTwoShips[i][0] &lt;= (col-1)) &amp;&amp; ((col-1) &lt;= playerTwoShips[i][0]+i));
+								var rowCheck = ((playerTwoShips[i][1] &lt;= (row-1)) &amp;&amp; ((row-1) &lt;= playerTwoShips[i][1]+i));
+								if (colCheck &amp;&amp; rowCheck)
+								{
+									playSunkAnimation(playerTwoShips[i][0],playerTwoShips[i][1],(i+1),playerTwoShips[i][2]);
+									break;
+								}
+							}
+						}
         } else {
             document.querySelector("#result").innerText = " HIT ";
+						playHitAnimation(col,row);
+						if (!isAI || player == 1) {
+							boom.start();
+							explode(global, [gridCenter(gridRight[[col-1, row-1]])[0], gridCenter(gridRight[[col-1, row-1]])[1]-gridSize[1]/2]);
+						}
         }
     }
     else {
-        document.querySelector("#result").innerText = " You have already guessed here, please try again. ";
+        document.querySelector("#result").innerText = " Already guessed. ";
+				switchShips(true);
         return false;
     }
     drawGuessBoard(board);
     drawPlayerBoard(otherBoard);
     document.getElementById('ships').innerHTML = 'Click Switch Players';
+		switchShips(true);
     return true;
 }
 
@@ -568,6 +1083,8 @@ function checkForWinner() {
         document.querySelector("#playersTurn").innerText = "";
         hideBoards();
         document.getElementById('ready').style.display = 'none';
+		startBackgroundMusic()
+		victory.play();
     }
     return won;
 }
@@ -585,25 +1102,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-            </div>
+</div>
 
-            <footer class="footer">
-                <div class="content has-text-centered">
-                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.5</a></p>
-                    <p class="sidebar-created-by">
-                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
-                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
-                    </p>
-                </div>
-            </footer>
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AIChoice">AIChoice</a></li><li><a href="global.html#checkForShip">checkForShip</a></li><li><a href="global.html#checkForWinner">checkForWinner</a></li><li><a href="global.html#checkPlacement">checkPlacement</a></li><li><a href="global.html#checkSunk">checkSunk</a></li><li><a href="global.html#clearCellLabel">clearCellLabel</a></li><li><a href="global.html#clickCheck">clickCheck</a></li><li><a href="global.html#colorCell">colorCell</a></li><li><a href="global.html#createBoards">createBoards</a></li><li><a href="global.html#displayShip">displayShip</a></li><li><a href="global.html#drawBoards">drawBoards</a></li><li><a href="global.html#drawGuessBoard">drawGuessBoard</a></li><li><a href="global.html#drawPlayerBoard">drawPlayerBoard</a></li><li><a href="global.html#getBoard">getBoard</a></li><li><a href="global.html#handleEasy">handleEasy</a></li><li><a href="global.html#hideBoards">hideBoards</a></li><li><a href="global.html#hideShip">hideShip</a></li><li><a href="global.html#labelCell">labelCell</a></li><li><a href="global.html#labelShip">labelShip</a></li><li><a href="global.html#mediumCheckDown">mediumCheckDown</a></li><li><a href="global.html#mediumCheckLeft">mediumCheckLeft</a></li><li><a href="global.html#mediumCheckRight">mediumCheckRight</a></li><li><a href="global.html#mediumCheckUp">mediumCheckUp</a></li><li><a href="global.html#placeAIship">placeAIship</a></li><li><a href="global.html#placeShip">placeShip</a></li><li><a href="global.html#pr">pr</a></li><li><a href="global.html#switchPlayer">switchPlayer</a></li><li><a href="global.html#switchShips">switchShips</a></li><li><a href="global.html#toggleDirection">toggleDirection</a></li></ul>
+</nav>
 
-        </div>
-        <div id="side-nav" class="side-nav">
-        </div>
-    </div>
-<script src="scripts/app.min.js"></script>
-<script>PR.prettyPrint();</script>
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sun Oct 04 2020 21:10:34 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
 <script src="scripts/linenumber.js"> </script>
-
 </body>
 </html>

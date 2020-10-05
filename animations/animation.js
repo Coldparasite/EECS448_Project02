@@ -34,7 +34,7 @@ animationLoop = function() {
 		print("Scale: " + scale);
 		print("\n");
 	}
-	
+
 
 	//iteratively update particle systems
 	for (var system of particles) {
@@ -143,12 +143,6 @@ function playFrame(x,y,frame)
 	frame.style.visibility = "visible";
 }
 
-/**
-* Horizontal ships working
-* 	1, 2 , 3 () 4 not working
-* Vertical ships working
-*		1, 2
-*/
 /**
 * This function resets the frames list and makes all images within frames visibility
 * set to hidden

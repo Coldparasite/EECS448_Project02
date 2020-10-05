@@ -688,7 +688,7 @@ function mediumCheckRight(r,c)
 }
 
 /**
-	*function takes in r and c between 1 and 9 and determines if a move can be made up.
+* function takes in r and c between 1 and 9 and determines if a move can be made up.
 */
 function mediumCheckUp(r,c)
 {
