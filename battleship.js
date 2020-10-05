@@ -366,7 +366,6 @@ function createBoards() {
  * @param {number} row The row that was clicked.
  */
 function clickCheck(board_num, col, row) {
-    //console.log(board_num, row, col);
     if (placing && !waitForSwitch) {
         if (numShips == 0 || board_num !== 2) {
             // Have not selected number of ships or clicked wrong board

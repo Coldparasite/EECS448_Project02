@@ -31,7 +31,6 @@ function hideBoardParticles() {
 
 /**
  * Loop to constantly update particle effects
- *
  */
 animationLoop = function() {
 	updateCoords();
