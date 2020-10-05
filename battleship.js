@@ -33,7 +33,7 @@ function print(message) {
 */
 
 /**
- * Sets the number of ships to be placed for this game.
+ * Sets whether or not you want to play against a player or AI
  * @param {number} num The number of ships to play with this game
  */
 function AIChoice(num){
@@ -56,6 +56,10 @@ function AIChoice(num){
     }
 }
 
+/**
+ * Sets the difficulty of the AI to easy, medium, or hard
+ * @param {number} num The number of ships to play with this game
+ */
 function AILevel(num){
     if(num == 1){
         document.getElementById("AIDifficulty").remove();
