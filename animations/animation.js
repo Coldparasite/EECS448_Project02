@@ -37,6 +37,11 @@ animationLoop = function() {
 	updateCoords();
 	display.clearRect(0, 0, canvas.width, canvas.height);
 
+	if (getClick()) {
+		print(mousePos);
+		print(gridRight[[0, 0]]);
+	}
+
 	//iteratively update particle systems
 	for (var system of particles) {
 		system.generate(scale);

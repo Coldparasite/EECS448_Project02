@@ -13,11 +13,8 @@ document.addEventListener("DOMContentLoaded", function() {
 	canvas.style.left = "0px";
 	canvas.style.top = "0px";
 
-	var width = window.innerWidth;
-	var height = window.innerHeight;
-
-	//var width = Math.max(document.body.scrollWidth, document.documentElement.scrollWidth);
-	//var height = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+	var width = Math.max(document.body.scrollWidth, document.documentElement.scrollWidth, window.innerWidth);
+	var height = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, window.innerHeight);
 
 	canvas.width = width;
 	canvas.height = height;

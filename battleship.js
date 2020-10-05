@@ -37,6 +37,8 @@ function print(message) {
  * @param {number} num The number of ships to play with this game
  */
 function AIChoice(num){
+	document.getElementById("zoom-adjust").remove();
+	init = true;
     if(num == 1){
         document.getElementById("playerChoice").remove();
         for (let i = 1; i < 3; i++){
@@ -354,7 +356,6 @@ function checkPlacement(row, col, board, length, horizontal) {
  * Initialize the player boards to their default empty values (*).
  */
 function createBoards() {
-    //console.log("the boards were created");
     for (i = 0; i < 9; i++) {
         board1[i] = [];
         board2[i] = [];
@@ -491,7 +492,6 @@ function switchPlayer() {
                 player = 2;
                 hideBoards();
 				hideBoardParticles();
-				print("Hiding");
                 drawGuessBoard(board1);
                 drawPlayerBoard(board2);
                 document.querySelector("#playersTurn").innerText = " It is now Player 2's turn! ";
@@ -500,7 +500,6 @@ function switchPlayer() {
                 player = 1;
                 hideBoards();
 				hideBoardParticles();
-				print("Hiding");
                 drawGuessBoard(board2);
                 drawPlayerBoard(board1);
                 document.querySelector("#playersTurn").innerText = " It is now Player 1's turn! ";
@@ -521,7 +520,6 @@ function switchPlayer() {
                 drawPlayerBoard(board1);
                 document.querySelector("#playersTurn").innerText = " It is now Player 2's turn! ";
 				hideBoardParticles();
-				print("Hiding");
                 if(placing)
                 {
                     placeAIship(numShips);
@@ -982,8 +980,6 @@ function checkForShip(row, col) {
 								var rowCheck = ((playerOneShips[i][1] <= (row-1)) && ((row-1) <= playerOneShips[i][1]+i));
 								if (colCheck && rowCheck)
 								{
-									// Weird bug sends wrong location?
-									console.log("This is what i is : " + i);
 									playSunkAnimation(playerOneShips[i][0],playerOneShips[i][1],(i+1),playerOneShips[i][2]);
 									break;
 								}
@@ -1066,7 +1062,9 @@ function checkForWinner() {
         document.querySelector("#playersTurn").innerText = "";
         hideBoards();
         document.getElementById('ready').style.display = 'none';
-		startBackgroundMusic()
+		if (!music.paused) {
+			startBackgroundMusic()
+		}
 		victory.play();
     }
     return won;

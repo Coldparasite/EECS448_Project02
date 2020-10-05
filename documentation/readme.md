@@ -18,3 +18,4 @@ This project uses the following packages:
 - [JSDocs: An API documentation generator for JavaScript.](https://github.com/jsdoc/jsdoc)
 - [BetterDocs: Documentation toolbox for your javascript / typescript projects based on JSDoc3](https://github.com/SoftwareBrothers/better-docs)
 - [battleshipMusic.mp4: The background music for this game.](https://patrickdearteaga.com/)
+- [freesounds.org: explosion.wav, splash.mp3, victory.wav](https://freesound.org/)
