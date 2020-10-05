@@ -14,11 +14,16 @@ class Particle {
 		this.shape = shape;
 		this.boost = 10*(1-sigmoid(this.size))/this.size;
 	};
-
+	/**
+	 * calls draw circle
+	 * @param {context} ctx place to draw on.
+	 */
 	draw(ctx) {
 		drawCircle(ctx, this.pos, this.size, this.color, this.alpha);
 	};
-
+	/**
+	 * updates particle content
+	 */
 	update() {
 		this.pos = [this.pos[0] + this.vel[0] + this.vel[0]*this.boost, this.pos[1] + this.vel[1] + this.vel[1]*this.boost];
 		this.size -= this.sizeDecay[0]*this.size + this.sizeDecay[1];
@@ -27,6 +32,18 @@ class Particle {
 };
 
 class ParticleGroup extends Array {
+	/**
+	 * particleGroup constructor. Initialies variables
+	 * @param {array} posRange Range to choose a random position from
+	 * @param {array} sizeRange Range to choose a size
+	 * @param {array} velRange Range to choose a velocity
+	 * @param {array} colorGroup group of RGB colors to chose from
+	 * @param {array} alphaRange Range to choose a random alpha from
+	 * @param {array} sizeDecayRange Range of decrease in size to chose from
+	 * @param {array} alphaDecayRange Range of decrease in alpha to chose from
+	 * @param {number} density density of the shape
+	 * @param {string} shape type of the shape
+	 */
 	constructor(posRange, sizeRange, velRange, colorGroup, alphaRange, sizeDecayRange, alphaDecayRange, density, shape="circle") {
 		super();
 		this.offset = [0, 0];
@@ -53,11 +70,17 @@ class ParticleGroup extends Array {
  		}
 
 	};
-
+	/**
+	 * adds a particle object to the particle group
+	 * @param {object} particle particle object
+	 */
 	add(particle) {
 		this.push(particle);
 	};
-
+	/**
+	 * resize the particle
+	 * @param {number} scale scales the group of particles
+	 */
 	resize(scale) {
 		var s = scale/100;
 		this.posRange = this.posRange.map(range => range.map(value => value*s));
@@ -67,7 +90,10 @@ class ParticleGroup extends Array {
 		this.alphaDecayRange[1] = this.alphaDecayRange[1].map(value => value*s);
 		this.offset = this.offset.map(value => value*s);
 	};
-
+	/**
+	 * calls draw the particle
+	 * @param {context} ctx place to draw on.
+	 */
 	draw(ctx) {
 		if (this.active) {
 			var particle;
@@ -76,7 +102,9 @@ class ParticleGroup extends Array {
 			}
 		}
 	};
-
+	/**
+	 * updates the particle position and state
+	 */
 	update() {
 		var toRemove = [];
 		for (var particle of this) {
@@ -91,7 +119,10 @@ class ParticleGroup extends Array {
 			offset++;
 		}
 	};
-
+	/**
+	 * generate creates the different particle 
+	 * @param {array} spawnPos sets the postion of the spawn
+	 */
 	generate(spawnPos) {
 
 		if (this.active && spawnPos[0] != null && spawnPos[1] != null && (this.duration == -1 || this.duration > 0)) {
@@ -122,11 +153,16 @@ class ParticleGroup extends Array {
 		}
 
 	};
-
+	/**
+	 * set the duration of the particle
+	 * @param {number} duration how long particle system should be aactive for
+	 */
 	setDuration(duration) {
 		this.duration = duration;
 	}
-
+	/**
+	 * activates the particle action 
+	 */
 	activate() {
 		this.active = true;
 		this.duration = this.savedDuration;
@@ -138,13 +174,18 @@ class ParticleGroup extends Array {
 		}
 		this.counter = 0;
 	};
-
+	/**
+	 * deactivates the particle action
+	 */
 	deactivate() {
 		this.active = false;
 		this.savedDuration = this.duration;
 		this.duration = -2;
 	};
-
+	/**
+	 * 	checks if its dead based on length and counter
+	 *  @returns {bool} whether it is dead or not
+	 */
 	dead() {
 		return (this.length == 0 && this.counter == this.cycle);
 	};
@@ -160,7 +201,14 @@ class ParticleSystem {
 			this.add(particleObj[0], particleObj[1], particleObj[2]);
 		}
 	};
-
+	/**
+	 * adds a new particle to the particle system
+	 * @param {*} name an ID
+	 * @param {ParticleGroup} type either particle group of particle system
+	 * @param {number} offset sets an offset to the particles
+	 * @param {number} duration duration of how long the particle system stays active
+	 * @param {number} scale scales the system of particles
+	 */
 	add(name, type, offset, duration=-1, scale=100) {
 		if (!(name in this.particles)) {
 			var newObj = deepClone(type);
@@ -170,15 +218,26 @@ class ParticleSystem {
 			this.particles[name] = newObj;
 		}
 	};
-
+	/**
+	 * reoves a particle from the particle system
+	 * @param {number} key index of particle to remove
+	 */
 	remove(key) {
 		delete this.particles[key];
 	};
-
+	/**
+	 * looks for element in the particle system
+	 * @param {particle} key element to look for
+	 * @returns {bool} returns if the particle are in the particle system
+	 */
 	contains(key) {
 		return (key in this.particles);
 	};
-
+	/**
+	 * changes the size of the particle system
+	 * @param {number} scale scales the particle system
+	 * @param {bool} relative 
+	 */
 	resize(scale, relative=false) {
 		if (scale != 100 && scale > 0) {
 			for (var particleObj in this.particles) {
@@ -189,7 +248,10 @@ class ParticleSystem {
 			}
 		}
 	};
-
+	/**
+	 * calls draw the particle
+	 * @param {context} ctx place to draw on.
+	 */
 	draw(ctx) {
 		if (this.active) {
 			for (var particleObj in this.particles) {
@@ -197,7 +259,9 @@ class ParticleSystem {
 			}
 		}
 	};
-
+	/**
+	 *  updates the particle position and state
+	 */
 	update() {
 		for (var particleObj in this.particles) {
 			this.particles[particleObj].update();
@@ -206,7 +270,10 @@ class ParticleSystem {
 			}
 		}
 	};
-
+	/**
+	 * generate creates the different particle 
+	 * @param {array} spawnPos sets the postion of the spawn
+	 */
 	generate(spawnPos=[0, 0]) {
 		if (this.active && spawnPos[0] != null && spawnPos[1] != null) {
 			for (var particleObj in this.particles) {
@@ -214,7 +281,10 @@ class ParticleSystem {
 			}
 		}
 	};
-
+	/**
+	 * set the duration of the particle
+	 * @param {number} duration how long particle system should be aactive for
+	 */
 	setDuration(duration) {
 		if (this.active) {
 			for (var particleObj in this.particles) {
@@ -222,7 +292,10 @@ class ParticleSystem {
 			}
 		}
 	}
-
+	/**
+	 * activates the particle action 
+	 * @param {particle} key particle to be activated
+	 */
 	activate(key=null) {
 		if (key == null) {
 			this.active = true;
@@ -234,7 +307,10 @@ class ParticleSystem {
 			this.particles[key].activate();
 		}
 	};
-
+	/**
+	 * deactivates the particle system
+	 * @param {particle} key particle to be deactivated
+	 */
 	deactivate(key=null) {
 		if (key == null) {
 			if (this.active) {
@@ -248,7 +324,9 @@ class ParticleSystem {
 			this.particles[key].deactivate();
 		}
 	};
-
+	/**
+	 * switching between activating and deactivating 
+	 */
 	toggleActive() {
 		if (this.active) {
 			this.deactivate();
@@ -257,7 +335,10 @@ class ParticleSystem {
 			this.activate();
 		}
 	};
-
+	/**
+	 * checks if its dead based on length and counter
+	 * @returns {bool} whether it is dead or not
+	 */
 	dead() {
 		var isDead = true;
 		for (var particleObj in this.particles) {
