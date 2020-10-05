@@ -16,6 +16,12 @@ var difficulty = "";
 var isAI= false;
 var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
 
+
+/**
+ * Prints message to console
+ *
+ * @param {string} message Message to print to console
+ */
 function print(message) {
 	console.log(message);
 }

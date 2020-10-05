@@ -51,18 +51,37 @@ document.onmousemove = function(event) {
 	mousePos = [mouseX, mouseY];
 }
 
+/**
+ * Returns whether or not left click is pressed
+ *
+ * @return {bool} if mouse is down
+ */
 function getMouseDown() {
 	return mouseDown;
 }
 
+/**
+ * Returns whether or not left click is not pressed
+ *
+ * @return {bool} if mouse is not down
+ */
 function getMouseUp() {
 	return !mouseDown;
 }
 
+/**
+ * Updates state of mouse to allow for falling edge detection
+ *
+ */
 function updatePeripherals() {
 	mouseUp = !mouseDown;
 }
 
+/**
+ * Returns a singular click has ocurred
+ *
+ * @return {bool} if singular click has ocurred
+ */
 function getClick() {
 	return !mouseDown && !mouseUp;
 }
