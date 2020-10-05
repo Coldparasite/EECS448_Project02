@@ -36,7 +36,7 @@ class ParticleGroup extends Array {
 		this.cycle = 1;
 		this.counter = 0;
 		this.partial = (density<1);
-		
+
 		this.posRange = posRange;
 		this.sizeRange = sizeRange;
 		this.velRange = velRange;
@@ -51,7 +51,7 @@ class ParticleGroup extends Array {
 			this.cycle = Math.ceil((1/this.density));
 			this.density = 1;
  		}
-	
+
 	};
 
 	add(particle) {
@@ -89,11 +89,11 @@ class ParticleGroup extends Array {
 		for (var i of toRemove) {
 			this.splice(i-offset, 1);
 			offset++;
-		}	
+		}
 	};
 
 	generate(spawnPos) {
-		
+
 		if (this.active && spawnPos[0] != null && spawnPos[1] != null && (this.duration == -1 || this.duration > 0)) {
 			if (this.counter%this.cycle == 0) {
 				var i, numParticles, pos, size, vel, color, alpha, sizeDecay, alphaDecay;
@@ -118,9 +118,9 @@ class ParticleGroup extends Array {
 			if (this.duration == 0) {
 				this.counter = this.cycle;
 			}
-			
+
 		}
-		
+
 	};
 
 	setDuration(duration) {
@@ -157,7 +157,7 @@ class ParticleSystem {
 		this.active = true;
 
 		for (var particleObj of particleObjs) {
-			this.add(particleObj[0], particleObj[1], particleObj[2]); 
+			this.add(particleObj[0], particleObj[1], particleObj[2]);
 		}
 	};
 
@@ -201,7 +201,7 @@ class ParticleSystem {
 	update() {
 		for (var particleObj in this.particles) {
 			this.particles[particleObj].update();
-			if (this.particles[particleObj].dead()) {		
+			if (this.particles[particleObj].dead()) {
 				this.remove(particleObj);
 			}
 		}
@@ -268,6 +268,9 @@ class ParticleSystem {
 		return isDead;
 	};
 
+	/**
+	* This function returns the length of the particle
+	*/
 	length() {
 		var length = 0;
 		for (var particleObj in this.particles) {
@@ -278,11 +281,20 @@ class ParticleSystem {
 
 };
 
-//utility
+/**
+*	This function creates a sigmoid or an S-shape
+* @param {number} x This is the power of else
+* @param {number} k this is a static value of 10
+}
+*/
 function sigmoid(x, k=10) {
     return 1 / (1 + Math.exp(-x/k));
 }
 
+/**
+* This function creates a deep clone of an Object
+* @param {object} obj This is some object to be cloned
+*/
 function deepClone(obj) {
 	if (obj === null || typeof obj !== "object") {
 		return obj;
@@ -294,6 +306,10 @@ function deepClone(obj) {
 	return Object.create(Object.getPrototypeOf(obj), props);
 }
 
+/**
+*  This function creates a random number within a certain range
+* @param {number} range this is the top bound for the random number with 0 being the lowest.
+*/
 function randrange(range) {
 	if (range[0] == range[1]) {
 		return range[0];
@@ -314,16 +330,35 @@ function randrange(range) {
 	}
 }
 
+/**
+* This function fills a list with random numbers
+* @param {array} arr this is a list
+*/
 function randchoice(arr) {
 	return arr[Math.floor(Math.random()*arr.length)];
 }
 
+/**
+*	This function draws a rectangle
+* @param {2'd context} ctx this is the 2d context on the canvas
+* @param {array} pos this is a list containing 2 coordinates
+* @param {array} size This is a list containing the size of the canvas
+* @param {number} color This is an rbg value designating the color
+* @param {number} alpha This is an alpha value for the canvas
+*/
 function drawRect(ctx, pos, size, color, alpha) {
 	ctx.globalAlpha = alpha;
 	ctx.fillStyle = color;
 	ctx.fillRect(pos[0], pos[1], size[0], size[1]);
 }
 
+/**
+* @param {2d context} ctx This is the 2d context on the canvas
+* @param {array} pos this is a list containing 2 coordinates
+* @param {array} radius This is the radius of the circle is
+* @param {number} color This is an rbg value designating the color
+* @param {number} alpha This is an alpha value for the canvas
+*/
 function drawCircle(ctx, pos, radius, color, alpha) {
 	ctx.beginPath();
 	ctx.arc(pos[0], pos[1], radius, 0, Math.PI*2);

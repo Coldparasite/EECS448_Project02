@@ -94,6 +94,72 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="pr"><span class="type-signature"></span>pr<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Handles AI functionality when difficulty is Medium. pr and pc represent the location of a ship that has been founded by handleMedium. The second half of handleMedium and the four helper functions use that as a reference for where to search
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line584">line 584</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -104,7 +170,7 @@
     
 
     
-    <h4 class="name" id="clearFrames"><span class="type-signature"></span>clearFrames<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="AIChoice"><span class="type-signature"></span>AIChoice<span class="signature">(num)</span><span class="type-signature"></span></h4>
     
 
     
@@ -112,95 +178,7 @@
 
 
 <div class="description">
-    This function resets the frames list and makes all images within frames visibilityset to hidden
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="animation.js.html">animation.js</a>, <a href="animation.js.html#line150">line 150</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="playFrame"><span class="type-signature"></span>playFrame<span class="signature">(x, y, frame)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    This function makes the currentFrame within frames visible along with placing itcorrectly on the screen.
+    Sets whether or not you want to play against a player or AI
 </div>
 
 
@@ -236,7 +214,7 @@
 
         <tr>
             
-                <td class="name"><code>x</code></td>
+                <td class="name"><code>num</code></td>
             
 
             <td class="type">
@@ -252,53 +230,7 @@
 
             
 
-            <td class="description last">The left coordinate on the screen</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>y</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The top coordinate on the screen</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>frame</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">image</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the current frame to be displayed on the screen</td>
+            <td class="description last">The number of ships to play with this game</td>
         </tr>
 
     
@@ -339,7 +271,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="animation.js.html">animation.js</a>, <a href="animation.js.html#line103">line 103</a>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line39">line 39</a>
     </li></ul></dd>
     
 
@@ -375,7 +307,7 @@
     
 
     
-    <h4 class="name" id="playHitAnimation"><span class="type-signature"></span>playHitAnimation<span class="signature">(x, y)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="AILevel"><span class="type-signature"></span>AILevel<span class="signature">(num)</span><span class="type-signature"></span></h4>
     
 
     
@@ -383,7 +315,7 @@
 
 
 <div class="description">
-    This function is the entry point to the hit animations
+    Sets the difficulty of the AI to easy, medium, or hard
 </div>
 
 
@@ -419,7 +351,7 @@
 
         <tr>
             
-                <td class="name"><code>x</code></td>
+                <td class="name"><code>num</code></td>
             
 
             <td class="type">
@@ -435,30 +367,7 @@
 
             
 
-            <td class="description last">The left position on the screen</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>y</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The top position on the screen</td>
+            <td class="description last">The number of ships to play with this game</td>
         </tr>
 
     
@@ -499,7 +408,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="animation.js.html">animation.js</a>, <a href="animation.js.html#line187">line 187</a>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line63">line 63</a>
     </li></ul></dd>
     
 
@@ -535,7 +444,7 @@
     
 
     
-    <h4 class="name" id="playMissAnimation"><span class="type-signature"></span>playMissAnimation<span class="signature">(x, y)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="checkForShip"><span class="type-signature"></span>checkForShip<span class="signature">(row, col)</span><span class="type-signature"> &rarr; {bool}</span></h4>
     
 
     
@@ -543,7 +452,7 @@
 
 
 <div class="description">
-    This function plays the miss animation
+    Check for a ship on the enemy's board at the given location and color the cell accordingly.
 </div>
 
 
@@ -579,7 +488,7 @@
 
         <tr>
             
-                <td class="name"><code>x</code></td>
+                <td class="name"><code>row</code></td>
             
 
             <td class="type">
@@ -595,14 +504,14 @@
 
             
 
-            <td class="description last">This is the left position on the screen</td>
+            <td class="description last">The row to check.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>y</code></td>
+                <td class="name"><code>col</code></td>
             
 
             <td class="type">
@@ -618,7 +527,7 @@
 
             
 
-            <td class="description last">This is the top position on the screen</td>
+            <td class="description last">The column to check.</td>
         </tr>
 
     
@@ -659,7 +568,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="animation.js.html">animation.js</a>, <a href="animation.js.html#line164">line 164</a>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line948">line 948</a>
     </li></ul></dd>
     
 
@@ -684,6 +593,28 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Spot was not already chosen.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">bool</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -695,7 +626,7 @@
     
 
     
-    <h4 class="name" id="playSunkAnimation"><span class="type-signature"></span>playSunkAnimation<span class="signature">(x, y, length)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="checkForWinner"><span class="type-signature"></span>checkForWinner<span class="signature">()</span><span class="type-signature"> &rarr; {bool}</span></h4>
     
 
     
@@ -703,7 +634,117 @@
 
 
 <div class="description">
-    This function plays the death animation of a ship once all it's hitpoints are gone
+    Check if all ships have been hit.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line1027">line 1027</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Whether or not someone has won.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">bool</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="checkPlacement"><span class="type-signature"></span>checkPlacement<span class="signature">(row, col, board, length, horizontal)</span><span class="type-signature"> &rarr; {bool}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Check if a ship can be placed at the given point on the board.
 </div>
 
 
@@ -739,7 +780,7 @@
 
         <tr>
             
-                <td class="name"><code>x</code></td>
+                <td class="name"><code>row</code></td>
             
 
             <td class="type">
@@ -755,14 +796,14 @@
 
             
 
-            <td class="description last">The left position on the screen</td>
+            <td class="description last">The row of the board in which to place the ship</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>y</code></td>
+                <td class="name"><code>col</code></td>
             
 
             <td class="type">
@@ -778,7 +819,30 @@
 
             
 
-            <td class="description last">The top position on the screen</td>
+            <td class="description last">The column of the board in which to place the ship</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>board</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The board for the current player</td>
         </tr>
 
     
@@ -801,7 +865,30 @@
 
             
 
-            <td class="description last">How big the ship to be destroyed is</td>
+            <td class="description last">The length of the ship to be placed</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>horizontal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Flag to place ship horizontally or otherwise vertically</td>
         </tr>
 
     
@@ -842,7 +929,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="animation.js.html">animation.js</a>, <a href="animation.js.html#line214">line 214</a>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line323">line 323</a>
     </li></ul></dd>
     
 
@@ -867,6 +954,28 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Placement is valid.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">bool</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -878,7 +987,7 @@
     
 
     
-    <h4 class="name" id="renderFrame"><span class="type-signature"></span>renderFrame<span class="signature">(timestamp)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="checkSunk"><span class="type-signature"></span>checkSunk<span class="signature">(board, shipNum)</span><span class="type-signature"> &rarr; {bool}</span></h4>
     
 
     
@@ -886,7 +995,7 @@
 
 
 <div class="description">
-    This function handles the rending of images within the variable frames
+    Check if a given ship has been sunk on the given board.
 </div>
 
 
@@ -922,13 +1031,13 @@
 
         <tr>
             
-                <td class="name"><code>timestamp</code></td>
+                <td class="name"><code>board</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">mumber</span>
+<span class="param-type">Array</span>
 
 
             
@@ -938,7 +1047,30 @@
 
             
 
-            <td class="description last">The current time within the animation cycle.</td>
+            <td class="description last">The board to check for sunken ship.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>shipNum</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number which identifies the ship to check for.</td>
         </tr>
 
     
@@ -979,7 +1111,3353 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="animation.js.html">animation.js</a>, <a href="animation.js.html#line67">line 67</a>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line927">line 927</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Shipnum has been sunk on this board.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">bool</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="clearCellLabel"><span class="type-signature"></span>clearCellLabel<span class="signature">(row, col, boardLetter)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Clear the label for the given cell.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>row</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The row of the label to clear.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>col</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The column of the label to clear.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>boardLetter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    B
+                
+                </td>
+            
+
+            <td class="description last">The letter of the board to update.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line898">line 898</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="clickCheck"><span class="type-signature"></span>clickCheck<span class="signature">(board_num, col, row)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Handle clicks on the boards in the HTML.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>board_num</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number of the board that was clicked.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>col</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The column that was clicked.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>row</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The row that was clicked.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line375">line 375</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="colorCell"><span class="type-signature"></span>colorCell<span class="signature">(boardLetter, row, col, classification)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Color a cell based on the given classification.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>boardLetter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The letter of the board to update ('A' or 'B')</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>row</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number of the row to color.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>col</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number of the column to color.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>classification</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The class of object in the cell ('empty', 'miss', 'red', 'sunk', or 'grey')</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line910">line 910</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createBoards"><span class="type-signature"></span>createBoards<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Initialize the player boards to their default empty values (*).
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line356">line 356</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="displayShip"><span class="type-signature"></span>displayShip<span class="signature">(num, num)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Shows the ship currently being placed on the screen.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>num</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">x</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The x coordinate on the grid.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>num</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">y</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The y coordinate on the grid.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line131">line 131</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="drawBoards"><span class="type-signature"></span>drawBoards<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Set the boards to visible.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line764">line 764</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="drawGuessBoard"><span class="type-signature"></span>drawGuessBoard<span class="signature">(newBoard)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Draw the given player board to the guess board so that ships are hidden.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>newBoard</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The player board to be drawn</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line800">line 800</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="drawPlayerBoard"><span class="type-signature"></span>drawPlayerBoard<span class="signature">(newBoard)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Draw the given player board to the displayed player board so that ships are visible.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>newBoard</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The player board to be drawn</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line829">line 829</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getBoard"><span class="type-signature"></span>getBoard<span class="signature">(num)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Get the current player board or by number.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>num</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number of board to return. Returns current board if NaN.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line466">line 466</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The board of the current player or passed number.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="handleEasy"><span class="type-signature"></span>handleEasy<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Handles AI functionality when difficulty is Easy
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line571">line 571</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="handleHard"><span class="type-signature"></span>handleHard<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    When the difficulty is Hard, this code will run handling the AI functionallity
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line96">line 96</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="hideBoards"><span class="type-signature"></span>hideBoards<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Set the boards to invisible.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line785">line 785</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="hideShip"><span class="type-signature"></span>hideShip<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Hides the ships when the mouse is no longer over a cell during the placementof ships.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line238">line 238</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="labelCell"><span class="type-signature"></span>labelCell<span class="signature">(row, col, shipNumber, boardLetter)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Draw a ship's number to a cell.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>row</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The row of the ship to label.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>col</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The column of the ship to label.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>shipNumber</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The ship's number.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>boardLetter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    B
+                
+                </td>
+            
+
+            <td class="description last">The letter of the board to update.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line866">line 866</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="labelShip"><span class="type-signature"></span>labelShip<span class="signature">(board, shipNumber, boardLetter)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Label every ship of a given number.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>board</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The board to search for the shipNumber.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>shipNumber</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The ship's number.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>boardLetter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    B
+                
+                </td>
+            
+
+            <td class="description last">The letter of the board to update.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line877">line 877</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="mediumCheckDown"><span class="type-signature"></span>mediumCheckDown<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    function takes in r and c between 1 and 9 and determines if a move can be made down.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line735">line 735</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="mediumCheckLeft"><span class="type-signature"></span>mediumCheckLeft<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    the four helper functions below each check in a certain direction for the point given. They act recursively to check each point in their direction.function takes in r and c between 1 and 9 and determines if a move can be made left.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line643">line 643</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="mediumCheckRight"><span class="type-signature"></span>mediumCheckRight<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    function takes in r and c between 1 and 9 and determines if a move can be made right.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line675">line 675</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="mediumCheckUp"><span class="type-signature"></span>mediumCheckUp<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    function takes in r and c between 1 and 9 and determines if a move can be made up.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line704">line 704</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="placeAIship"><span class="type-signature"></span>placeAIship<span class="signature">(num)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Randomly place ships for AI
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>num</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number of ships that need to be placed.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line432">line 432</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="placeShip"><span class="type-signature"></span>placeShip<span class="signature">(row, col, board, length, horizontal)</span><span class="type-signature"> &rarr; {bool}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Place a ship on the given board based on length.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>row</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The row of the board in which to place the ship</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>col</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The column of the board in which to place the ship</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>board</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The board for the current player</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The length of the ship to be placed</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>horizontal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Flag to place ship horizontally or otherwise vertically</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line280">line 280</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Successfully placed ship.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">bool</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="print"><span class="type-signature"></span>print<span class="signature">(message)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Prints message to console
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>message</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Message to print to console</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="switchPlayer"><span class="type-signature"></span>switchPlayer<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Check if the turn is over and then switch the current player.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line481">line 481</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="switchShips"><span class="type-signature"></span>switchShips<span class="signature">(boolean)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Places the ships on the screen at the start of each players turn or hides themat the end of the turn.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>boolean</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">flag</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">determines if the ships are supposed to be on screen.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line178">line 178</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="toggleDirection"><span class="type-signature"></span>toggleDirection<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Toggle the direction of the ship placement between Horizontal and Vertical.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="battleship.js.html">battleship.js</a>, <a href="battleship.js.html#line254">line 254</a>
     </li></ul></dd>
     
 
@@ -1025,13 +4503,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#clearFrames">clearFrames</a></li><li><a href="global.html#playFrame">playFrame</a></li><li><a href="global.html#playHitAnimation">playHitAnimation</a></li><li><a href="global.html#playMissAnimation">playMissAnimation</a></li><li><a href="global.html#playSunkAnimation">playSunkAnimation</a></li><li><a href="global.html#renderFrame">renderFrame</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AIChoice">AIChoice</a></li><li><a href="global.html#AILevel">AILevel</a></li><li><a href="global.html#checkForShip">checkForShip</a></li><li><a href="global.html#checkForWinner">checkForWinner</a></li><li><a href="global.html#checkPlacement">checkPlacement</a></li><li><a href="global.html#checkSunk">checkSunk</a></li><li><a href="global.html#clearCellLabel">clearCellLabel</a></li><li><a href="global.html#clickCheck">clickCheck</a></li><li><a href="global.html#colorCell">colorCell</a></li><li><a href="global.html#createBoards">createBoards</a></li><li><a href="global.html#displayShip">displayShip</a></li><li><a href="global.html#drawBoards">drawBoards</a></li><li><a href="global.html#drawGuessBoard">drawGuessBoard</a></li><li><a href="global.html#drawPlayerBoard">drawPlayerBoard</a></li><li><a href="global.html#getBoard">getBoard</a></li><li><a href="global.html#handleEasy">handleEasy</a></li><li><a href="global.html#handleHard">handleHard</a></li><li><a href="global.html#hideBoards">hideBoards</a></li><li><a href="global.html#hideShip">hideShip</a></li><li><a href="global.html#labelCell">labelCell</a></li><li><a href="global.html#labelShip">labelShip</a></li><li><a href="global.html#mediumCheckDown">mediumCheckDown</a></li><li><a href="global.html#mediumCheckLeft">mediumCheckLeft</a></li><li><a href="global.html#mediumCheckRight">mediumCheckRight</a></li><li><a href="global.html#mediumCheckUp">mediumCheckUp</a></li><li><a href="global.html#placeAIship">placeAIship</a></li><li><a href="global.html#placeShip">placeShip</a></li><li><a href="global.html#pr">pr</a></li><li><a href="global.html#print">print</a></li><li><a href="global.html#switchPlayer">switchPlayer</a></li><li><a href="global.html#switchShips">switchShips</a></li><li><a href="global.html#toggleDirection">toggleDirection</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sun Oct 04 2020 21:11:48 GMT-0500 (Central Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sun Oct 04 2020 21:18:38 GMT-0500 (Central Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

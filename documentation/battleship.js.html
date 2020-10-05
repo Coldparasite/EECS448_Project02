@@ -44,6 +44,12 @@ var difficulty = "";
 var isAI= false;
 var classifications = ['empty', 'red', 'grey', 'miss', 'sunk'];
 
+
+/**
+ * Prints message to console
+ *
+ * @param {string} message Message to print to console
+ */
 function print(message) {
 	console.log(message);
 }
@@ -55,7 +61,7 @@ function print(message) {
 */
 
 /**
- * Sets the number of ships to be placed for this game.
+ * Sets whether or not you want to play against a player or AI
  * @param {number} num The number of ships to play with this game
  */
 function AIChoice(num){
@@ -78,6 +84,10 @@ function AIChoice(num){
     }
 }
 
+/**
+ * Sets the difficulty of the AI to easy, medium, or hard
+ * @param {number} num The number of ships to play with this game
+ */
 function AILevel(num){
     if(num == 1){
         document.getElementById("AIDifficulty").remove();
@@ -108,6 +118,9 @@ function AILevel(num){
     }
 }
 
+/**
+ * When the difficulty is Hard, this code will run handling the AI functionallity 
+ */
 function handleHard()
 {
     let pos = false;
@@ -388,7 +401,6 @@ function createBoards() {
  * @param {number} row The row that was clicked.
  */
 function clickCheck(board_num, col, row) {
-    //console.log(board_num, row, col);
     if (placing &amp;&amp; !waitForSwitch) {
         if (numShips == 0 || board_num !== 2) {
             // Have not selected number of ships or clicked wrong board
@@ -465,7 +477,6 @@ function placeAIship(num)
             else{
                 hori =true;
             }
-            //2 ship works 5 do not
 
         }while(!(checkPlacement(row-1, col-1, getBoard(), length, hori)));
 
@@ -1105,13 +1116,13 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AIChoice">AIChoice</a></li><li><a href="global.html#checkForShip">checkForShip</a></li><li><a href="global.html#checkForWinner">checkForWinner</a></li><li><a href="global.html#checkPlacement">checkPlacement</a></li><li><a href="global.html#checkSunk">checkSunk</a></li><li><a href="global.html#clearCellLabel">clearCellLabel</a></li><li><a href="global.html#clickCheck">clickCheck</a></li><li><a href="global.html#colorCell">colorCell</a></li><li><a href="global.html#createBoards">createBoards</a></li><li><a href="global.html#displayShip">displayShip</a></li><li><a href="global.html#drawBoards">drawBoards</a></li><li><a href="global.html#drawGuessBoard">drawGuessBoard</a></li><li><a href="global.html#drawPlayerBoard">drawPlayerBoard</a></li><li><a href="global.html#getBoard">getBoard</a></li><li><a href="global.html#handleEasy">handleEasy</a></li><li><a href="global.html#hideBoards">hideBoards</a></li><li><a href="global.html#hideShip">hideShip</a></li><li><a href="global.html#labelCell">labelCell</a></li><li><a href="global.html#labelShip">labelShip</a></li><li><a href="global.html#mediumCheckDown">mediumCheckDown</a></li><li><a href="global.html#mediumCheckLeft">mediumCheckLeft</a></li><li><a href="global.html#mediumCheckRight">mediumCheckRight</a></li><li><a href="global.html#mediumCheckUp">mediumCheckUp</a></li><li><a href="global.html#placeAIship">placeAIship</a></li><li><a href="global.html#placeShip">placeShip</a></li><li><a href="global.html#pr">pr</a></li><li><a href="global.html#switchPlayer">switchPlayer</a></li><li><a href="global.html#switchShips">switchShips</a></li><li><a href="global.html#toggleDirection">toggleDirection</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AIChoice">AIChoice</a></li><li><a href="global.html#AILevel">AILevel</a></li><li><a href="global.html#checkForShip">checkForShip</a></li><li><a href="global.html#checkForWinner">checkForWinner</a></li><li><a href="global.html#checkPlacement">checkPlacement</a></li><li><a href="global.html#checkSunk">checkSunk</a></li><li><a href="global.html#clearCellLabel">clearCellLabel</a></li><li><a href="global.html#clickCheck">clickCheck</a></li><li><a href="global.html#colorCell">colorCell</a></li><li><a href="global.html#createBoards">createBoards</a></li><li><a href="global.html#displayShip">displayShip</a></li><li><a href="global.html#drawBoards">drawBoards</a></li><li><a href="global.html#drawGuessBoard">drawGuessBoard</a></li><li><a href="global.html#drawPlayerBoard">drawPlayerBoard</a></li><li><a href="global.html#getBoard">getBoard</a></li><li><a href="global.html#handleEasy">handleEasy</a></li><li><a href="global.html#handleHard">handleHard</a></li><li><a href="global.html#hideBoards">hideBoards</a></li><li><a href="global.html#hideShip">hideShip</a></li><li><a href="global.html#labelCell">labelCell</a></li><li><a href="global.html#labelShip">labelShip</a></li><li><a href="global.html#mediumCheckDown">mediumCheckDown</a></li><li><a href="global.html#mediumCheckLeft">mediumCheckLeft</a></li><li><a href="global.html#mediumCheckRight">mediumCheckRight</a></li><li><a href="global.html#mediumCheckUp">mediumCheckUp</a></li><li><a href="global.html#placeAIship">placeAIship</a></li><li><a href="global.html#placeShip">placeShip</a></li><li><a href="global.html#pr">pr</a></li><li><a href="global.html#print">print</a></li><li><a href="global.html#switchPlayer">switchPlayer</a></li><li><a href="global.html#switchShips">switchShips</a></li><li><a href="global.html#toggleDirection">toggleDirection</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sun Oct 04 2020 21:10:34 GMT-0500 (Central Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sun Oct 04 2020 21:18:38 GMT-0500 (Central Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
