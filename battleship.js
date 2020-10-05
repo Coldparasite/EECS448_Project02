@@ -440,7 +440,6 @@ function placeAIship(num)
             else{
                 hori =true;
             }
-            //2 ship works 5 do not
 
         }while(!(checkPlacement(row-1, col-1, getBoard(), length, hori)));
 
