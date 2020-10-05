@@ -1,3 +1,4 @@
+//particle systems to hold various particle effects
 var global = new ParticleSystem();
 
 var boards = {

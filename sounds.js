@@ -21,7 +21,6 @@ function sound(src) {
 
 	/**
 	 * Pauses sound
-	 *
 	 */
 	this.stop = function() {
 		this.sound.pause();

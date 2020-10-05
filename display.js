@@ -8,9 +8,6 @@ var mouseY = null;
 var display = null;
 var canvas = null;
 
-var boom;
-
-
 document.addEventListener("DOMContentLoaded", function() {
 	canvas = document.getElementById('canvas');
 	canvas.style.left = "0px";
